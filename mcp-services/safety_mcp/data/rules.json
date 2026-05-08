@@ -1,0 +1,10 @@
+[
+  {
+    "match": "Newcastle Disease",
+    "warning": "Viral diseases require veterinary escalation and strict biosecurity, not unsupervised antibiotic use."
+  },
+  {
+    "match": "Supportive care only",
+    "warning": "Do not market birds or eggs until a veterinarian confirms safety status."
+  }
+]

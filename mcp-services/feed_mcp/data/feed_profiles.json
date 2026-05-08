@@ -1,0 +1,42 @@
+[
+  {
+    "age_group": "0-4 weeks",
+    "min_day": 0,
+    "max_day": 28,
+    "type": "starter",
+    "protein": "22%",
+    "energy": "3000 kcal/kg",
+    "feed_items": ["corn", "soybean meal", "vitamins"],
+    "purpose": "growth"
+  },
+  {
+    "age_group": "4-8 weeks",
+    "min_day": 29,
+    "max_day": 56,
+    "type": "grower",
+    "protein": "20%",
+    "energy": "3100 kcal/kg",
+    "feed_items": ["corn", "wheat", "minerals"],
+    "purpose": "muscle development"
+  },
+  {
+    "age_group": "8+ weeks",
+    "min_day": 57,
+    "max_day": 365,
+    "type": "finisher",
+    "protein": "18%",
+    "energy": "3200 kcal/kg",
+    "feed_items": ["corn", "fat supplements"],
+    "purpose": "weight gain"
+  },
+  {
+    "age_group": "layers",
+    "min_day": 366,
+    "max_day": 9999,
+    "type": "layer feed",
+    "protein": "16%",
+    "energy": "2800 kcal/kg",
+    "feed_items": ["calcium", "grain mix"],
+    "purpose": "egg production"
+  }
+]

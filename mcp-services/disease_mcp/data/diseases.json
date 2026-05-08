@@ -1,0 +1,62 @@
+[
+  {
+    "disease": "Coccidiosis",
+    "type": "parasitic",
+    "symptoms": ["bloody droppings", "weakness", "loss of appetite", "ruffled feathers"],
+    "mortality_rate": "medium",
+    "affected_age": "young birds",
+    "treatment": ["Amprolium", "Toltrazuril"],
+    "prevention": ["clean litter", "anticoccidial feed"],
+    "severity": "moderate"
+  },
+  {
+    "disease": "Newcastle Disease",
+    "type": "viral",
+    "symptoms": ["twisted neck", "paralysis", "respiratory distress", "greenish diarrhea"],
+    "mortality_rate": "high",
+    "affected_age": "all ages",
+    "treatment": ["supportive care"],
+    "prevention": ["vaccination", "biosecurity"],
+    "severity": "severe"
+  },
+  {
+    "disease": "Salmonella",
+    "type": "bacterial",
+    "symptoms": ["diarrhea", "weakness", "dehydration", "reduced growth"],
+    "mortality_rate": "low",
+    "affected_age": "young chicks",
+    "treatment": ["Oxytetracycline"],
+    "prevention": ["clean water", "sanitation"],
+    "severity": "moderate"
+  },
+  {
+    "disease": "Avian Influenza",
+    "type": "viral",
+    "symptoms": ["swelling", "blue comb", "respiratory distress", "sudden death"],
+    "mortality_rate": "very high",
+    "affected_age": "all",
+    "treatment": ["no treatment"],
+    "prevention": ["strict biosecurity"],
+    "severity": "critical"
+  },
+  {
+    "disease": "Infectious Bronchitis",
+    "type": "viral",
+    "symptoms": ["coughing", "sneezing", "reduced egg production"],
+    "mortality_rate": "low",
+    "affected_age": "young birds",
+    "treatment": ["supportive care"],
+    "prevention": ["vaccination"],
+    "severity": "moderate"
+  },
+  {
+    "disease": "Fowl Pox",
+    "type": "viral",
+    "symptoms": ["lesions on skin", "scabs", "reduced appetite"],
+    "mortality_rate": "low",
+    "affected_age": "all",
+    "treatment": ["supportive care"],
+    "prevention": ["vaccination"],
+    "severity": "low"
+  }
+]
