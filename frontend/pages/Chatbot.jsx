@@ -82,17 +82,17 @@ export const Chatbot = () => {
     <div className="flex h-screen w-full overflow-hidden bg-white shadow-none border-0">
       {/* Main Chat Area */}
       <main className="relative flex flex-1 flex-col bg-white">
-        <header className="flex items-center justify-between px-8 py-4 border-b border-slate-50">
-          <div className="flex items-center gap-2 text-slate-400">
-            <Bot className="h-5 w-5 text-[#8E9B44]" />
-            <span className="text-sm font-bold tracking-tight text-slate-900 uppercase">Cortex Assistant</span>
-            <div className="ml-2 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-500 uppercase tracking-widest">v2.4</div>
+        <header className="flex items-center justify-between border-b border-[#1F6F5F]/8 px-8 py-4">
+          <div className="flex items-center gap-2 text-[#1F6F5F]/55">
+            <Bot className="h-5 w-5 text-[#2FA084]" />
+            <span className="text-sm font-bold tracking-tight text-[#1F6F5F] uppercase">Cortex Assistant</span>
+            <div className="ml-2 rounded-full bg-[#EEEEEE] px-2 py-0.5 text-[10px] font-bold text-[#1F6F5F]/60 uppercase tracking-widest">v2.4</div>
           </div>
           <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 rounded-full border border-slate-200 px-4 py-1.5 text-xs font-bold text-slate-600 transition hover:bg-slate-50">
+            <button className="flex items-center gap-2 rounded-full border border-[#1F6F5F]/10 px-4 py-1.5 text-xs font-bold text-[#1F6F5F]/70 transition hover:bg-[#EEEEEE]">
               <Paperclip className="h-3.5 w-3.5" /> Export chat
             </button>
-            <button className="rounded-full bg-black px-4 py-1.5 text-xs font-bold text-white transition hover:bg-slate-900">
+            <button className="rounded-full bg-[#1F6F5F] px-4 py-1.5 text-xs font-bold text-white transition hover:bg-[#2FA084]">
               Upgrade
             </button>
           </div>
@@ -105,14 +105,14 @@ export const Chatbot = () => {
               <div className="relative mb-16 flex h-80 w-80 items-center justify-center [perspective:1000px]">
                 {/* 1. 3D Floor Shadow Projection */}
                 <motion.div
-                  className="absolute -bottom-12 h-8 w-48 bg-slate-900/10 blur-3xl rounded-[100%]"
+                  className="absolute -bottom-12 h-8 w-48 bg-[#1F6F5F]/12 blur-3xl rounded-[100%]"
                   animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
                   transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                 />
 
                 {/* 2. Deep Ambient Glow (Aura) */}
                 <motion.div
-                  className="absolute h-full w-full rounded-full bg-[#8E9B44]/20 blur-[100px]"
+                  className="absolute h-full w-full rounded-full bg-[#2FA084]/20 blur-[100px]"
                   animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.5, 0.2] }}
                   transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
                 />
@@ -134,7 +134,7 @@ export const Chatbot = () => {
                   transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
                 >
                   {/* High-Depth Gradient (Z-Index Volume) */}
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_35%_35%,#FFFFFF_0%,#E8ECD7_40%,#8E9B44_85%,#3D5438_100%)] opacity-95 rounded-[inherit]" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_35%_35%,#FFFFFF_0%,#EEEEEE_40%,#2FA084_85%,#1F6F5F_100%)] opacity-95 rounded-[inherit]" />
                   
                   {/* 4. Multi-Layer Specular Highlights */}
                   {/* Primary Surface Shine */}
@@ -152,7 +152,7 @@ export const Chatbot = () => {
                     animate={{ rotate: -360 }}
                     transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
                   >
-                    <div className="absolute top-4 left-4 h-3/4 w-3/4 bg-[#8E9B44]/40 blur-3xl rounded-full" />
+                    <div className="absolute top-4 left-4 h-3/4 w-3/4 bg-[#2FA084]/40 blur-3xl rounded-full" />
                     <div className="absolute bottom-4 right-4 h-1/2 w-1/2 bg-white/30 blur-3xl rounded-full" />
                   </motion.div>
 
@@ -164,12 +164,12 @@ export const Chatbot = () => {
               </div>
 
               <div className="text-center">
-                <h1 className="mt-2 text-5xl font-serif text-slate-950 tracking-tight">How can I assist you today?</h1>
+                <h1 className="mt-2 text-5xl font-serif text-[#1F6F5F] tracking-tight">How can I assist you today?</h1>
               </div>
 
               {/* Centered Input Bar */}
               <div className="mt-16 w-full max-w-2xl">
-                <div className="relative rounded-[32px] border border-slate-200 bg-[#FBFBFB] p-5 shadow-sm transition-all focus-within:border-[#8E9B44]/40 focus-within:shadow-md">
+                <div className="relative rounded-[32px] border border-[#1F6F5F]/10 bg-white p-5 shadow-sm transition-all focus-within:border-[#6FCF97] focus-within:shadow-[0_18px_45px_rgba(31,111,95,0.12)]">
                   <textarea
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
@@ -180,23 +180,23 @@ export const Chatbot = () => {
                       }
                     }}
                     placeholder="Ask me anything..."
-                    className="w-full resize-none bg-transparent px-4 text-lg text-slate-800 outline-none placeholder:text-slate-300 min-h-[40px]"
+                    className="w-full resize-none bg-transparent px-4 text-lg text-[#1F6F5F] outline-none placeholder:text-[#1F6F5F]/35 min-h-[40px]"
                   />
                   
-                  <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-4 px-2">
+                  <div className="mt-4 flex items-center justify-between border-t border-[#1F6F5F]/8 pt-4 px-2">
                     <div className="flex items-center gap-2">
-                      <button className="flex items-center gap-2 rounded-full bg-[#EBF0E6] px-4 py-1.5 text-xs font-bold text-[#3D5438] transition hover:bg-[#DDE5D6]">
+                      <button className="flex items-center gap-2 rounded-full bg-[#EEEEEE] px-4 py-1.5 text-xs font-bold text-[#1F6F5F] transition hover:bg-[#6FCF97]/35">
                         <Brain className="h-3.5 w-3.5" /> Deeper Research
                       </button>
-                      <button className="p-2 text-slate-400 transition hover:text-[#8E9B44]">
+                      <button className="p-2 text-[#1F6F5F]/45 transition hover:text-[#2FA084]">
                         <Plus className="h-5 w-5" />
                       </button>
                     </div>
                     <div className="flex items-center gap-3">
-                      <button className="p-2 text-slate-400 transition hover:text-[#8E9B44]">
+                      <button className="p-2 text-[#1F6F5F]/45 transition hover:text-[#2FA084]">
                         <Globe className="h-5 w-5" />
                       </button>
-                      <button className="flex h-10 w-10 items-center justify-center rounded-full bg-[#3D5438] text-white shadow-lg shadow-[#3D5438]/20 transition hover:bg-[#2C3A29]">
+                      <button className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1F6F5F] text-white shadow-lg shadow-[#1F6F5F]/20 transition hover:bg-[#2FA084]">
                         <Mic className="h-5 w-5" />
                       </button>
                     </div>
@@ -204,10 +204,10 @@ export const Chatbot = () => {
                 </div>
 
                 <div className="mt-6 flex items-center justify-center gap-6">
-                  <button className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest transition hover:text-slate-900">
+                  <button className="flex items-center gap-2 text-xs font-bold text-[#1F6F5F]/45 uppercase tracking-widest transition hover:text-[#1F6F5F]">
                     <Sparkles className="h-3.5 w-3.5" /> Saved Prompts
                   </button>
-                  <button className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest transition hover:text-slate-900">
+                  <button className="flex items-center gap-2 text-xs font-bold text-[#1F6F5F]/45 uppercase tracking-widest transition hover:text-[#1F6F5F]">
                     <Paperclip className="h-3.5 w-3.5" /> Attach File
                   </button>
                 </div>
@@ -218,13 +218,13 @@ export const Chatbot = () => {
                     <button
                       key={action.title}
                       onClick={() => handleSend(action.prompt)}
-                      className="group flex flex-col items-start rounded-2xl border border-slate-100 bg-white p-5 text-left transition-all hover:border-[#8E9B44]/20 hover:shadow-lg hover:shadow-slate-100"
+                      className="group flex flex-col items-start rounded-2xl border border-[#1F6F5F]/8 bg-white p-5 text-left transition-all hover:border-[#6FCF97] hover:shadow-[0_16px_36px_rgba(31,111,95,0.1)]"
                     >
-                      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-slate-50 text-slate-600 transition group-hover:bg-[#EBF0E6] group-hover:text-[#3D5438]">
+                      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-[#EEEEEE] text-[#1F6F5F]/70 transition group-hover:bg-[#6FCF97]/24 group-hover:text-[#1F6F5F]">
                         <action.icon className="h-5 w-5" />
                       </div>
-                      <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide">{action.title}</h3>
-                      <p className="mt-2 text-xs leading-relaxed text-slate-500">{action.desc}</p>
+                      <h3 className="text-sm font-bold text-[#1F6F5F] uppercase tracking-wide">{action.title}</h3>
+                      <p className="mt-2 text-xs leading-relaxed text-[#1F6F5F]/55">{action.desc}</p>
                     </button>
                   ))}
                 </div>
@@ -241,35 +241,35 @@ export const Chatbot = () => {
                 >
                   <div className={`flex max-w-[85%] gap-4 ${message.role === 'user' ? 'flex-row-reverse' : ''}`}>
                     <div className={`mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl ${
-                      message.role === 'user' ? 'bg-[#3D5438] text-white' : 'bg-[#EBF0E6] text-[#3D5438]'
+                      message.role === 'user' ? 'bg-[#1F6F5F] text-white' : 'bg-[#EEEEEE] text-[#1F6F5F]'
                     }`}>
                       {message.role === 'user' ? <Plus className="h-5 w-5" /> : <Bot className="h-5 w-5" />}
                     </div>
                     <div className={`rounded-3xl px-6 py-4 leading-relaxed shadow-sm ${
                       message.role === 'user' 
-                        ? 'bg-[#3D5438] text-white shadow-[#3D5438]/10' 
-                        : 'border border-slate-100 bg-slate-50/50 text-slate-800'
+                        ? 'bg-[#1F6F5F] text-white shadow-[#1F6F5F]/10' 
+                        : 'border border-[#1F6F5F]/8 bg-[#EEEEEE]/45 text-[#1F6F5F]'
                     }`}>
                       {message.role === 'assistant' && message.response ? (
                         <div className="space-y-5">
                           <div>
-                            <h3 className="text-lg font-semibold text-slate-900">{message.response.headline}</h3>
-                            <p className="mt-2 text-sm text-slate-600">{message.response.overview}</p>
+                            <h3 className="text-lg font-semibold text-[#1F6F5F]">{message.response.headline}</h3>
+                            <p className="mt-2 text-sm text-[#1F6F5F]/65">{message.response.overview}</p>
                           </div>
 
-                          <div className="inline-flex items-center rounded-full bg-[#EBF0E6] px-3 py-1 text-xs font-semibold text-[#3D5438]">
+                          <div className="inline-flex items-center rounded-full bg-[#EEEEEE] px-3 py-1 text-xs font-semibold text-[#1F6F5F]">
                             Confidence: {message.response.confidenceLabel}
                             {typeof message.response.confidence === 'number' ? ` (${Math.round(message.response.confidence * 100)}%)` : ''}
                           </div>
 
                           {message.response.highlights?.length ? (
-                            <div className="rounded-2xl border border-[#D7E4C9] bg-[#F5F8EF] p-4">
-                              <h4 className="text-sm font-semibold text-slate-900">Key points</h4>
+                            <div className="rounded-2xl border border-[#6FCF97] bg-[#EEEEEE] p-4">
+                              <h4 className="text-sm font-semibold text-[#1F6F5F]">Key points</h4>
                               <div className="mt-3 flex flex-wrap gap-2">
                                 {message.response.highlights.map((highlight, highlightIndex) => (
                                   <span
                                     key={`highlight-${highlightIndex}`}
-                                    className="rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-[#3D5438] shadow-sm ring-1 ring-[#D7E4C9]"
+                                    className="rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-[#1F6F5F] shadow-sm ring-1 ring-[#6FCF97]"
                                   >
                                     {highlight}
                                   </span>
@@ -280,18 +280,18 @@ export const Chatbot = () => {
 
                           {message.response.images?.length ? (
                             <div>
-                              <h4 className="text-sm font-semibold text-slate-900">Related visual guides</h4>
+                              <h4 className="text-sm font-semibold text-[#1F6F5F]">Related visual guides</h4>
                               <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-2">
                                 {message.response.images.map((image, imageIndex) => (
-                                  <div key={`image-${imageIndex}`} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                                  <div key={`image-${imageIndex}`} className="overflow-hidden rounded-2xl border border-[#1F6F5F]/10 bg-white shadow-sm">
                                     <img
                                       src={image.src}
                                       alt={image.alt}
                                       className="h-44 w-full object-cover"
                                     />
                                     <div className="p-4">
-                                      <h5 className="text-sm font-semibold text-slate-900">{image.title}</h5>
-                                      <p className="mt-2 text-xs leading-6 text-slate-600">{image.caption}</p>
+                                      <h5 className="text-sm font-semibold text-[#1F6F5F]">{image.title}</h5>
+                                      <p className="mt-2 text-xs leading-6 text-[#1F6F5F]/65">{image.caption}</p>
                                     </div>
                                   </div>
                                 ))}
@@ -305,23 +305,23 @@ export const Chatbot = () => {
                                 key={section.title}
                                 className={`rounded-2xl border px-4 py-3 ${
                                   section.tone === 'warning'
-                                    ? 'border-amber-200 bg-amber-50/80'
+                                    ? 'border-[#2FA084]/24 bg-[#2FA084]/8'
                                     : section.tone === 'success'
-                                      ? 'border-emerald-100 bg-emerald-50/60'
-                                      : 'border-slate-200 bg-white/70'
+                                      ? 'border-[#6FCF97]/35 bg-[#6FCF97]/12'
+                                      : 'border-[#1F6F5F]/10 bg-white/70'
                                 }`}
                               >
-                                <h4 className="text-sm font-semibold text-slate-900">{section.title}</h4>
+                                <h4 className="text-sm font-semibold text-[#1F6F5F]">{section.title}</h4>
                                 {section.paragraphs?.map((paragraph, paragraphIndex) => (
-                                  <p key={`${section.title}-paragraph-${paragraphIndex}`} className="mt-2 text-sm text-slate-700">
+                                  <p key={`${section.title}-paragraph-${paragraphIndex}`} className="mt-2 text-sm text-[#1F6F5F]/75">
                                     {paragraph}
                                   </p>
                                 ))}
                                 {section.bullets?.length ? (
-                                  <ul className="mt-2 space-y-2 text-sm text-slate-700">
+                                  <ul className="mt-2 space-y-2 text-sm text-[#1F6F5F]/75">
                                     {section.bullets.map((bullet, bulletIndex) => (
                                       <li key={`${section.title}-bullet-${bulletIndex}`} className="flex items-start gap-2">
-                                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#3D5438]" />
+                                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#1F6F5F]" />
                                         <span>{bullet}</span>
                                       </li>
                                     ))}
@@ -340,13 +340,13 @@ export const Chatbot = () => {
               ))}
               {isLoading && (
                 <div className="flex gap-6">
-                  <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#EBF0E6] text-[#3D5438]">
+                  <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#EEEEEE] text-[#1F6F5F]">
                     <Bot className="h-5 w-5" />
                   </div>
-                  <div className="flex items-center gap-1.5 rounded-3xl border border-slate-100 bg-slate-50/50 px-6 py-4">
-                    <span className="h-2 w-2 animate-bounce rounded-full bg-[#8E9B44]/40" />
-                    <span className="h-2 w-2 animate-bounce rounded-full bg-[#8E9B44]/70 [animation-delay:0.2s]" />
-                    <span className="h-2 w-2 animate-bounce rounded-full bg-[#8E9B44] [animation-delay:0.4s]" />
+                  <div className="flex items-center gap-1.5 rounded-3xl border border-[#1F6F5F]/8 bg-[#EEEEEE]/45 px-6 py-4">
+                    <span className="h-2 w-2 animate-bounce rounded-full bg-[#2FA084]/40" />
+                    <span className="h-2 w-2 animate-bounce rounded-full bg-[#2FA084]/70 [animation-delay:0.2s]" />
+                    <span className="h-2 w-2 animate-bounce rounded-full bg-[#2FA084] [animation-delay:0.4s]" />
                   </div>
                 </div>
               )}
@@ -357,25 +357,25 @@ export const Chatbot = () => {
 
         {/* Floating Input Bar (Post-Initial) */}
         {messages.length > 0 && (
-          <div className="p-6 border-t border-slate-50">
+          <div className="p-6 border-t border-[#1F6F5F]/8">
             <div className="mx-auto w-full max-w-3xl">
-              <div className="relative rounded-3xl border border-slate-200 bg-[#FBFBFB] p-3 focus-within:border-[#8E9B44]/40 focus-within:shadow-md transition-all">
+              <div className="relative rounded-3xl border border-[#1F6F5F]/10 bg-[#FBFBFB] p-3 focus-within:border-[#2FA084]/40 focus-within:shadow-md transition-all">
                 <input
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                   placeholder="Follow up..."
-                  className="w-full bg-transparent px-4 py-2 text-sm text-slate-800 outline-none"
+                  className="w-full bg-transparent px-4 py-2 text-sm text-[#1F6F5F] outline-none"
                 />
                 <div className="absolute right-3 top-1/2 flex -translate-y-1/2 items-center gap-2">
-                  <button className="p-1.5 text-slate-400 hover:text-slate-600">
+                  <button className="p-1.5 text-[#1F6F5F]/45 hover:text-[#1F6F5F]">
                     <Paperclip className="h-4 w-4" />
                   </button>
                   <button 
                     onClick={() => handleSend()}
                     disabled={!input.trim()}
-                    className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#3D5438] text-white disabled:opacity-40"
+                    className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#1F6F5F] text-white disabled:opacity-40"
                   >
                     <Send className="h-4 w-4" />
                   </button>

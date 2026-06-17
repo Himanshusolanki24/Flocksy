@@ -41,13 +41,13 @@ export const AuthModal = ({ isOpen, onClose, onLogin }) => {
   };
 
   return (
-    <div className="modal-backdrop fixed inset-0 z-[70] flex items-center justify-center bg-slate-950/60 p-4">
+    <div className="modal-backdrop fixed inset-0 z-[70] flex items-center justify-center bg-[#1F6F5F]/60 p-4">
       <div className="w-full max-w-4xl overflow-hidden rounded-[32px] border border-white/10 bg-white shadow-[0_40px_120px_rgba(2,8,23,0.28)]">
         <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="hidden bg-emerald-950 p-8 text-white lg:block">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-100/60">Flocksy Access</p>
+          <div className="hidden bg-[#1F6F5F] p-8 text-white lg:block">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/65">Flocksy Access</p>
             <h2 className="mt-5 text-4xl font-serif leading-tight">Run your farm like a modern operations team.</h2>
-            <p className="mt-4 max-w-md text-sm leading-7 text-emerald-50/80">
+            <p className="mt-4 max-w-md text-sm leading-7 text-white/80">
               Centralize AI workflows, crop issues, livestock support, and expert follow-ups with one dashboard built for daily execution.
             </p>
 
@@ -58,7 +58,7 @@ export const AuthModal = ({ isOpen, onClose, onLogin }) => {
                 'Coordinate crop and vet tasks with your team',
               ].map((item) => (
                 <div key={item} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <ShieldCheck className="h-5 w-5 text-amber-300" />
+                  <ShieldCheck className="h-5 w-5 text-[#6FCF97]" />
                   <p className="text-sm text-white/88">{item}</p>
                 </div>
               ))}
@@ -67,14 +67,14 @@ export const AuthModal = ({ isOpen, onClose, onLogin }) => {
 
           <div className="p-6 sm:p-8">
             <div className="flex items-center justify-between">
-              <div className="flex rounded-full bg-slate-100 p-1">
+              <div className="flex rounded-full bg-[#EEEEEE] p-1">
                 {['login', 'signup'].map((tab) => (
                   <button
                     key={tab}
                     type="button"
                     onClick={() => setActiveTab(tab)}
                     className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                      activeTab === tab ? 'bg-white text-slate-950 shadow-sm' : 'text-slate-500'
+                      activeTab === tab ? 'bg-white text-[#1F6F5F] shadow-sm' : 'text-[#1F6F5F]/55'
                     }`}
                   >
                     {tab === 'login' ? 'Login' : 'Create account'}
@@ -82,16 +82,16 @@ export const AuthModal = ({ isOpen, onClose, onLogin }) => {
                 ))}
               </div>
 
-              <button type="button" onClick={onClose} className="rounded-2xl bg-slate-100 p-2 text-slate-500 transition hover:text-slate-900">
+              <button type="button" onClick={onClose} className="rounded-2xl bg-[#EEEEEE] p-2 text-[#1F6F5F]/55 transition hover:text-[#1F6F5F]">
                 <X className="h-5 w-5" />
               </button>
             </div>
 
             <div className="mt-6">
-              <h3 className="text-3xl font-serif text-slate-950">
+              <h3 className="text-3xl font-serif text-[#1F6F5F]">
                 {activeTab === 'login' ? 'Welcome back to Flocksy' : 'Create your Flocksy workspace'}
               </h3>
-              <p className="mt-2 text-sm text-slate-500">
+              <p className="mt-2 text-sm text-[#1F6F5F]/55">
                 {activeTab === 'login'
                   ? 'Resume your dashboard, saved analyses, and expert workflow.'
                   : 'Set up a secure dashboard for your farm operations in under a minute.'}
@@ -102,11 +102,11 @@ export const AuthModal = ({ isOpen, onClose, onLogin }) => {
               {activeTab === 'signup' && (
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-slate-700">Full name</label>
+                    <label className="mb-2 block text-sm font-medium text-[#1F6F5F]/75">Full name</label>
                     <input type="text" required className="input-field" placeholder="Raju Singh" />
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-slate-700">Phone</label>
+                    <label className="mb-2 block text-sm font-medium text-[#1F6F5F]/75">Phone</label>
                     <input type="tel" required className="input-field" placeholder="+91 98765 43210" />
                   </div>
                 </div>
@@ -114,7 +114,7 @@ export const AuthModal = ({ isOpen, onClose, onLogin }) => {
 
               {activeTab === 'signup' && (
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-700">State</label>
+                  <label className="mb-2 block text-sm font-medium text-[#1F6F5F]/75">State</label>
                   <select className="input-field" required defaultValue="">
                     <option value="" disabled>Select state</option>
                     {states.map((state) => (
@@ -125,18 +125,18 @@ export const AuthModal = ({ isOpen, onClose, onLogin }) => {
               )}
 
               <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">Email address</label>
+                <label className="mb-2 block text-sm font-medium text-[#1F6F5F]/75">Email address</label>
                 <input type="email" required className="input-field" placeholder="raju@flocksy.app" />
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">Password</label>
+                <label className="mb-2 block text-sm font-medium text-[#1F6F5F]/75">Password</label>
                 <input type="password" required className="input-field" placeholder="Enter your password" />
               </div>
 
               {activeTab === 'signup' && (
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-700">Confirm password</label>
+                  <label className="mb-2 block text-sm font-medium text-[#1F6F5F]/75">Confirm password</label>
                   <input type="password" required className="input-field" placeholder="Confirm your password" />
                 </div>
               )}
@@ -167,27 +167,27 @@ export const AppointmentModal = ({ isOpen, onClose, doctor }) => {
   };
 
   return (
-    <div className="modal-backdrop fixed inset-0 z-[70] flex items-center justify-center bg-slate-950/60 p-4">
+    <div className="modal-backdrop fixed inset-0 z-[70] flex items-center justify-center bg-[#1F6F5F]/60 p-4">
       <div className="w-full max-w-2xl overflow-hidden rounded-[32px] border border-white/10 bg-white shadow-[0_40px_120px_rgba(2,8,23,0.28)]">
         {isSuccess ? (
           <div className="flex flex-col items-center px-6 py-12 text-center sm:px-10">
-            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#6FCF97]/24 text-[#1F6F5F]">
               <CheckCircle2 className="h-10 w-10" />
             </div>
-            <h3 className="mt-6 text-3xl font-serif text-slate-950">Appointment confirmed</h3>
-            <p className="mt-3 max-w-md text-sm leading-7 text-slate-500">
+            <h3 className="mt-6 text-3xl font-serif text-[#1F6F5F]">Appointment confirmed</h3>
+            <p className="mt-3 max-w-md text-sm leading-7 text-[#1F6F5F]/55">
               {doctor?.name} has been added to your workflow. You will receive the consultation details shortly.
             </p>
           </div>
         ) : (
           <>
-            <div className="flex items-start justify-between border-b border-slate-200 px-6 py-6 sm:px-8">
+            <div className="flex items-start justify-between border-b border-[#1F6F5F]/10 px-6 py-6 sm:px-8">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-700/65">Book Consultation</p>
-                <h3 className="mt-2 text-3xl font-serif text-slate-950">{doctor?.name || 'Vet Expert'}</h3>
-                <p className="mt-2 text-sm text-slate-500">Schedule a secure expert session inside your Flocksy workflow.</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#1F6F5F]/65">Book Consultation</p>
+                <h3 className="mt-2 text-3xl font-serif text-[#1F6F5F]">{doctor?.name || 'Vet Expert'}</h3>
+                <p className="mt-2 text-sm text-[#1F6F5F]/55">Schedule a secure expert session inside your Flocksy workflow.</p>
               </div>
-              <button type="button" onClick={onClose} className="rounded-2xl bg-slate-100 p-2 text-slate-500 transition hover:text-slate-900">
+              <button type="button" onClick={onClose} className="rounded-2xl bg-[#EEEEEE] p-2 text-[#1F6F5F]/55 transition hover:text-[#1F6F5F]">
                 <X className="h-5 w-5" />
               </button>
             </div>
@@ -195,17 +195,17 @@ export const AppointmentModal = ({ isOpen, onClose, doctor }) => {
             <form onSubmit={handleSubmit} className="space-y-5 px-6 py-6 sm:px-8">
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-700">Full name</label>
+                  <label className="mb-2 block text-sm font-medium text-[#1F6F5F]/75">Full name</label>
                   <input type="text" required className="input-field" placeholder="Your name" />
                 </div>
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-700">Phone number</label>
+                  <label className="mb-2 block text-sm font-medium text-[#1F6F5F]/75">Phone number</label>
                   <input type="tel" required className="input-field" placeholder="+91 98765 43210" />
                 </div>
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">Problem summary</label>
+                <label className="mb-2 block text-sm font-medium text-[#1F6F5F]/75">Problem summary</label>
                 <textarea
                   required
                   rows="4"
@@ -216,9 +216,9 @@ export const AppointmentModal = ({ isOpen, onClose, doctor }) => {
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-700">Preferred date</label>
+                  <label className="mb-2 block text-sm font-medium text-[#1F6F5F]/75">Preferred date</label>
                   <div className="relative">
-                    <CalendarDays className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                    <CalendarDays className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#1F6F5F]/45" />
                     <input
                       type="date"
                       min={new Date().toISOString().split('T')[0]}
@@ -228,7 +228,7 @@ export const AppointmentModal = ({ isOpen, onClose, doctor }) => {
                   </div>
                 </div>
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-700">Time slot</label>
+                  <label className="mb-2 block text-sm font-medium text-[#1F6F5F]/75">Time slot</label>
                   <select className="input-field" defaultValue="Morning 9AM - 12PM" required>
                     <option>Morning 9AM - 12PM</option>
                     <option>Afternoon 12PM - 3PM</option>
@@ -238,16 +238,16 @@ export const AppointmentModal = ({ isOpen, onClose, doctor }) => {
               </div>
 
               <div>
-                <label className="mb-3 block text-sm font-medium text-slate-700">Consultation mode</label>
+                <label className="mb-3 block text-sm font-medium text-[#1F6F5F]/75">Consultation mode</label>
                 <div className="grid gap-3 sm:grid-cols-3">
                   {[
                     { label: 'Video call', value: 'video', icon: Video },
                     { label: 'Phone call', value: 'phone', icon: Phone },
                     { label: 'In-person', value: 'visit', icon: ShieldCheck },
                   ].map(({ label, value, icon: Icon }) => (
-                    <label key={value} className="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 transition hover:border-emerald-300">
-                      <input type="radio" name="consultationType" value={value} required className="accent-emerald-700" />
-                      <Icon className="h-4 w-4 text-emerald-700" />
+                    <label key={value} className="flex cursor-pointer items-center gap-3 rounded-2xl border border-[#1F6F5F]/10 bg-[#EEEEEE] px-4 py-3 text-sm text-[#1F6F5F]/75 transition hover:border-[#6FCF97]">
+                      <input type="radio" name="consultationType" value={value} required className="accent-[#1F6F5F]" />
+                      <Icon className="h-4 w-4 text-[#1F6F5F]" />
                       {label}
                     </label>
                   ))}

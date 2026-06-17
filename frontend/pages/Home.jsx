@@ -2,330 +2,270 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
-  Bot,
-  ChartColumn,
-  CheckCircle2,
-  Clock3,
-  Leaf,
+  BarChart3,
+  Bird,
+  ChevronDown,
+  Globe2,
+  Heart,
+  Menu,
   ShieldCheck,
-  Sparkles,
+  Star,
   Stethoscope,
-  Thermometer,
-  Waves,
+  Target,
 } from 'lucide-react';
 
-const heroMetrics = [
-  { label: 'Live farm signals tracked', value: '128K+' },
-  { label: 'Average first response', value: '< 3 min' },
-  { label: 'Expert-backed workflows', value: '540+' },
-];
-
-const trustStrip = [
-  'Poultry disease triage',
-  'Crop issue diagnosis',
-  'Vet escalation workflows',
-  'Environment and feed monitoring',
-];
-
-const solutionCards = [
+const featureCards = [
   {
-    title: 'AI assistant built for farm reality',
-    description:
-      'Ask in plain language and get structured answers for poultry, crop, feed, and operational questions.',
-    icon: Bot,
+    title: 'Detect Early',
+    text: 'Identify diseases early and stay one step ahead.',
+    icon: Target,
   },
   {
-    title: 'Operational dashboards that surface action',
-    description:
-      'Move from passive charts to daily priorities, house-level anomalies, and guided next steps.',
-    icon: ChartColumn,
-  },
-  {
-    title: 'Expert escalation without losing context',
-    description:
-      'Capture symptoms, observations, and treatment history before looping in a veterinarian.',
+    title: 'Expert Help',
+    text: 'Get guidance from poultry health experts.',
     icon: Stethoscope,
   },
-];
-
-const workflow = [
   {
-    step: '01',
-    title: 'Capture the problem',
-    description:
-      'Log symptoms, upload flock images, or describe crop issues in simple language from the field.',
-  },
-  {
-    step: '02',
-    title: 'Get a structured AI readout',
-    description:
-      'Receive likely causes, immediate actions, monitoring points, and safety guidance in a readable format.',
-  },
-  {
-    step: '03',
-    title: 'Act with confidence',
-    description:
-      'Use one place to track environment, feed, treatments, and when to escalate to verified experts.',
+    title: 'Better Results',
+    text: 'Healthier birds, higher productivity, better profits.',
+    icon: BarChart3,
   },
 ];
 
-const operationsSignals = [
-  {
-    label: 'House 04 temperature',
-    value: '24°C',
-    note: 'Within target range',
-    icon: Thermometer,
-  },
-  {
-    label: 'Humidity stability',
-    value: '62%',
-    note: 'Monitor litter moisture',
-    icon: Waves,
-  },
-  {
-    label: 'Biosecurity readiness',
-    value: '92%',
-    note: '2 items need review',
-    icon: ShieldCheck,
-  },
+const stats = [
+  { value: '10K+', label: ['Farmers', 'Trust Us'], icon: Heart },
+  { value: '95%', label: ['Disease Detection', 'Accuracy'], icon: ShieldCheck },
+  { value: '3M+', label: ['Birds Health', 'Monitored'], icon: Bird },
+  { value: '4.8/5', label: ['Farmer', 'Satisfaction'], icon: Star },
 ];
 
-const outcomes = [
-  'Faster recognition of flock issues before losses spread',
-  'Cleaner handoff from AI guidance to veterinary review',
-  'Less guesswork around feed, environment, and next actions',
-  'A more professional operating rhythm for modern farm teams',
-];
-
-export const Home = ({ user }) => {
+export const Home = () => {
   return (
-    <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-8 pb-20">
-      <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(142,155,68,0.08),transparent_34%),radial-gradient(circle_at_top_right,rgba(61,84,56,0.08),transparent_28%),linear-gradient(180deg,#fdfef9_0%,#f3f5ec_100%)]" />
+    <main className="relative h-screen flex flex-col overflow-hidden bg-[#f5f3ef]" style={{ fontFamily: "'Plus Jakarta Sans', 'Inter', sans-serif" }}>
 
-      <section className="relative overflow-hidden rounded-[44px] border border-white/70 bg-[#173122] px-6 py-8 shadow-[0_30px_90px_rgba(10,31,20,0.16)] sm:px-8 lg:px-12 lg:py-12">
-        <div className="absolute inset-0">
-          <img
-            src="/agri-hero.png"
-            alt="Agricultural operations"
-            className="h-full w-full object-cover opacity-20 mix-blend-screen"
-          />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(194,203,161,0.18),transparent_28%),linear-gradient(105deg,rgba(23,49,34,0.96)_0%,rgba(23,49,34,0.9)_38%,rgba(23,49,34,0.62)_68%,rgba(23,49,34,0.88)_100%)]" />
-          <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)', backgroundSize: '42px 42px' }} />
+      {/* ── Background: Use the reference chicken photo with proper fade ── */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {/* The chicken photo as full background, positioned right */}
+        <img
+          src="/hero-chicken-bg.png"
+          alt=""
+          className="absolute top-0 right-0 h-full w-[70%] object-cover object-[center_20%]"
+        />
+        {/* Smooth left-to-right fade to blend chicken into background */}
+        <div className="absolute inset-0" style={{
+          background: 'linear-gradient(90deg, #f5f3ef 30%, rgba(245,243,239,0.92) 38%, rgba(245,243,239,0.5) 50%, rgba(245,243,239,0) 62%)'
+        }} />
+        {/* Bottom fade for the stats bar */}
+        <div className="absolute inset-x-0 bottom-0 h-[25%]" style={{
+          background: 'linear-gradient(to top, #ffffff 0%, rgba(255,255,255,0.85) 40%, rgba(255,255,255,0) 100%)'
+        }} />
+      </div>
+
+      {/* ═══════════════ NAVBAR ═══════════════ */}
+      <header className="relative z-30 flex items-center justify-between px-[3%] shrink-0" style={{ height: '8%' }}>
+        <Link to="/" className="flex items-center gap-3" aria-label="Flocksy home">
+          <img src="/flocksy-logo.jpeg" alt="" style={{ height: '5.5vh' }} className="object-contain" />
+          <div>
+            <p style={{ fontSize: 'clamp(1rem, 2.4vw, 1.6rem)' }} className="font-black leading-none tracking-wide text-[#1a3c34]">FLOCKSY</p>
+            <p style={{ fontSize: 'clamp(0.55rem, 1.1vw, 0.8rem)' }} className="mt-[2px] font-medium leading-none text-[#1a3c34]/60">AI for Poultry Health</p>
+          </div>
+        </Link>
+
+        <nav className="hidden lg:flex items-center" style={{ gap: 'clamp(1.5rem, 3vw, 3rem)' }}>
+          {[
+            { to: '/', label: 'Home', active: true },
+            { to: '/dashboard', label: 'Poultry Health' },
+            { to: '/chatbot', label: 'AI Assistant' },
+            { to: '/vets', label: 'About Us' },
+          ].map(({ to, label, active }) => (
+            <Link
+              key={label}
+              to={to}
+              style={{ fontSize: 'clamp(0.8rem, 1.3vw, 1.1rem)' }}
+              className={`whitespace-nowrap font-semibold transition relative pb-1 ${active ? 'text-[#1a6b52]' : 'text-[#1a3c34]/65 hover:text-[#1a6b52]'}`}
+            >
+              {label}
+              {active && <span className="absolute bottom-0 left-0 h-[2.5px] w-full rounded-full bg-[#1a6b52]" />}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            className="hidden md:flex items-center gap-2 rounded-full bg-white/90 border border-[#e8e8e6] shadow-sm backdrop-blur-sm hover:bg-white transition"
+            style={{ height: '4.8vh', padding: '0 clamp(0.7rem, 1.3vw, 1.2rem)', fontSize: 'clamp(0.7rem, 1.1vw, 0.95rem)' }}
+          >
+            <Globe2 style={{ width: '2vh', height: '2vh' }} className="text-[#1a6b52]" />
+            <span className="font-medium text-[#1a3c34]">English</span>
+            <ChevronDown style={{ width: '1.6vh', height: '1.6vh' }} className="text-[#1a6b52]/60" />
+          </button>
+          <button
+            type="button"
+            aria-label="Open menu"
+            className="flex items-center justify-center rounded-full bg-[#1a6b52] text-white shadow-[0_6px_20px_rgba(26,107,82,0.3)] hover:bg-[#22836a] transition"
+            style={{ height: '4.8vh', width: '4.8vh' }}
+          >
+            <Menu style={{ width: '2.4vh', height: '2.4vh' }} strokeWidth={2.5} />
+          </button>
+        </div>
+      </header>
+
+      {/* ═══════════════ HERO SECTION ═══════════════ */}
+      <div className="relative z-20 flex-1 flex items-center px-[3%] min-h-0">
+
+        {/* Left Column */}
+        <div className="w-[45%] flex flex-col justify-center relative z-10">
+          {/* Headline */}
+          <h1
+            className="font-black leading-[1.08] tracking-[-0.03em] text-[#1a3c34]"
+            style={{ fontSize: 'clamp(2rem, 4.2vw, 4.5rem)' }}
+          >
+            Stronger Flocks.
+            <br />
+            Happier Farms.
+            <br />
+            <span className="text-[#2fa97e]">Better Tomorrow.</span>
+          </h1>
+
+          {/* Accent bar */}
+          <div className="mt-[1.5vh] h-[4px] rounded-full bg-[#2fa97e]" style={{ width: 'clamp(3rem, 5vw, 5rem)' }} />
+
+          {/* Subtitle */}
+          <p
+            className="mt-[2vh] font-medium leading-[1.5] text-[#3a5a50]/75"
+            style={{ fontSize: 'clamp(0.75rem, 1.4vw, 1.2rem)', maxWidth: '22vw' }}
+          >
+            Simple AI tools to detect, protect and improve your poultry health.
+          </p>
+
+          {/* CTA Area */}
+          <div className="mt-[3vh] relative">
+            {/* Glow */}
+            <div className="absolute -inset-4 rounded-full bg-[#5ec99b]/25 blur-[30px] pointer-events-none" />
+
+            {/* Button */}
+            <Link
+              to="/chatbot"
+              className="relative z-10 group inline-flex items-center rounded-full border-[3px] border-white/80 bg-gradient-to-r from-[#2fa97e] via-[#1a7d5a] to-[#145e44] text-white shadow-[0_12px_35px_rgba(26,107,82,0.35)] transition-all hover:-translate-y-1 hover:shadow-[0_16px_45px_rgba(26,107,82,0.4)]"
+              style={{ padding: 'clamp(4px, 0.5vh, 8px)', paddingRight: 'clamp(12px, 1.5vw, 28px)', gap: 'clamp(8px, 1vw, 18px)' }}
+            >
+              <div className="relative shrink-0">
+                <img
+                  src="/landing-bot.png"
+                  alt=""
+                  className="rounded-full object-cover bg-[#7dd4a8] shadow-[inset_0_0_12px_rgba(255,255,255,0.4)] border-2 border-white/25"
+                  style={{ height: 'clamp(48px, 7vh, 80px)', width: 'clamp(48px, 7vh, 80px)' }}
+                />
+                <div
+                  className="absolute -top-1 right-0 flex items-center justify-center rounded-full bg-[#5ec99b] font-bold text-white shadow border-2 border-white"
+                  style={{ height: 'clamp(18px, 2.5vh, 28px)', width: 'clamp(18px, 2.5vh, 28px)', fontSize: 'clamp(7px, 1vh, 11px)' }}
+                >
+                  AI
+                </div>
+              </div>
+              <span className="flex-1 min-w-0">
+                <span className="block font-extrabold leading-tight" style={{ fontSize: 'clamp(0.85rem, 1.8vw, 1.5rem)' }}>Ask Flocksy AI</span>
+                <span className="block font-medium text-white/85 leading-tight mt-[1px]" style={{ fontSize: 'clamp(0.6rem, 1.1vw, 1rem)' }}>Your Poultry Health Assistant</span>
+              </span>
+              <span
+                className="shrink-0 flex items-center justify-center rounded-full bg-white text-[#145e44] transition-transform duration-300 group-hover:translate-x-1"
+                style={{ height: 'clamp(32px, 4.5vh, 52px)', width: 'clamp(32px, 4.5vh, 52px)' }}
+              >
+                <ArrowRight style={{ height: 'clamp(16px, 2.2vh, 28px)', width: 'clamp(16px, 2.2vh, 28px)' }} strokeWidth={2.5} />
+              </span>
+            </Link>
+
+          </div>
         </div>
 
-        <div className="relative z-10 grid gap-10 lg:grid-cols-[1.15fr_0.85fr]">
-          <div className="py-4 lg:py-8">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-emerald-50/90 backdrop-blur">
-              <Sparkles className="h-3.5 w-3.5" />
-              Farm intelligence, designed like real software
-            </span>
+        {/* Right Column – Feature Cards */}
+        <div className="hidden lg:flex flex-col w-[26%] max-w-[300px] z-20 ml-auto" style={{ gap: 'clamp(8px, 1.5vh, 16px)' }}>
+          {featureCards.map(({ title, text, icon: Icon }) => (
+            <article
+              key={title}
+              className="group flex items-start rounded-[14px] bg-white/90 backdrop-blur-sm shadow-[0_6px_24px_rgba(0,0,0,0.06)] border border-white/60 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)]"
+              style={{ padding: 'clamp(10px, 1.5vh, 18px)', gap: 'clamp(8px, 1vw, 14px)' }}
+            >
+              <div
+                className="shrink-0 flex items-center justify-center rounded-full bg-[#e8f5ee] text-[#1a6b52]"
+                style={{ height: 'clamp(36px, 5vh, 56px)', width: 'clamp(36px, 5vh, 56px)' }}
+              >
+                <Icon style={{ height: 'clamp(18px, 2.5vh, 28px)', width: 'clamp(18px, 2.5vh, 28px)' }} strokeWidth={1.8} />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="font-bold leading-tight text-[#1a3c34]" style={{ fontSize: 'clamp(0.7rem, 1.3vw, 1rem)' }}>{title}</p>
+                <p className="mt-[3px] font-medium leading-snug text-[#1a3c34]/55" style={{ fontSize: 'clamp(0.6rem, 1vw, 0.85rem)' }}>{text}</p>
+                <div className="mt-[5px] h-[2.5px] w-5 rounded-full bg-[#2fa97e]" />
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
 
-            <h1 className="mt-6 max-w-4xl text-4xl font-semibold leading-[1.02] tracking-[-0.04em] text-white sm:text-5xl lg:text-7xl">
-              Professional operations for poultry and crop teams that need clarity, not clutter.
-            </h1>
+      {/* ═══════════════ BOTTOM WAVE + STATS BAR ═══════════════ */}
+      <div className="relative z-30 w-full shrink-0">
+        {/* Wave */}
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="absolute bottom-[100%] left-0 w-full" style={{ height: 'clamp(20px, 4vh, 50px)' }} aria-hidden="true">
+          <path fill="white" d="M0 40C130 52 280 22 430 30C570 36 650 56 780 48C920 38 990 10 1120 14C1240 18 1350 45 1440 38V60H0V40Z" />
+        </svg>
 
-            <p className="mt-6 max-w-2xl text-base leading-8 text-emerald-50/78 sm:text-lg">
-              Flocksy brings AI triage, environmental monitoring, crop analysis, and expert escalation into one calm,
-              credible workspace. The goal is simple: help teams notice problems earlier and act with better structure.
-            </p>
+        {/* Stats bar */}
+        <div className="relative bg-white px-[3%] shadow-[0_-6px_20px_rgba(0,0,0,0.03)]" style={{ paddingTop: 'clamp(4px, 1vh, 12px)', paddingBottom: 'clamp(4px, 1vh, 12px)' }}>
+          <div className="flex items-center justify-between w-full">
 
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <Link to="/dashboard" className="btn-hero h-14 px-8 text-base">
-                Open Operations Dashboard
-                <ArrowRight className="h-5 w-5" />
-              </Link>
-              <Link to={user ? '/chatbot' : '/dashboard'} className="btn-hero-secondary h-14 px-8 text-base">
-                {user ? 'Ask the AI Assistant' : 'Preview the Product'}
-              </Link>
-            </div>
-
-            <div className="mt-10 grid gap-4 sm:grid-cols-3">
-              {heroMetrics.map((metric) => (
-                <div key={metric.label} className="rounded-[26px] border border-white/10 bg-white/8 p-4 backdrop-blur">
-                  <p className="text-2xl font-semibold tracking-tight text-white">{metric.value}</p>
-                  <p className="mt-2 text-sm leading-6 text-emerald-50/68">{metric.label}</p>
+            {/* Stats */}
+            <div className="flex flex-1 items-center justify-between mr-[2vw]">
+              {stats.map(({ value, label, icon: Icon }, index) => (
+                <div key={value} className="flex items-center" style={{ gap: 'clamp(4px, 0.6vw, 12px)' }}>
+                  <div
+                    className="shrink-0 flex items-center justify-center rounded-full border-[1.5px] border-[#1a6b52]/20 text-[#1a6b52]"
+                    style={{ height: 'clamp(28px, 4.5vh, 48px)', width: 'clamp(28px, 4.5vh, 48px)' }}
+                  >
+                    <Icon style={{ height: 'clamp(14px, 2vh, 24px)', width: 'clamp(14px, 2vh, 24px)' }} strokeWidth={1.5} />
+                  </div>
+                  <div>
+                    <p className="font-extrabold leading-none text-[#1a6b52]" style={{ fontSize: 'clamp(0.8rem, 1.7vw, 1.4rem)' }}>{value}</p>
+                    <p className="font-semibold leading-tight text-[#1a3c34]/55" style={{ fontSize: 'clamp(0.45rem, 0.85vw, 0.7rem)', marginTop: '2px' }}>
+                      {label[0]}<br />{label[1]}
+                    </p>
+                  </div>
+                  {index < stats.length - 1 && (
+                    <div className="hidden lg:block h-[4vh] w-px bg-[#1a6b52]/12" style={{ margin: '0 clamp(4px, 0.8vw, 16px)' }} />
+                  )}
                 </div>
               ))}
             </div>
-          </div>
 
-          <div className="flex flex-col gap-5">
-            <div className="rounded-[34px] border border-white/10 bg-[#F7F7F0] p-5 shadow-[0_24px_60px_rgba(7,23,16,0.22)]">
-              <div className="flex items-center justify-between border-b border-slate-200 pb-4">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Operations cockpit</p>
-                  <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">Today’s farm view</h2>
-                </div>
-                <div className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800">
-                  Live
-                </div>
-              </div>
-
-              <div className="mt-5 grid gap-4">
-                {operationsSignals.map(({ label, value, note, icon: Icon }) => (
-                  <div key={label} className="rounded-[24px] border border-slate-200 bg-white p-4 shadow-[0_8px_22px_rgba(15,23,42,0.05)]">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#EBF0E6] text-[#3D5438]">
-                          <Icon className="h-5 w-5" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-semibold text-slate-900">{label}</p>
-                          <p className="mt-1 text-sm text-slate-500">{note}</p>
-                        </div>
-                      </div>
-                      <p className="text-lg font-semibold text-slate-950">{value}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-5 rounded-[28px] bg-[#173122] p-5 text-white">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-100/55">Priority signal</p>
-                    <h3 className="mt-2 text-xl font-semibold">Respiratory stress rising in Shed 04</h3>
-                  </div>
-                  <div className="rounded-full bg-amber-300 px-3 py-1 text-xs font-semibold text-slate-950">Review now</div>
-                </div>
-                <p className="mt-4 text-sm leading-7 text-emerald-50/76">
-                  Ventilation drift and lower feed activity were detected before a major drop in performance. This is what the product
-                  should feel like: early notice, context, and a clear next move.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="grid gap-4 rounded-[32px] border border-slate-200/80 bg-white/70 p-4 shadow-[0_16px_40px_rgba(15,23,42,0.05)] backdrop-blur sm:grid-cols-2 lg:grid-cols-4 lg:p-5">
-        {trustStrip.map((item) => (
-          <div key={item} className="flex items-center gap-3 rounded-[22px] bg-[#F7F8F1] px-4 py-4">
-            <CheckCircle2 className="h-5 w-5 shrink-0 text-[#3D5438]" />
-            <span className="text-sm font-medium text-slate-700">{item}</span>
-          </div>
-        ))}
-      </section>
-
-      <section className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-        <div className="dashboard-card overflow-hidden bg-[#F7F8F1]">
-          <div className="border-b border-slate-200/80 px-8 py-8 sm:px-10">
-            <span className="eyebrow">Why It Feels Better</span>
-            <h2 className="mt-4 text-4xl font-semibold tracking-tight text-slate-950">
-              Built to look like a serious operations product, not a generic farm app.
-            </h2>
-            <p className="mt-5 max-w-xl text-base leading-8 text-slate-600">
-              The best agricultural software should feel calm, decisive, and information-rich. That means cleaner hierarchy, better
-              spacing, believable metrics, and UI blocks that support real daily work.
-            </p>
-          </div>
-
-          <div className="grid gap-4 p-8 sm:p-10">
-            {outcomes.map((outcome) => (
-              <div key={outcome} className="flex items-start gap-4 rounded-[24px] border border-slate-200 bg-white p-5">
-                <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#173122] text-white">
-                  <Leaf className="h-4 w-4" />
-                </div>
-                <p className="text-sm leading-7 text-slate-700">{outcome}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="grid gap-5">
-          {solutionCards.map(({ title, description, icon: Icon }) => (
+            {/* Trust badge */}
             <div
-              key={title}
-              className="dashboard-card group bg-white p-7 transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_50px_rgba(15,23,42,0.08)]"
+              className="hidden md:flex shrink-0 items-center rounded-[12px] bg-[#eef6f1] shadow-[0_4px_16px_rgba(0,0,0,0.04)] relative overflow-hidden"
+              style={{ height: 'clamp(52px, 8vh, 90px)', width: 'clamp(220px, 24vw, 380px)', padding: '0 clamp(6px, 0.8vw, 16px)', gap: 'clamp(4px, 0.6vw, 12px)' }}
             >
-              <div className="flex items-start gap-5">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-[#EBF0E6] text-[#3D5438] transition group-hover:bg-[#3D5438] group-hover:text-white">
-                  <Icon className="h-6 w-6" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold tracking-tight text-slate-950">{title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">{description}</p>
-                </div>
+              <div className="relative h-full shrink-0" style={{ width: 'clamp(60px, 7vw, 120px)' }}>
+                <img
+                  src="/landing-farmers.png"
+                  alt="Farmer couple"
+                  className="absolute bottom-0 left-[-4px] object-cover object-bottom"
+                  style={{ width: 'clamp(70px, 8vw, 140px)', maxHeight: '130%' }}
+                />
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-        <div className="dashboard-card overflow-hidden p-0">
-          <div className="relative h-full min-h-[420px]">
-            <img src="/poultry-farm.png" alt="Poultry farm operations" className="absolute inset-0 h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(23,49,34,0.05)_0%,rgba(23,49,34,0.75)_58%,rgba(23,49,34,0.95)_100%)]" />
-
-            <div className="relative z-10 flex h-full flex-col justify-end p-8 sm:p-10">
-              <span className="inline-flex w-fit rounded-full border border-white/18 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-white backdrop-blur">
-                Operator workflow
-              </span>
-              <h2 className="mt-4 max-w-lg text-4xl font-semibold tracking-tight text-white">
-                One platform for what your team sees, decides, and does next.
-              </h2>
-              <p className="mt-4 max-w-xl text-sm leading-8 text-emerald-50/78">
-                The product experience should reassure a serious farm operator: field observations go in, structured action comes out,
-                and nothing gets lost between AI advice, monitoring, and expert review.
+              <p className="font-medium leading-snug text-[#1a3c34] z-10" style={{ fontSize: 'clamp(0.7rem, 1.5vw, 1.3rem)' }}>
+                Built for <span className="font-extrabold text-[#1a6b52]">Farmers.</span>
+                <br />
+                Backed by{' '}
+                <span className="relative font-extrabold text-[#2fa97e]">
+                  Trust.
+                  <svg className="absolute -bottom-[2px] left-0 w-full text-[#2fa97e]" viewBox="0 0 72 10" fill="none">
+                    <path d="M2 8C20 2 45 1.5 70 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                  </svg>
+                </span>
               </p>
             </div>
+
           </div>
         </div>
-
-        <div className="grid gap-4">
-          {workflow.map((item) => (
-            <div key={item.step} className="dashboard-card bg-white p-6">
-              <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#173122] text-sm font-semibold text-white">
-                  {item.step}
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-slate-950">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-7 text-slate-600">{item.description}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-
-          <div className="dashboard-card bg-[#8E9B44] p-6 text-white">
-            <div className="flex items-center gap-3">
-              <Clock3 className="h-5 w-5" />
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/74">Designed for daily use</p>
-            </div>
-            <p className="mt-4 text-base leading-8 text-white/88">
-              Better farm software should not feel noisy or experimental. It should feel like a tool an owner, farm manager, or field
-              operator can trust every morning.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative overflow-hidden rounded-[38px] border border-[#D8DEC6] bg-[linear-gradient(135deg,#f7f8ef_0%,#eef3df_100%)] px-6 py-10 shadow-[0_18px_40px_rgba(15,23,42,0.05)] sm:px-8 lg:px-10">
-        <div className="absolute right-0 top-0 h-44 w-44 rounded-full bg-[#C2CBA1]/30 blur-3xl" />
-        <div className="absolute bottom-0 left-0 h-44 w-44 rounded-full bg-[#D6E4C4]/40 blur-3xl" />
-
-        <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-2xl">
-            <span className="eyebrow">Homepage Refresh</span>
-            <h2 className="mt-4 text-4xl font-semibold tracking-tight text-slate-950">
-              A stronger first impression for a product that needs to feel human-made and professional.
-            </h2>
-            <p className="mt-4 text-base leading-8 text-slate-600">
-              This direction gives the home page a more credible software presence while still staying warm and farm-relevant.
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-4 sm:flex-row">
-            <Link to="/dashboard" className="btn-primary h-12 px-6">
-              View Dashboard
-            </Link>
-            <Link to="/chatbot" className="btn-secondary h-12 px-6">
-              Open AI Assistant
-            </Link>
-          </div>
-        </div>
-      </section>
-    </div>
+      </div>
+    </main>
   );
 };

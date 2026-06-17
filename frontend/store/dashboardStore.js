@@ -21,6 +21,7 @@ const formatTimeAgo = (timestamp) => {
 };
 
 const normalizeSummary = (data) => {
+  const palette = ['#1F6F5F', '#2FA084', '#6FCF97', '#EEEEEE'];
   const stats = (data.stats || []).map((stat, index) => ({
     id: stat.id || `stat-${index + 1}`,
     label: stat.label,
@@ -55,7 +56,10 @@ const normalizeSummary = (data) => {
     tasks: data.tasks || [],
     weeklyTrend,
     activities,
-    chartData: data.chartData || [],
+    chartData: (data.chartData || []).map((item, index) => ({
+      ...item,
+      color: palette[index % palette.length],
+    })),
   };
 };
 

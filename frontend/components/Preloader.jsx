@@ -22,7 +22,7 @@ const Preloader = ({ onComplete }) => {
     >
       {/* Abstract Blobs */}
       <motion.div
-        className="absolute -top-20 -left-20 h-[400px] w-[400px] rounded-full bg-[#8E9B44]/20 blur-3xl"
+        className="absolute -top-20 -left-20 h-[400px] w-[400px] rounded-full bg-[#2FA084]/20 blur-3xl"
         animate={{
           scale: [1, 1.2, 1],
           x: [0, 50, 0],
@@ -31,7 +31,7 @@ const Preloader = ({ onComplete }) => {
         transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
       />
       <motion.div
-        className="absolute -bottom-20 -right-20 h-[500px] w-[500px] rounded-full bg-[#3D5438]/15 blur-3xl"
+        className="absolute -bottom-20 -right-20 h-[500px] w-[500px] rounded-full bg-[#1F6F5F]/15 blur-3xl"
         animate={{
           scale: [1, 1.1, 1],
           x: [0, -40, 0],
@@ -44,14 +44,14 @@ const Preloader = ({ onComplete }) => {
       <svg className="absolute inset-0 h-full w-full opacity-30" viewBox="0 0 1000 1000">
         <motion.path
           d="M0,1000 L0,800 C150,750 300,950 500,850 C700,750 850,900 1000,800 L1000,1000 Z"
-          fill="#3D5438"
+          fill="#1F6F5F"
           initial={{ y: 200 }}
           animate={{ y: 0 }}
           transition={{ duration: 1.5, ease: "easeOut" }}
         />
         <motion.path
           d="M0,0 L0,200 C200,250 400,100 600,200 C800,300 900,150 1000,250 L1000,0 Z"
-          fill="#8E9B44"
+          fill="#2FA084"
           initial={{ y: -200 }}
           animate={{ y: 0 }}
           transition={{ duration: 1.5, ease: "easeOut" }}
@@ -61,12 +61,12 @@ const Preloader = ({ onComplete }) => {
       {/* Dots Pattern */}
       <div className="absolute top-20 left-20 grid grid-cols-4 gap-2 opacity-20">
         {[...Array(12)].map((_, i) => (
-          <div key={i} className="h-2 w-2 rounded-full bg-[#3D5438]" />
+          <div key={i} className="h-2 w-2 rounded-full bg-[#1F6F5F]" />
         ))}
       </div>
       <div className="absolute bottom-20 right-20 grid grid-cols-4 gap-2 opacity-20">
         {[...Array(12)].map((_, i) => (
-          <div key={i} className="h-2 w-2 rounded-full bg-[#8E9B44]" />
+          <div key={i} className="h-2 w-2 rounded-full bg-[#2FA084]" />
         ))}
       </div>
 
@@ -81,7 +81,7 @@ const Preloader = ({ onComplete }) => {
           {/* Main Logo Icon Image */}
           <div className="relative mb-8">
             <motion.div
-              className="absolute inset-0 rounded-full bg-[#8E9B44]/20 blur-3xl"
+              className="absolute inset-0 rounded-full bg-[#2FA084]/20 blur-3xl"
               animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
               transition={{ duration: 4, repeat: Infinity }}
             />
@@ -93,7 +93,7 @@ const Preloader = ({ onComplete }) => {
           </div>
 
           <motion.h1
-            className="text-7xl font-serif tracking-tighter text-[#3D5438]"
+            className="text-7xl font-serif tracking-tighter text-[#1F6F5F]"
             initial={{ letterSpacing: "0.2em", opacity: 0 }}
             animate={{ letterSpacing: "-0.02em", opacity: 1 }}
             transition={{ duration: 1.2, ease: "easeOut", delay: 1.2 }}
@@ -102,13 +102,13 @@ const Preloader = ({ onComplete }) => {
           </motion.h1>
 
           <motion.div
-            className="mt-6 h-[1px] w-0 bg-[#3D5438]/20"
+            className="mt-6 h-[1px] w-0 bg-[#1F6F5F]/20"
             animate={{ width: "240px" }}
             transition={{ duration: 1.5, delay: 1.8, ease: "easeInOut" }}
           />
 
           <motion.p
-            className="mt-6 text-[11px] font-bold uppercase tracking-[0.6em] text-[#3D5438]/40"
+            className="mt-6 text-[11px] font-bold uppercase tracking-[0.6em] text-[#1F6F5F]/40"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 2.5 }}

@@ -20,7 +20,7 @@ const parseResult = (result) =>
 
     if (line.startsWith('### ')) {
       return (
-        <h4 key={index} className="mt-6 text-lg font-semibold text-slate-950 first:mt-0">
+        <h4 key={index} className="mt-6 text-lg font-semibold text-[#1F6F5F] first:mt-0">
           {clean.replace('### ', '')}
         </h4>
       );
@@ -28,7 +28,7 @@ const parseResult = (result) =>
 
     if (/^\d+\.\s/.test(line)) {
       return (
-        <li key={index} className="ml-5 list-decimal text-sm leading-7 text-slate-600">
+        <li key={index} className="ml-5 list-decimal text-sm leading-7 text-[#1F6F5F]/65">
           {clean.replace(/^\d+\.\s/, '')}
         </li>
       );
@@ -36,7 +36,7 @@ const parseResult = (result) =>
 
     if (line.startsWith('- ')) {
       return (
-        <li key={index} className="ml-5 list-disc text-sm leading-7 text-slate-600">
+        <li key={index} className="ml-5 list-disc text-sm leading-7 text-[#1F6F5F]/65">
           {clean.replace('- ', '')}
         </li>
       );
@@ -47,7 +47,7 @@ const parseResult = (result) =>
     }
 
     return (
-      <p key={index} className="text-sm leading-7 text-slate-600">
+      <p key={index} className="text-sm leading-7 text-[#1F6F5F]/65">
         {clean}
       </p>
     );
@@ -127,8 +127,8 @@ Note: This is a demonstration response. Please confirm the diagnosis with a loca
       <section className="grid gap-6">
         <div className="dashboard-card p-6 sm:p-8">
           <span className="eyebrow">Crop analysis</span>
-          <h1 className="mt-4 text-4xl font-serif text-slate-950">Turn crop symptoms into a structured treatment plan.</h1>
-          <p className="mt-4 text-sm leading-7 text-slate-600">
+          <h1 className="mt-4 text-4xl font-serif text-[#1F6F5F]">Turn crop symptoms into a structured treatment plan.</h1>
+          <p className="mt-4 text-sm leading-7 text-[#1F6F5F]/65">
             The refreshed crop module uses a cleaner form layout, clearer staging, and a more dashboard-like analysis panel so the workflow feels production ready.
           </p>
 
@@ -138,14 +138,14 @@ Note: This is a demonstration response. Please confirm the diagnosis with a loca
               { icon: Leaf, title: 'Action-oriented results', text: 'Surface likely diagnosis and next steps in a format the farmer can act on.' },
               { icon: ShieldCheck, title: 'Safer escalation', text: 'Highlight when expert confirmation is needed before applying treatment.' },
             ].map(({ icon: Icon, title, text }) => (
-              <div key={title} className="rounded-[28px] border border-slate-200 bg-slate-50/80 p-5">
+              <div key={title} className="rounded-[28px] border border-[#1F6F5F]/10 bg-[#EEEEEE]/80 p-5">
                 <div className="flex items-start gap-4">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-950 text-amber-300">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#1F6F5F] text-[#6FCF97]">
                     <Icon className="h-5 w-5" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
-                    <p className="mt-2 text-sm leading-7 text-slate-600">{text}</p>
+                    <h3 className="text-lg font-semibold text-[#1F6F5F]">{title}</h3>
+                    <p className="mt-2 text-sm leading-7 text-[#1F6F5F]/65">{text}</p>
                   </div>
                 </div>
               </div>
@@ -155,11 +155,11 @@ Note: This is a demonstration response. Please confirm the diagnosis with a loca
 
         <form onSubmit={handleAnalyze} className="dashboard-card p-6">
           <span className="eyebrow">Describe the issue</span>
-          <h2 className="mt-4 text-2xl font-serif text-slate-950">Analysis request</h2>
+          <h2 className="mt-4 text-2xl font-serif text-[#1F6F5F]">Analysis request</h2>
 
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="mb-2 block text-sm font-medium text-slate-700">Crop type</label>
+              <label className="mb-2 block text-sm font-medium text-[#1F6F5F]/75">Crop type</label>
               <select
                 required
                 value={formData.crop}
@@ -179,7 +179,7 @@ Note: This is a demonstration response. Please confirm the diagnosis with a loca
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-medium text-slate-700">Problem category</label>
+              <label className="mb-2 block text-sm font-medium text-[#1F6F5F]/75">Problem category</label>
               <select
                 required
                 value={formData.category}
@@ -197,7 +197,7 @@ Note: This is a demonstration response. Please confirm the diagnosis with a loca
           </div>
 
           <div className="mt-4">
-            <label className="mb-2 block text-sm font-medium text-slate-700">State or region</label>
+            <label className="mb-2 block text-sm font-medium text-[#1F6F5F]/75">State or region</label>
             <select
               required
               value={formData.region}
@@ -212,7 +212,7 @@ Note: This is a demonstration response. Please confirm the diagnosis with a loca
           </div>
 
           <div className="mt-4">
-            <label className="mb-2 block text-sm font-medium text-slate-700">Problem description</label>
+            <label className="mb-2 block text-sm font-medium text-[#1F6F5F]/75">Problem description</label>
             <textarea
               required
               rows="6"
@@ -232,22 +232,22 @@ Note: This is a demonstration response. Please confirm the diagnosis with a loca
 
       <section className="dashboard-card min-h-[780px] p-6 sm:p-8">
         {!result && !isAnalyzing && (
-          <div className="flex h-full flex-col items-center justify-center rounded-[30px] border border-dashed border-slate-300 bg-slate-50/70 px-8 text-center">
-            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-emerald-950 text-amber-300">
+          <div className="flex h-full flex-col items-center justify-center rounded-[30px] border border-dashed border-[#1F6F5F]/18 bg-[#EEEEEE]/70 px-8 text-center">
+            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#1F6F5F] text-[#6FCF97]">
               <Sprout className="h-9 w-9" />
             </div>
-            <h2 className="mt-6 text-3xl font-serif text-slate-950">Ready for analysis</h2>
-            <p className="mt-3 max-w-lg text-sm leading-7 text-slate-500">
+            <h2 className="mt-6 text-3xl font-serif text-[#1F6F5F]">Ready for analysis</h2>
+            <p className="mt-3 max-w-lg text-sm leading-7 text-[#1F6F5F]/55">
               Submit the form to generate a structured diagnosis, immediate action list, treatment suggestions, and prevention guidance.
             </p>
           </div>
         )}
 
         {isAnalyzing && (
-          <div className="flex h-full flex-col items-center justify-center rounded-[30px] bg-slate-50/70 text-center">
-            <div className="h-16 w-16 animate-spin rounded-full border-4 border-slate-200 border-t-emerald-700" />
-            <h2 className="mt-6 text-3xl font-serif text-slate-950">Analyzing field signals</h2>
-            <p className="mt-3 max-w-md text-sm leading-7 text-slate-500">
+          <div className="flex h-full flex-col items-center justify-center rounded-[30px] bg-[#EEEEEE]/70 text-center">
+            <div className="h-16 w-16 animate-spin rounded-full border-4 border-[#1F6F5F]/10 border-t-[#1F6F5F]" />
+            <h2 className="mt-6 text-3xl font-serif text-[#1F6F5F]">Analyzing field signals</h2>
+            <p className="mt-3 max-w-md text-sm leading-7 text-[#1F6F5F]/55">
               Reviewing symptom patterns, likely causes, and first treatment options for your crop case.
             </p>
           </div>
@@ -255,14 +255,14 @@ Note: This is a demonstration response. Please confirm the diagnosis with a loca
 
         {result && !isAnalyzing && (
           <div className="h-full">
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-5">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#1F6F5F]/10 pb-5">
               <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#6FCF97]/24 text-[#1F6F5F]">
                   <CheckCircle2 className="h-6 w-6" />
                 </div>
                 <div>
                   <span className="eyebrow">Result</span>
-                  <h2 className="mt-2 text-2xl font-serif text-slate-950">Analysis complete</h2>
+                  <h2 className="mt-2 text-2xl font-serif text-[#1F6F5F]">Analysis complete</h2>
                 </div>
               </div>
               <button type="button" className="btn-secondary">Save to dashboard</button>

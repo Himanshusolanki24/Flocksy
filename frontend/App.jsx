@@ -5,7 +5,7 @@ import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
 import { Chatbot } from './pages/Chatbot';
 import { VetDirectory } from './pages/VetDirectory';
-import { CropAdvisor } from './pages/CropAdvisor';
+
 import { Dashboard } from './pages/Dashboard';
 import Preloader from './components/Preloader';
 import { AnimatePresence } from 'framer-motion';
@@ -33,35 +33,38 @@ function AppContent() {
   }, []);
 
   const isChatPage = location.pathname === '/chatbot';
+  const isLandingPage = location.pathname === '/';
 
   return (
     <>
       <AnimatePresence mode="wait">
         {isLoading && <Preloader key="preloader" onComplete={() => setIsLoading(false)} />}
       </AnimatePresence>
-      <div className="min-h-screen bg-app text-slate-900">
-        <Sidebar
-          user={demoUser}
-          isOpen={isSidebarOpen}
-          setIsOpen={setIsSidebarOpen}
-        />
+      <div className="min-h-screen bg-app text-[#1F6F5F]">
+        {!isLandingPage && (
+          <Sidebar
+            user={demoUser}
+            isOpen={isSidebarOpen}
+            setIsOpen={setIsSidebarOpen}
+          />
+        )}
 
         <div
           className={`relative flex min-h-screen flex-col transition-all duration-300 ${
-            isSidebarOpen ? 'lg:pl-72' : 'lg:pl-24'
+            !isLandingPage && isSidebarOpen ? 'lg:pl-72' : !isLandingPage ? 'lg:pl-24' : ''
           }`}
         >
-          <main className={`flex-1 ${isChatPage ? 'p-0 h-screen overflow-hidden' : 'px-4 pb-6 pt-20 sm:px-6 lg:px-8 lg:pt-8'}`}>
+          <main className={`flex-1 ${isLandingPage ? 'p-0' : isChatPage ? 'p-0 h-screen overflow-hidden' : 'px-4 pb-6 pt-20 sm:px-6 lg:px-8 lg:pt-8'}`}>
             <Routes>
               <Route path="/" element={<Home user={demoUser} />} />
               <Route path="/dashboard" element={<Dashboard user={demoUser} />} />
               <Route path="/chatbot" element={<Chatbot user={demoUser} />} />
               <Route path="/vets" element={<VetDirectory />} />
-              <Route path="/crop-advisor" element={<CropAdvisor />} />
+
             </Routes>
           </main>
 
-          {!isChatPage && <Footer />}
+          {!isChatPage && !isLandingPage && <Footer />}
         </div>
       </div>
     </>

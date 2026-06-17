@@ -89,7 +89,7 @@ const Navbar = ({ language, setLanguage }) => {
           <div className="flex items-center gap-3">
             <button
               onClick={toggleLanguage}
-              className="px-4 py-2 rounded-full bg-green-100 text-primary font-semibold hover:bg-green-200 transition-colors"
+              className="px-4 py-2 rounded-full bg-[#6FCF97]/18 text-primary font-semibold hover:bg-[#6FCF97]/28 transition-colors"
             >
               {language === 'en' ? 'हिन्दी' : 'English'}
             </button>

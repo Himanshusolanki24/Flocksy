@@ -13,12 +13,12 @@ const Button = ({
   const buttonRef = useRef(null);
 
   const variants = {
-    primary: 'bg-primary text-white hover:bg-green-700',
-    secondary: 'bg-secondary text-white hover:bg-green-500',
-    accent: 'bg-accent text-primary hover:bg-yellow-300',
-    danger: 'bg-danger text-white hover:bg-red-600',
-    outline: 'border-2 border-primary text-primary hover:bg-primary hover:text-white',
-    ghost: 'text-primary hover:bg-green-100',
+    primary: 'bg-[#1F6F5F] text-white hover:bg-[#2FA084]',
+    secondary: 'bg-[#2FA084] text-white hover:bg-[#2FA084]',
+    accent: 'bg-[#6FCF97] text-[#1F6F5F] hover:bg-[#2FA084] hover:text-white',
+    danger: 'bg-[#1F6F5F] text-white hover:bg-[#2FA084]',
+    outline: 'border-2 border-[#1F6F5F] text-[#1F6F5F] hover:bg-[#1F6F5F] hover:text-white',
+    ghost: 'text-[#1F6F5F] hover:bg-[#6FCF97]/18',
   };
 
   const sizes = {

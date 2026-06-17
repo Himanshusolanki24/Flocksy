@@ -42,18 +42,18 @@ const Footer = ({ language }) => {
             <span className="font-semibold">Flockshy AI</span>
           </div>
 
-          <p className="text-green-200 text-center">
+          <p className="text-white/75 text-center">
             {t.made} ❤️ | © 2026 {t.rights}
           </p>
 
           <div className="flex items-center gap-4">
-            <a href="#" className="text-green-200 hover:text-white transition-colors text-sm">
+            <a href="#" className="text-white/75 hover:text-white transition-colors text-sm">
               Privacy
             </a>
-            <a href="#" className="text-green-200 hover:text-white transition-colors text-sm">
+            <a href="#" className="text-white/75 hover:text-white transition-colors text-sm">
               Terms
             </a>
-            <a href="#" className="text-green-200 hover:text-white transition-colors text-sm">
+            <a href="#" className="text-white/75 hover:text-white transition-colors text-sm">
               Contact
             </a>
           </div>

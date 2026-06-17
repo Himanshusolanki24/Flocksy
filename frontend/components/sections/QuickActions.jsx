@@ -26,10 +26,10 @@ const translations = {
 };
 
 const actions = [
-  { id: 1, icon: '📷', color: 'from-green-500 to-green-700', key: 'scan' },
-  { id: 2, icon: '🎤', color: 'from-yellow-400 to-yellow-600', key: 'voice' },
-  { id: 3, icon: '📊', color: 'from-blue-500 to-blue-700', key: 'health' },
-  { id: 4, icon: '🩺', color: 'from-red-500 to-red-700', key: 'vet' },
+  { id: 1, icon: '📷', color: 'from-[#1F6F5F] to-[#2FA084]', key: 'scan' },
+  { id: 2, icon: '🎤', color: 'from-[#6FCF97] to-[#2FA084]', key: 'voice' },
+  { id: 3, icon: '📊', color: 'from-[#2FA084] to-[#1F6F5F]', key: 'health' },
+  { id: 4, icon: '🩺', color: 'from-[#1F6F5F] to-[#6FCF97]', key: 'vet' },
 ];
 
 const QuickActions = ({ language, onAction }) => {

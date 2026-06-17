@@ -43,9 +43,9 @@ const birdData = [
 ];
 
 const statusConfig = {
-  healthy: { color: 'bg-green-500', glow: 'shadow-green-500/50', icon: '✅' },
-  warning: { color: 'bg-yellow-500', glow: 'shadow-yellow-500/50', icon: '⚠️' },
-  sick: { color: 'bg-red-500', glow: 'shadow-red-500/50', icon: '🔴' },
+  healthy: { color: 'bg-[#6FCF97]/120', glow: 'shadow-green-500/50', icon: '✅' },
+  warning: { color: 'bg-[#6FCF97]', glow: 'shadow-yellow-500/50', icon: '⚠️' },
+  sick: { color: 'bg-[#1F6F5F]/80', glow: 'shadow-red-500/50', icon: '🔴' },
 };
 
 const LiveCoop = ({ language }) => {
@@ -136,7 +136,7 @@ const LiveCoop = ({ language }) => {
 
                 {/* Popup Card */}
                 {selectedBird?.id === bird.id && (
-                  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+                  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1F6F5F]/50">
                     <Card className="max-w-sm w-full" hover={false}>
                       <div className="flex items-center justify-between mb-4">
                         <h3 className="text-xl font-bold text-primary">
@@ -209,19 +209,19 @@ const LiveCoop = ({ language }) => {
         {/* Stats Summary */}
         <div className="mt-12 grid grid-cols-3 gap-4">
           <Card className="text-center" hover={false}>
-            <div className="text-3xl font-bold text-green-600">
+            <div className="text-3xl font-bold text-[#2FA084]">
               {birdData.filter(b => b.status === 'healthy').length}
             </div>
             <div className="text-sm text-gray-600 mt-1">Healthy</div>
           </Card>
           <Card className="text-center" hover={false}>
-            <div className="text-3xl font-bold text-yellow-600">
+            <div className="text-3xl font-bold text-[#2FA084]">
               {birdData.filter(b => b.status === 'warning').length}
             </div>
             <div className="text-sm text-gray-600 mt-1">Warning</div>
           </Card>
           <Card className="text-center" hover={false}>
-            <div className="text-3xl font-bold text-red-600">
+            <div className="text-3xl font-bold text-[#1F6F5F]">
               {birdData.filter(b => b.status === 'sick').length}
             </div>
             <div className="text-sm text-gray-600 mt-1">Sick</div>

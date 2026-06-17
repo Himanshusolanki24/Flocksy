@@ -48,7 +48,7 @@ const Card = ({
       ref={cardRef}
       onClick={onClick}
       className={`
-        bg-white rounded-2xl shadow-lg p-6
+        bg-white rounded-2xl shadow-[0_18px_45px_rgba(31,111,95,0.1)] p-6
         transition-shadow cursor-pointer
         ${className}
       `}

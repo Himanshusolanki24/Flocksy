@@ -132,10 +132,10 @@ const DiagnosisCard = ({
                 bg-white shadow-lg font-bold
                 ${
                   status === 'danger'
-                    ? 'text-red-600'
+                    ? 'text-[#1F6F5F]'
                     : status === 'warning'
-                    ? 'text-yellow-600'
-                    : 'text-green-600'
+                    ? 'text-[#2FA084]'
+                    : 'text-[#2FA084]'
                 }
               `}
             >
@@ -165,10 +165,10 @@ const DiagnosisCard = ({
                   h-full rounded-full transition-all
                   ${
                     status === 'danger'
-                      ? 'bg-red-500'
+                      ? 'bg-[#1F6F5F]/80'
                       : status === 'warning'
-                      ? 'bg-yellow-500'
-                      : 'bg-green-500'
+                      ? 'bg-[#6FCF97]'
+                      : 'bg-[#6FCF97]/120'
                   }
                 `}
                 style={{ width: `${confidence}%` }}
@@ -198,7 +198,7 @@ const DiagnosisCard = ({
           <div>
             <button
               onClick={() => setShowWhy(!showWhy)}
-              className="flex items-center gap-2 text-primary font-semibold hover:text-green-700 transition-colors"
+              className="flex items-center gap-2 text-primary font-semibold hover:text-[#2FA084] transition-colors"
             >
               <span>{t.why}</span>
               <span
@@ -209,7 +209,7 @@ const DiagnosisCard = ({
             </button>
 
             {showWhy && (
-              <div className="mt-3 p-4 bg-green-50 rounded-xl text-sm text-gray-700">
+              <div className="mt-3 p-4 bg-[#6FCF97]/12 rounded-xl text-sm text-gray-700">
                 <p>
                   Our AI analyzed the bird's appearance, behavior patterns, and
                   physical characteristics. The diagnosis is based on:

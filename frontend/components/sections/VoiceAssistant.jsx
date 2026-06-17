@@ -119,9 +119,9 @@ const VoiceAssistant = ({ language, onTranscript }) => {
               <>
                 <div
                   ref={pulseRef}
-                  className="absolute w-40 h-40 sm:w-48 sm:h-48 rounded-full border-4 border-green-400 opacity-50"
+                  className="absolute w-40 h-40 sm:w-48 sm:h-48 rounded-full border-4 border-[#6FCF97] opacity-50"
                 />
-                <div className="absolute w-56 h-56 sm:w-64 sm:h-64 rounded-full border-2 border-green-300 opacity-30 animate-ping" />
+                <div className="absolute w-56 h-56 sm:w-64 sm:h-64 rounded-full border-2 border-[#6FCF97]/60 opacity-30 animate-ping" />
               </>
             )}
 
@@ -136,10 +136,10 @@ const VoiceAssistant = ({ language, onTranscript }) => {
                 shadow-2xl transition-all duration-300
                 ${
                   isListening
-                    ? 'bg-red-500 hover:bg-red-600'
+                    ? 'bg-[#1F6F5F]/80 hover:bg-[#2FA084]'
                     : isProcessing
-                    ? 'bg-yellow-500 cursor-wait'
-                    : 'bg-primary hover:bg-green-700'
+                    ? 'bg-[#6FCF97] cursor-wait'
+                    : 'bg-primary hover:bg-[#2FA084]'
                 }
               `}
             >
@@ -156,7 +156,7 @@ const VoiceAssistant = ({ language, onTranscript }) => {
 
           {/* Transcribed text */}
           {transcribedText && (
-            <div className="mb-6 p-4 bg-green-50 rounded-xl">
+            <div className="mb-6 p-4 bg-[#6FCF97]/12 rounded-xl">
               <p className="text-gray-800 text-lg">{transcribedText}</p>
             </div>
           )}
@@ -184,7 +184,7 @@ const VoiceAssistant = ({ language, onTranscript }) => {
                 <span>🤖</span>
                 {t.response}
               </h3>
-              <div className="p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-xl">
+              <div className="p-4 bg-gradient-to-r from-[#EEEEEE] to-[#6FCF97]/20 rounded-xl">
                 <p className="text-gray-800 leading-relaxed">{aiResponse}</p>
               </div>
             </div>

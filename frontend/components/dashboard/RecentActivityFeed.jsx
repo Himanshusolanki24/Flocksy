@@ -3,20 +3,20 @@ import { FileText, MessageSquare, Activity, AlertCircle } from 'lucide-react';
 import { useDashboardStore } from '../../store/dashboardStore';
 
 const typeConfig = {
-  note: { icon: FileText, dot: 'bg-sky-500' },
-  consultation: { icon: MessageSquare, dot: 'bg-violet-500' },
-  protocol: { icon: Activity, dot: 'bg-emerald-500' },
-  report: { icon: AlertCircle, dot: 'bg-amber-500' },
+  note: { icon: FileText, dot: 'bg-[#2FA084]' },
+  consultation: { icon: MessageSquare, dot: 'bg-[#1F6F5F]' },
+  protocol: { icon: Activity, dot: 'bg-[#6FCF97]' },
+  report: { icon: AlertCircle, dot: 'bg-[#2FA084]' },
 };
 
 export const RecentActivityFeed = () => {
   const { activities } = useDashboardStore();
 
   return (
-    <div className="flex h-full flex-col rounded-2xl border border-slate-200/80 bg-white shadow-sm">
-      <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4">
-        <h2 className="text-sm font-semibold text-slate-700">Recent Activity</h2>
-        <button className="text-xs font-medium text-slate-400 transition hover:text-slate-600">
+    <div className="flex h-full flex-col rounded-2xl border border-[#1F6F5F]/10 bg-white shadow-sm">
+      <div className="flex items-center justify-between border-b border-[#1F6F5F]/10 px-5 py-4">
+        <h2 className="text-sm font-semibold text-[#1F6F5F]">Recent Activity</h2>
+        <button className="text-xs font-medium text-[#1F6F5F]/45 transition hover:text-[#1F6F5F]">
           See all
         </button>
       </div>
@@ -29,21 +29,21 @@ export const RecentActivityFeed = () => {
           return (
             <div
               key={item.id}
-              className={`group flex items-start gap-3 px-5 py-3.5 transition hover:bg-slate-50/70 ${
-                !isLast ? 'border-b border-slate-50' : ''
+              className={`group flex items-start gap-3 px-5 py-3.5 transition hover:bg-[#EEEEEE]/50 ${
+                !isLast ? 'border-b border-[#1F6F5F]/5' : ''
               }`}
             >
               {/* Timeline dot */}
               <div className="flex flex-col items-center pt-1">
                 <span className={`h-2 w-2 rounded-full ${cfg.dot}`} />
-                {!isLast && <div className="mt-1 h-full w-px bg-slate-100" />}
+                {!isLast && <div className="mt-1 h-full w-px bg-[#1F6F5F]/10" />}
               </div>
 
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium leading-snug text-slate-700 group-hover:text-slate-900 transition-colors">
+                <p className="text-sm font-medium leading-snug text-[#1F6F5F]/75 group-hover:text-[#1F6F5F] transition-colors">
                   {item.title}
                 </p>
-                <div className="mt-1 flex items-center gap-2 text-[11px] text-slate-400">
+                <div className="mt-1 flex items-center gap-2 text-[11px] text-[#1F6F5F]/45">
                   <span>{item.source}</span>
                   <span>·</span>
                   <span>{item.time}</span>

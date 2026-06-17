@@ -10,6 +10,10 @@ export default {
   theme: {
     extend: {
       colors: {
+        primary: 'var(--green-dark)',
+        secondary: 'var(--green-mid)',
+        accent: 'var(--green-light)',
+        danger: 'var(--green-dark)',
         'green-dark': 'var(--green-dark)',
         'green-mid': 'var(--green-mid)',
         'green-light': 'var(--green-light)',
