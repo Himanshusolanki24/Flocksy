@@ -1,0 +1,27 @@
+{
+  "classes": [
+    "Coccidiosis",
+    "Healthy",
+    "Newcastle_Disease",
+    "Salmonella"
+  ],
+  "image_size": 64,
+  "epochs": 1,
+  "batch_size": 32,
+  "learning_rate": 0.001,
+  "best_val_accuracy": 0.25,
+  "test_accuracy": 0.25,
+  "test_loss": 1.3572255969047546,
+  "train_samples": 128,
+  "val_samples": 64,
+  "test_samples": 64,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.3840765953063965,
+      "train_accuracy": 0.2578125,
+      "val_loss": 1.3485378623008728,
+      "val_accuracy": 0.25
+    }
+  ]
+}

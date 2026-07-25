@@ -1,0 +1,41 @@
+{
+  "classes": [
+    "Coccidiosis",
+    "Healthy",
+    "Newcastle_Disease",
+    "Salmonella"
+  ],
+  "image_size": 64,
+  "epochs": 3,
+  "batch_size": 64,
+  "learning_rate": 0.001,
+  "best_val_accuracy": 0.8362745098039216,
+  "test_accuracy": 0.8204878048780487,
+  "test_loss": 0.5056306693483802,
+  "train_samples": 4767,
+  "val_samples": 1020,
+  "test_samples": 1025,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.7663758607705434,
+      "train_accuracy": 0.6949863645898888,
+      "val_loss": 0.5908949626609683,
+      "val_accuracy": 0.7970588235294118
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.5421110729376475,
+      "train_accuracy": 0.8120411160058737,
+      "val_loss": 0.5639490578323603,
+      "val_accuracy": 0.796078431372549
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.49239786903063454,
+      "train_accuracy": 0.8204321376127544,
+      "val_loss": 0.49293104000389576,
+      "val_accuracy": 0.8362745098039216
+    }
+  ]
+}

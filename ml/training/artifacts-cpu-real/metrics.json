@@ -1,0 +1,104 @@
+{
+  "classes": [
+    "Coccidiosis",
+    "Healthy",
+    "Newcastle_Disease",
+    "Salmonella"
+  ],
+  "image_size": 128,
+  "epochs": 12,
+  "batch_size": 16,
+  "learning_rate": 0.0005,
+  "best_val_accuracy": 0.9107843137254902,
+  "test_accuracy": 0.8878048780487805,
+  "test_loss": 0.34130022634680457,
+  "train_samples": 4767,
+  "val_samples": 1020,
+  "test_samples": 1025,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.7079822463077187,
+      "train_accuracy": 0.7228865114327669,
+      "val_loss": 0.6079670457402244,
+      "val_accuracy": 0.7803921568627451
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.5109071325035703,
+      "train_accuracy": 0.8223201174743024,
+      "val_loss": 0.5405621335376054,
+      "val_accuracy": 0.8401960784313726
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.47139940869638186,
+      "train_accuracy": 0.8395217117684078,
+      "val_loss": 0.4837306794943288,
+      "val_accuracy": 0.8313725490196079
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.46533064761717846,
+      "train_accuracy": 0.8416194671701279,
+      "val_loss": 0.44682328699855134,
+      "val_accuracy": 0.8666666666666667
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.4144500905222841,
+      "train_accuracy": 0.8573526326830292,
+      "val_loss": 0.4608532897691475,
+      "val_accuracy": 0.8519607843137255
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.3824542484514965,
+      "train_accuracy": 0.8703587161736942,
+      "val_loss": 0.4213746352615999,
+      "val_accuracy": 0.8598039215686275
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.35959205942090927,
+      "train_accuracy": 0.8772813089993706,
+      "val_loss": 0.3373716039786814,
+      "val_accuracy": 0.8931372549019608
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.336382655851893,
+      "train_accuracy": 0.8800083910216069,
+      "val_loss": 0.4382510191644542,
+      "val_accuracy": 0.8578431372549019
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.322742262455141,
+      "train_accuracy": 0.8877700860079715,
+      "val_loss": 0.34823018283350393,
+      "val_accuracy": 0.865686274509804
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.3009542597820295,
+      "train_accuracy": 0.8965806586951961,
+      "val_loss": 0.2949473575281445,
+      "val_accuracy": 0.8980392156862745
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.29158276134958155,
+      "train_accuracy": 0.8963708831550241,
+      "val_loss": 0.30608577840030193,
+      "val_accuracy": 0.9107843137254902
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.27498908047158044,
+      "train_accuracy": 0.9049716803020768,
+      "val_loss": 0.27072404976934195,
+      "val_accuracy": 0.9049019607843137
+    }
+  ]
+}
