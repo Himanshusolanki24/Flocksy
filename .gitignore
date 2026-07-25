@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+.npm-cache/
+
+# Build output
+dist/
+build/
+
+# Environment variables (security)
+.env
+
+# IDE
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Log files
+*.log
+
+# Large ML datasets (download separately via script)
+ml/training/dataset/
+ml/training/data/
+ml/training/poultry_diseases/
+
+# Graphify output (regeneratable)
+# graphify-out/
+
+*.nosync

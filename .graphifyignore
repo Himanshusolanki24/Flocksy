@@ -1,0 +1,50 @@
+# ── Large dependency/build dirs ───────────────────────────────────────────────
+node_modules/
+dist/
+build/
+.git/
+.github/
+
+# ── ML datasets and model artifacts ───────────────────────────────────────────
+ml/training/dataset/
+ml/training/data/
+ml/training/poultry_diseases/
+ml/training/artifacts-baseline/
+ml/training/artifacts-cpu-real/
+ml/training/artifacts-smoke/
+ml/training/artifacts-smoke-balanced/
+rag/data/
+
+# ── Python virtual environments / caches ──────────────────────────────────────
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.eggs/
+*.egg-info/
+
+# ── Binary / media / doc files (need LLM key — skip for code-only build) ──────
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.webp
+*.ico
+*.pdf
+*.mp4
+*.mp3
+*.wav
+
+# ── Log / temp / editor artifacts ─────────────────────────────────────────────
+*.log
+*.log.*
+graphify_out.log
+graphify_build.log
+graphify-out/
+.DS_Store
+.idea/
+.vscode/
+*.env

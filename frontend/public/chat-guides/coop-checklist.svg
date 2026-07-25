@@ -1,0 +1,34 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="800" rx="40" fill="#F7F7F0"/>
+  <rect x="48" y="48" width="1104" height="704" rx="32" fill="white" stroke="#D9E2CF" stroke-width="2"/>
+  <text x="80" y="118" fill="#233127" font-family="Arial, sans-serif" font-size="42" font-weight="700">Coop Emergency Checklist</text>
+  <text x="80" y="156" fill="#627161" font-family="Arial, sans-serif" font-size="22">Four checks that help explain why birds are declining</text>
+  <g>
+    <rect x="86" y="230" width="234" height="210" rx="24" fill="#F4F8EE" stroke="#D9E2CF" stroke-width="2"/>
+    <text x="138" y="286" fill="#233127" font-family="Arial, sans-serif" font-size="28" font-weight="700">Water</text>
+    <text x="116" y="334" fill="#627161" font-family="Arial, sans-serif" font-size="22">Check line pressure, leaks,</text>
+    <text x="110" y="366" fill="#627161" font-family="Arial, sans-serif" font-size="22">and whether weak birds can drink</text>
+  </g>
+  <g>
+    <rect x="344" y="230" width="234" height="210" rx="24" fill="#F4F8EE" stroke="#D9E2CF" stroke-width="2"/>
+    <text x="405" y="286" fill="#233127" font-family="Arial, sans-serif" font-size="28" font-weight="700">Feed</text>
+    <text x="374" y="334" fill="#627161" font-family="Arial, sans-serif" font-size="22">Look for off-feed birds,</text>
+    <text x="381" y="366" fill="#627161" font-family="Arial, sans-serif" font-size="22">empty pans, or moldy feed</text>
+  </g>
+  <g>
+    <rect x="602" y="230" width="234" height="210" rx="24" fill="#F4F8EE" stroke="#D9E2CF" stroke-width="2"/>
+    <text x="644" y="286" fill="#233127" font-family="Arial, sans-serif" font-size="28" font-weight="700">Litter</text>
+    <text x="628" y="334" fill="#627161" font-family="Arial, sans-serif" font-size="22">Wet patches and strong</text>
+    <text x="650" y="366" fill="#627161" font-family="Arial, sans-serif" font-size="22">smell mean extra stress</text>
+  </g>
+  <g>
+    <rect x="860" y="230" width="234" height="210" rx="24" fill="#F4F8EE" stroke="#D9E2CF" stroke-width="2"/>
+    <text x="892" y="286" fill="#233127" font-family="Arial, sans-serif" font-size="28" font-weight="700">Airflow</text>
+    <text x="888" y="334" fill="#627161" font-family="Arial, sans-serif" font-size="22">Poor airflow worsens</text>
+    <text x="889" y="366" fill="#627161" font-family="Arial, sans-serif" font-size="22">respiratory pressure fast</text>
+  </g>
+  <rect x="90" y="530" width="1020" height="138" rx="26" fill="#FFF6E6" stroke="#F4D7A1" stroke-width="2"/>
+  <text x="124" y="582" fill="#6D4E17" font-family="Arial, sans-serif" font-size="26" font-weight="700">Best use:</text>
+  <text x="260" y="582" fill="#6D4E17" font-family="Arial, sans-serif" font-size="24">Run this checklist while walking the flock, then compare what you see with the chatbot advice.</text>
+  <text x="124" y="622" fill="#6D4E17" font-family="Arial, sans-serif" font-size="24">Any sudden change in two or more boxes is a sign to escalate faster.</text>
+</svg>

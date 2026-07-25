@@ -1,0 +1,18 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="800" rx="40" fill="#F7F7F0"/>
+  <rect x="48" y="48" width="1104" height="704" rx="32" fill="white" stroke="#D9E2CF" stroke-width="2"/>
+  <text x="80" y="118" fill="#233127" font-family="Arial, sans-serif" font-size="42" font-weight="700">Coccidiosis Litter Check</text>
+  <text x="80" y="156" fill="#627161" font-family="Arial, sans-serif" font-size="22">What to inspect when droppings and litter suggest gut stress</text>
+  <rect x="92" y="248" width="470" height="330" rx="28" fill="#F6F0E8"/>
+  <rect x="638" y="248" width="470" height="330" rx="28" fill="#EEF7F0"/>
+  <text x="136" y="312" fill="#7A3E34" font-family="Arial, sans-serif" font-size="30" font-weight="700">Warning signs</text>
+  <text x="136" y="364" fill="#7A3E34" font-family="Arial, sans-serif" font-size="24">Bloody droppings</text>
+  <text x="136" y="404" fill="#7A3E34" font-family="Arial, sans-serif" font-size="24">Wet, caked litter</text>
+  <text x="136" y="444" fill="#7A3E34" font-family="Arial, sans-serif" font-size="24">Birds looking weak and off-feed</text>
+  <text x="136" y="484" fill="#7A3E34" font-family="Arial, sans-serif" font-size="24">Poor growth in one area of the house</text>
+  <text x="680" y="312" fill="#25543B" font-family="Arial, sans-serif" font-size="30" font-weight="700">Immediate response</text>
+  <text x="680" y="364" fill="#25543B" font-family="Arial, sans-serif" font-size="24">Dry and replace wet litter</text>
+  <text x="680" y="404" fill="#25543B" font-family="Arial, sans-serif" font-size="24">Improve drinker management</text>
+  <text x="680" y="444" fill="#25543B" font-family="Arial, sans-serif" font-size="24">Support water intake and observe droppings</text>
+  <text x="680" y="484" fill="#25543B" font-family="Arial, sans-serif" font-size="24">Verify medicine plan with a veterinarian</text>
+</svg>

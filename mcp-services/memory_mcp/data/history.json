@@ -1,0 +1,7 @@
+{
+  "farm-demo-1": {
+    "last_incident": "Coccidiosis pressure detected 12 days ago in House 2.",
+    "recommended_focus": "Prioritize litter dryness and water-line sanitation.",
+    "recent_treatments": ["electrolytes", "litter replacement"]
+  }
+}
