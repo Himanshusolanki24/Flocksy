@@ -6,7 +6,7 @@ import sys
 # ---------------------------------------------------------
 # Your Kaggle username and the name you want for the dataset
 # Example: 'himanshusolanki24/flocksy-poultry-diseases'
-HANDLE = 'hemusolanki/flocksy-data'
+HANDLE = 'hemusolanki/data-dataset'
 
 # The directory you want to upload
 # You can change this to upload the other folders if needed.

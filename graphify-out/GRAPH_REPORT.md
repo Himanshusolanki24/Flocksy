@@ -1,16 +1,16 @@
-# Graph Report - Flocksy  (2026-06-18)
+# Graph Report - Flocksy  (2026-08-05)
 
 ## Corpus Check
-- 112 files · ~40,599 words
+- 224 files · ~64,877 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 701 nodes · 1068 edges · 52 communities (48 shown, 4 thin omitted)
-- Extraction: 80% EXTRACTED · 20% INFERRED · 0% AMBIGUOUS · INFERRED: 215 edges (avg confidence: 0.52)
+- 1298 nodes · 2515 edges · 107 communities (82 shown, 25 thin omitted)
+- Extraction: 91% EXTRACTED · 9% INFERRED · 0% AMBIGUOUS · INFERRED: 215 edges (avg confidence: 0.52)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `cbfb1318`
+- Built from commit: `7cdbc927`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -59,43 +59,97 @@
 - [[_COMMUNITY_Community 43|Community 43]]
 - [[_COMMUNITY_Community 47|Community 47]]
 - [[_COMMUNITY_Community 48|Community 48]]
+- [[_COMMUNITY_Community 49|Community 49]]
+- [[_COMMUNITY_Community 50|Community 50]]
+- [[_COMMUNITY_Community 51|Community 51]]
+- [[_COMMUNITY_Community 52|Community 52]]
+- [[_COMMUNITY_Community 53|Community 53]]
+- [[_COMMUNITY_Community 54|Community 54]]
+- [[_COMMUNITY_Community 55|Community 55]]
+- [[_COMMUNITY_Community 56|Community 56]]
+- [[_COMMUNITY_Community 57|Community 57]]
+- [[_COMMUNITY_Community 58|Community 58]]
+- [[_COMMUNITY_Community 59|Community 59]]
+- [[_COMMUNITY_Community 60|Community 60]]
+- [[_COMMUNITY_Community 61|Community 61]]
+- [[_COMMUNITY_Community 62|Community 62]]
+- [[_COMMUNITY_Community 63|Community 63]]
+- [[_COMMUNITY_Community 64|Community 64]]
+- [[_COMMUNITY_Community 65|Community 65]]
+- [[_COMMUNITY_Community 66|Community 66]]
+- [[_COMMUNITY_Community 67|Community 67]]
+- [[_COMMUNITY_Community 68|Community 68]]
+- [[_COMMUNITY_Community 69|Community 69]]
+- [[_COMMUNITY_Community 70|Community 70]]
+- [[_COMMUNITY_Community 71|Community 71]]
+- [[_COMMUNITY_Community 72|Community 72]]
+- [[_COMMUNITY_Community 73|Community 73]]
+- [[_COMMUNITY_Community 74|Community 74]]
+- [[_COMMUNITY_Community 75|Community 75]]
+- [[_COMMUNITY_Community 76|Community 76]]
+- [[_COMMUNITY_Community 77|Community 77]]
+- [[_COMMUNITY_Community 78|Community 78]]
+- [[_COMMUNITY_Community 79|Community 79]]
+- [[_COMMUNITY_Community 80|Community 80]]
+- [[_COMMUNITY_Community 81|Community 81]]
+- [[_COMMUNITY_Community 82|Community 82]]
+- [[_COMMUNITY_Community 83|Community 83]]
+- [[_COMMUNITY_Community 84|Community 84]]
+- [[_COMMUNITY_Community 85|Community 85]]
+- [[_COMMUNITY_Community 86|Community 86]]
+- [[_COMMUNITY_Community 87|Community 87]]
+- [[_COMMUNITY_Community 88|Community 88]]
+- [[_COMMUNITY_Community 89|Community 89]]
+- [[_COMMUNITY_Community 90|Community 90]]
+- [[_COMMUNITY_Community 91|Community 91]]
+- [[_COMMUNITY_Community 92|Community 92]]
+- [[_COMMUNITY_Community 93|Community 93]]
+- [[_COMMUNITY_Community 94|Community 94]]
+- [[_COMMUNITY_Community 95|Community 95]]
+- [[_COMMUNITY_Community 96|Community 96]]
+- [[_COMMUNITY_Community 97|Community 97]]
+- [[_COMMUNITY_Community 98|Community 98]]
+- [[_COMMUNITY_Community 99|Community 99]]
+- [[_COMMUNITY_Community 100|Community 100]]
+- [[_COMMUNITY_Community 101|Community 101]]
+- [[_COMMUNITY_Community 104|Community 104]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `AnalyzeRequest` - 31 edges
-2. `DecisionEngine` - 28 edges
-3. `AgentFinding` - 21 edges
-4. `Flocksy AI Production Architecture` - 20 edges
-5. `VisionResult` - 19 edges
-6. `AnalyzeRequest` - 18 edges
-7. `VisionResult` - 18 edges
-8. `DifferentialDiagnosisItem` - 18 edges
-9. `DecisionResult` - 18 edges
-10. `RiskAssessment` - 17 edges
+1. `cn()` - 94 edges
+2. `Button` - 32 edges
+3. `AnalyzeRequest` - 31 edges
+4. `DecisionEngine` - 28 edges
+5. `Card` - 24 edges
+6. `Badge()` - 23 edges
+7. `AgentFinding` - 21 edges
+8. `PageHeader()` - 20 edges
+9. `Flocksy AI Production Architecture` - 20 edges
+10. `VisionResult` - 19 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `main()` --calls--> `Orchestrator`  [INFERRED]
   test_ai_core.py → ai-core/app/agents/orchestrator.py
-- `AnalyzeRequest` --uses--> `AnalyzeRequest`  [INFERRED]
-  ai-core/app/services/rag_service.py → ai-core/app/schemas.py
 - `AgentFinding` --uses--> `AgentFinding`  [INFERRED]
   ai-core/app/agents/medicine_agent.py → ai-core/app/schemas.py
 - `AgentFinding` --uses--> `AgentFinding`  [INFERRED]
   ai-core/app/agents/memory_agent.py → ai-core/app/schemas.py
-- `Orchestrator` --uses--> `AnalyzeRequest`  [INFERRED]
-  ai-core/app/agents/orchestrator.py → ai-core/app/schemas.py
+- `AgentFinding` --uses--> `AgentFinding`  [INFERRED]
+  ai-core/app/agents/risk_agent.py → ai-core/app/schemas.py
+- `AgentFinding` --uses--> `AgentFinding`  [INFERRED]
+  ai-core/app/agents/safety_agent.py → ai-core/app/schemas.py
 
 ## Import Cycles
 - None detected.
 
-## Communities (52 total, 4 thin omitted)
+## Communities (107 total, 25 thin omitted)
 
 ### Community 0 - "Community 0"
-Cohesion: 0.08
-Nodes (48): DiseaseAgent, EnvironmentAgent, FeedAgent, MedicineAgent, MemoryAgent, RiskAgent, SafetyAgent, SymptomAgent (+40 more)
+Cohesion: 0.05
+Nodes (64): DiseaseAgent, EnvironmentAgent, FeedAgent, MedicineAgent, MemoryAgent, Orchestrator, RiskAgent, SafetyAgent (+56 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.06
-Nodes (36): Logo(), AppointmentModal(), AuthModal(), states, Preloader(), Sidebar(), CaseIntakeForm(), symptomOptions (+28 more)
+Cohesion: 0.07
+Nodes (24): ChatView(), ConversationList(), suggestions, Composer(), ComposerProps, MarkdownContent(), MessageList(), generateReply() (+16 more)
 
 ### Community 2 - "Community 2"
 Cohesion: 0.05
@@ -110,40 +164,40 @@ Cohesion: 0.06
 Nodes (33): dependencies, axios, bcryptjs, cors, dotenv, express, helmet, ioredis (+25 more)
 
 ### Community 5 - "Community 5"
-Cohesion: 0.06
-Nodes (32): 1. Start Backend, 2. Start Frontend, 3. Test Health Check, 4. Test Login, 5. Open Frontend, AI Core Integration, Authentication Errors, Authentication Flow (+24 more)
+Cohesion: 0.15
+Nodes (12): AI Core Integration, Authentication Flow, Backend Server, CORS Configuration, Database, Error Handling, Flocksy API Integration Guide, Next Steps (+4 more)
 
 ### Community 6 - "Community 6"
-Cohesion: 0.06
-Nodes (32): dependencies, date-fns, framer-motion, gsap, lucide-react, react, react-dom, react-hot-toast (+24 more)
+Cohesion: 0.04
+Nodes (47): dependencies, class-variance-authority, clsx, cmdk, date-fns, @dnd-kit/core, @dnd-kit/modifiers, @dnd-kit/sortable (+39 more)
 
 ### Community 7 - "Community 7"
-Cohesion: 0.09
-Nodes (13): translations, translations, translations, translations, birdData, statusConfig, translations, actions (+5 more)
+Cohesion: 0.13
+Nodes (18): LocalResult, statusStyle, categoryIcons, Avatar, AvatarFallback, AvatarImage, Badge(), BadgeProps (+10 more)
 
 ### Community 8 - "Community 8"
-Cohesion: 0.15
-Nodes (15): DashboardHeader(), WeeklyTrendChart(), HealthAlertsPanel(), severityConfig, colorMap, StatsRow(), FarmBalanceDonut(), ACTIONS (+7 more)
+Cohesion: 0.07
+Nodes (27): CHART_COLORS, FARM_TYPES, INVENTORY_UNITS, SEVERITY_TONES, STOCK_TONES, TRANSACTION_CATEGORIES, VACCINATION_TONES, isLocale() (+19 more)
 
 ### Community 9 - "Community 9"
-Cohesion: 0.13
-Nodes (8): Orchestrator, AnalyzeRequest, AnalyzeRequest, Any, analyze(), analyze_case(), MCPClient, RAGService
+Cohesion: 0.09
+Nodes (28): AreaTrend(), BarSeries(), DonutChart(), DonutChartProps, DonutDatum, LineSeries(), SeriesPoint, Sparkline() (+20 more)
 
 ### Community 10 - "Community 10"
-Cohesion: 0.23
-Nodes (8): AnalyzeRequest, Path, Tensor, VisionResult, VisionCandidate, Image, PoultryCNN, VisionService
+Cohesion: 0.10
+Nodes (29): mockCommunityPosts, mockFarms, mockFeedBatches, mockFinance, mockInventory, mockLessons, mockMarketPrices, mockMedicines (+21 more)
 
 ### Community 11 - "Community 11"
-Cohesion: 0.14
-Nodes (5): Footer(), footerLinks, LeafIcon(), MenuIcon(), XIcon()
+Cohesion: 0.13
+Nodes (18): AdviceCard(), GaugeCard(), seasonMap, categoryEmoji, NotificationRow(), typeIcon, categoryEmoji, DataState() (+10 more)
 
 ### Community 12 - "Community 12"
-Cohesion: 0.12
-Nodes (17): 1. Authentication (`/auth`), 2. Dashboard (`/dashboard`), 3. Diagnosis (`/diagnosis`), 4. Veterinarians (`/vets`), 5. Users (`/users`), 6. Health Check (`/health`), API Endpoints, GET `/dashboard/summary` (+9 more)
+Cohesion: 0.15
+Nodes (13): 1. Authentication (`/auth`), 2. Dashboard (`/dashboard`), 4. Veterinarians (`/vets`), 5. Users (`/users`), 6. Health Check (`/health`), API Endpoints, GET `/dashboard/summary`, GET `/health` (+5 more)
 
 ### Community 13 - "Community 13"
 Cohesion: 0.18
-Nodes (10): DataLoader, Dataset, Namespace, Path, Tensor, Module, evaluate(), PoultryCNN (+2 more)
+Nodes (10): DataLoader, Dataset, Path, Tensor, Module, Namespace, evaluate(), PoultryCNN (+2 more)
 
 ### Community 14 - "Community 14"
 Cohesion: 0.17
@@ -154,8 +208,8 @@ Cohesion: 0.14
 Nodes (13): compilerOptions, esModuleInterop, forceConsistentCasingInFileNames, module, moduleResolution, outDir, resolveJsonModule, rootDir (+5 more)
 
 ### Community 16 - "Community 16"
-Cohesion: 0.16
-Nodes (11): dashboardRouter, dashboardService, Activity, ChartSegment, DashboardSummary, DiagnosisCaseRecord, FarmContext, HealthAlert (+3 more)
+Cohesion: 0.20
+Nodes (9): Activity, DashboardSummary, ChartSegment, DiagnosisCaseRecord, FarmContext, HealthAlert, Task, TopStat (+1 more)
 
 ### Community 17 - "Community 17"
 Cohesion: 0.15
@@ -163,11 +217,11 @@ Nodes (12): AI Core, Backend, Flocksy Quick Start Guide, Frontend, Local-first s
 
 ### Community 18 - "Community 18"
 Cohesion: 0.25
-Nodes (6): logger, diagnosisRouter, healthRouter, vetRouter, vets, app
+Nodes (6): dashboardRouter, diagnosisRouter, healthRouter, vetRouter, vets, dashboardService
 
 ### Community 19 - "Community 19"
-Cohesion: 0.24
-Nodes (7): env, envSchema, aiCoreClient, client, pgPool, redis, DiagnosisRequestPayload
+Cohesion: 0.19
+Nodes (9): env, envSchema, logger, aiCoreClient, client, pgPool, redis, app (+1 more)
 
 ### Community 20 - "Community 20"
 Cohesion: 0.20
@@ -186,8 +240,8 @@ Cohesion: 0.36
 Nodes (5): Request, requireAuth(), farmRouter, userRouter, AuthenticatedRequestUser
 
 ### Community 24 - "Community 24"
-Cohesion: 0.46
-Nodes (7): Namespace, Path, clear_output(), collect_files(), normalize_label(), prepare_dataset(), split_counts()
+Cohesion: 0.06
+Nodes (31): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+23 more)
 
 ### Community 25 - "Community 25"
 Cohesion: 0.29
@@ -218,8 +272,8 @@ Cohesion: 0.40
 Nodes (5): 4. Production Architecture, AI Core, Backend, Frontend, MCP Layer
 
 ### Community 32 - "Community 32"
-Cohesion: 0.40
-Nodes (4): Poultry Disease CNN Training, Prepare Splits, Raw Dataset, Train
+Cohesion: 0.33
+Nodes (5): Dataset Setup, Download the Dataset, ML Training - Poultry Disease Detection, Trained Models, Training
 
 ### Community 34 - "Community 34"
 Cohesion: 0.50
@@ -249,25 +303,157 @@ Nodes (3): 12. Farm Memory Intelligence, Example Memory Insight, Memory Signals
 Cohesion: 0.67
 Nodes (3): 7. Vision System, Production Inference Output, Recommended Training Stack
 
+### Community 50 - "Community 50"
+Cohesion: 0.09
+Nodes (16): SiteConfig, benefits, faqKeys, farmTypes, LandingPage(), showcaseFeatures, stats, steps (+8 more)
+
+### Community 51 - "Community 51"
+Cohesion: 0.07
+Nodes (27): Activity, DashboardSummary, AiChatResponse, AlertSeverity, ChartDatum, ChatReference, DailyForecast, DashboardAlert (+19 more)
+
+### Community 52 - "Community 52"
+Cohesion: 0.18
+Nodes (10): SectionCardProps, StatCard(), StatCardProps, Card, CardContent, CardDescription, CardFooter, CardHeader (+2 more)
+
+### Community 53 - "Community 53"
+Cohesion: 0.10
+Nodes (6): Checkbox, PopoverContent, RadioGroup, RadioGroupItem, Separator, TooltipContent
+
+### Community 54 - "Community 54"
+Cohesion: 0.16
+Nodes (15): LoginForm(), RegisterForm(), loginSchema, LoginValues, registerSchema, RegisterValues, useLogin(), useRegister() (+7 more)
+
+### Community 55 - "Community 55"
+Cohesion: 0.15
+Nodes (13): mockDashboard(), getAuthToken(), authService, dashboardService, ApiError, extractErrorMessage(), http, request() (+5 more)
+
+### Community 56 - "Community 56"
+Cohesion: 0.13
+Nodes (8): AnalyticsView(), BatchCard(), daysLeftTone(), FinanceView(), useFinance(), useTransactions(), formatINR(), MedicineCard()
+
+### Community 57 - "Community 57"
+Cohesion: 0.18
+Nodes (9): AppShell(), AppSidebar(), MobileDock(), MobileNav(), ModalName, UiState, useUiStore, ScrollArea (+1 more)
+
+### Community 58 - "Community 58"
+Cohesion: 0.19
+Nodes (9): { Link, redirect, usePathname, useRouter, getPathname }, MarketingFooter(), links, MarketingNav(), Brand(), BrandMark(), BrandProps, LanguageSwitcher() (+1 more)
+
+### Community 59 - "Community 59"
+Cohesion: 0.18
+Nodes (13): allNavItems, dockItems, navigation, NavItem, NavSection, Command, CommandDialog(), CommandEmpty (+5 more)
+
+### Community 60 - "Community 60"
+Cohesion: 0.21
+Nodes (13): DashboardHeader(), useLogout(), AppTopbar(), useAuthStore, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel (+5 more)
+
+### Community 61 - "Community 61"
+Cohesion: 0.13
+Nodes (14): 10. Services / Ports (start-all.sh), 11. Summary of every folder the frontend connects to, 1. Connection Overview (Diagram), 2. Connection #1 — Frontend → Backend (REST / HTTP), 3. Connection #2 — Backend → Frontend (Reference Images), 4. Connection #3 — Backend → AI-Core, 5. Connection #4 — Frontend → External AI (Anthropic, direct-browser ⚠), 6. Connection #5 — AI-Core → MCP Services (+6 more)
+
+### Community 62 - "Community 62"
+Cohesion: 0.13
+Nodes (13): qk, setAuthToken(), communityService, feedService, financeService, inventoryService, learningService, marketService (+5 more)
+
+### Community 63 - "Community 63"
+Cohesion: 0.15
+Nodes (7): ProfileView(), ThemeProvider(), SettingsView(), CommandPalette(), PreferencesState, ThemePreference, usePreferencesStore
+
+### Community 64 - "Community 64"
+Cohesion: 0.15
+Nodes (12): description, engines, node, name, private, scripts, build, dev (+4 more)
+
+### Community 65 - "Community 65"
+Cohesion: 0.20
+Nodes (10): devDependencies, eslint, eslint-config-next, tailwindcss, @tailwindcss/postcss, tw-animate-css, @types/node, @types/react (+2 more)
+
+### Community 66 - "Community 66"
+Cohesion: 0.27
+Nodes (8): SheetContent, SheetContentProps, SheetDescription, SheetFooter(), SheetHeader(), SheetOverlay, SheetTitle, sheetVariants
+
+### Community 67 - "Community 67"
+Cohesion: 0.20
+Nodes (9): AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter(), AlertDialogHeader(), AlertDialogOverlay, AlertDialogTitle (+1 more)
+
+### Community 68 - "Community 68"
+Cohesion: 0.28
+Nodes (4): WeatherMini(), useWeather(), conditionIcon, WeatherView()
+
+### Community 69 - "Community 69"
+Cohesion: 0.28
+Nodes (5): useNotifications(), NotificationsView(), NotificationsState, useNotificationsStore, AppNotification
+
+### Community 70 - "Community 70"
+Cohesion: 0.28
+Nodes (4): ReportLine(), ReportsView(), ReportType, Progress
+
+### Community 71 - "Community 71"
+Cohesion: 0.25
+Nodes (7): diagnosisService, farmService, userService, vetService, DiagnosisUploadPayload, ListResponse, Vet
+
+### Community 72 - "Community 72"
+Cohesion: 0.25
+Nodes (7): SelectContent, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger
+
+### Community 73 - "Community 73"
+Cohesion: 0.33
+Nodes (6): 1. Start Backend, 2. Start Frontend, 3. Test Health Check, 4. Test Login, 5. Open Frontend, Testing the Integration
+
+### Community 74 - "Community 74"
+Cohesion: 0.33
+Nodes (6): Example: Chat Query, Example: Fetch Dashboard, Example: Login, Example: Upload Image for Diagnosis, Frontend API Usage, Import API Functions
+
+### Community 76 - "Community 76"
+Cohesion: 0.40
+Nodes (5): Authentication Errors, Connection Errors, CORS Errors, Database Errors, Troubleshooting
+
+### Community 80 - "Community 80"
+Cohesion: 0.40
+Nodes (4): compat, __dirname, eslintConfig, __filename
+
+### Community 88 - "Community 88"
+Cohesion: 0.40
+Nodes (3): DateRangeKey, FiltersState, useFiltersStore
+
+### Community 89 - "Community 89"
+Cohesion: 0.50
+Nodes (4): 3. Diagnosis (`/diagnosis`), POST `/diagnosis/analyze`, POST `/diagnosis/chat`, POST `/diagnosis/upload`
+
+### Community 92 - "Community 92"
+Cohesion: 0.50
+Nodes (3): Deploy on Vercel, Getting Started, Learn More
+
+### Community 93 - "Community 93"
+Cohesion: 0.67
+Nodes (3): AuthState, AuthStatus, User
+
+### Community 94 - "Community 94"
+Cohesion: 0.67
+Nodes (3): FarmState, useFarmStore, Farm
+
+### Community 95 - "Community 95"
+Cohesion: 0.67
+Nodes (3): Environment Variables, Frontend Configuration, Starting the Frontend
+
 ## Knowledge Gaps
-- **304 isolated node(s):** `name`, `version`, `private`, `type`, `dev` (+299 more)
+- **497 isolated node(s):** `name`, `version`, `private`, `type`, `dev` (+492 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **25 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `AnalyzeRequest` connect `Community 0` to `Community 9`, `Community 10`?**
-  _High betweenness centrality (0.009) - this node is a cross-community bridge._
-- **Why does `Flocksy AI Production Architecture` connect `Community 22` to `Community 34`, `Community 35`, `Community 36`, `Community 37`, `Community 41`, `Community 42`, `Community 43`, `Community 20`, `Community 25`, `Community 28`, `Community 29`, `Community 31`?**
-  _High betweenness centrality (0.008) - this node is a cross-community bridge._
-- **Why does `DecisionEngine` connect `Community 0` to `Community 9`?**
+- **Why does `cn()` connect `Community 9` to `Community 1`, `Community 66`, `Community 67`, `Community 70`, `Community 7`, `Community 72`, `Community 11`, `Community 50`, `Community 52`, `Community 53`, `Community 54`, `Community 56`, `Community 57`, `Community 58`, `Community 59`, `Community 60`?**
+  _High betweenness centrality (0.059) - this node is a cross-community bridge._
+- **Why does `Button` connect `Community 11` to `Community 1`, `Community 68`, `Community 70`, `Community 7`, `Community 9`, `Community 50`, `Community 52`, `Community 54`, `Community 56`, `Community 57`, `Community 58`, `Community 60`?**
+  _High betweenness centrality (0.010) - this node is a cross-community bridge._
+- **Why does `Medicine` connect `Community 10` to `Community 11`, `Community 51`?**
   _High betweenness centrality (0.004) - this node is a cross-community bridge._
 - **Are the 28 inferred relationships involving `AnalyzeRequest` (e.g. with `EnvironmentAgent` and `FeedAgent`) actually correct?**
   _`AnalyzeRequest` has 28 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 20 inferred relationships involving `DecisionEngine` (e.g. with `Orchestrator` and `.__init__()`) actually correct?**
   _`DecisionEngine` has 20 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 19 inferred relationships involving `AgentFinding` (e.g. with `DiseaseAgent` and `EnvironmentAgent`) actually correct?**
-  _`AgentFinding` has 19 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 17 inferred relationships involving `VisionResult` (e.g. with `DiseaseAgent` and `AgentFinding`) actually correct?**
-  _`VisionResult` has 17 INFERRED edges - model-reasoned connections that need verification._
+- **What connects `name`, `version`, `private` to the rest of the system?**
+  _497 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Community 0` be split into smaller, more focused modules?**
+  _Cohesion score 0.05137741046831956 - nodes in this community are weakly interconnected._
