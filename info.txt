@@ -1,32 +1,41 @@
 ================================================================================
-                    FLOCKSY — COMPLETE PROJECT INFO
-          AI-Powered Poultry Intelligence Platform (Full Documentation)
+                    FLOCKSY — COMPREHENSIVE PROJECT ANALYSIS
+          AI-Powered Poultry Intelligence Platform (Updated 2026-08-06)
 ================================================================================
 
-Generated: 2026-05-06
+Generated: 2026-08-06
 Authors: Himanshu Solanki & Team
 Repo: https://github.com/Himanshusolanki24/Flocksy
+Analysis Version: 2.0 (Post-Implementation Review)
+
+================================================================================
+EXECUTIVE SUMMARY
+================================================================================
+
+Flocksy is an ambitious, well-architected AI-powered poultry farm intelligence 
+platform that has successfully transitioned from concept to a functional MVP. 
+The project demonstrates strong architectural thinking with proper separation of 
+concerns, but requires significant production hardening before real-world deployment.
+
+CURRENT STATUS: Functional MVP with production architecture blueprint ready
+COMPLETION: ~55-60% of production roadmap implemented
+READINESS: Not production-ready; requires Phase 1-2 refactoring per roadmap
 
 ================================================================================
 TABLE OF CONTENTS
 ================================================================================
  1. PROJECT OVERVIEW & PROBLEM STATEMENT
- 2. SOLUTION & USP (Unique Selling Points)
- 3. IMPACT & BENEFITS
- 4. COMPLETE TECH STACK
- 5. EXISTING CODEBASE ANALYSIS
- 6. CORE CONCEPTS (LLM, MCP, Separation of Concerns)
- 7. AI AGENTS (A2A SYSTEM) — Who Does What
- 8. WHAT MCP ACTUALLY IS (Detailed)
- 9. MCPs BUILT (Detailed Breakdown)
-10. DATASETS NEEDED BEFORE CODING
-11. RAG SYSTEM (Retrieval-Augmented Generation)
-12. COMPUTER VISION — CNN DISEASE DETECTION
-13. COMPLETE DATA FLOW (Step-by-Step)
-14. RECOMMENDED BUILD ORDER
-15. FINAL CHECKLIST & SUMMARY
-16. VETERINARIAN PORTAL (Dashboard & Integration)
-17. ARCHITECTURE DIAGRAM
+ 2. CURRENT IMPLEMENTATION STATUS
+ 3. ARCHITECTURE ANALYSIS
+ 4. TECH STACK INVENTORY
+ 5. IMPLEMENTATION GAPS & DRAWBACKS
+ 6. NEXT BUILD RECOMMENDATIONS
+ 7. TESTING & QUALITY GAPS
+ 8. SECURITY & COMPLIANCE STATUS
+ 9. PERFORMANCE CONSIDERATIONS
+10. DEPLOYMENT READINESS
+11. PRIORITY ACTION ITEMS
+12. FINAL ASSESSMENT
 
 ================================================================================
 1. PROJECT OVERVIEW & PROBLEM STATEMENT
@@ -35,1114 +44,854 @@ TABLE OF CONTENTS
 PROJECT NAME: Flocksy (PoultryCare AI)
 TAGLINE: "AI-Powered Poultry Intelligence — See Disease Before It Spreads"
 
-WHAT IS FLOCKSY?
-Flocksy is an AI-powered poultry farm intelligence platform that combines
-computer vision (CNN-based disease detection), multi-agent AI orchestration,
-and verified veterinary knowledge to provide real-time flock health diagnostics,
-treatment guidance, feed optimization, and environmental management.
+CORE VALUE PROPOSITION:
+Flocksy combines computer vision (CNN-based disease detection), multi-agent AI 
+orchestration, and verified veterinary knowledge to provide real-time flock health 
+diagnostics, treatment guidance, feed optimization, and environmental management.
 
-THE PROBLEM WE SOLVE:
- • India has 30B+ poultry birds — yet most farmers lack access to veterinarians
- • Poultry diseases (Coccidiosis, Newcastle, Salmonella) spread in HOURS,
-   killing entire flocks before a vet can arrive
- • Existing farm apps are generic — they don't analyze images or contextualize
-   by flock age, environment, or feed history
- • Farmers self-medicate birds with antibiotics, creating drug-resistant strains
-   and violating food-safety withdrawal periods
- • No platform combines image-based disease detection with environment-aware
-   treatment guidance using verified veterinary datasets
- • Farm data (mortality, feed costs, treatment history) is scattered in notebooks
-
-WHO IS IT FOR?
- • Poultry farmers managing broiler/layer flocks of any size
+TARGET USERS:
+ • Poultry farmers managing broiler/layer flocks
  • Farm managers overseeing multiple poultry houses
- • Veterinarians who need AI-assisted remote triage
+ • Veterinarians needing AI-assisted remote triage
  • Agricultural researchers studying disease patterns
  • Government bodies monitoring disease outbreaks
 
-WHAT WE DO NOT DO (Critical Safety Boundary):
- ✗ We do NOT replace licensed veterinarians
- ✗ We do NOT guarantee diagnosis accuracy — always confirm clinically
- ✗ We do NOT prescribe controlled substances
- ✗ We ALWAYS recommend professional consultation for high-mortality events
+PROBLEM SOLVED:
+ • India has 30B+ poultry birds — most farmers lack veterinary access
+ • Diseases spread in HOURS before professional help arrives
+ • Existing apps don't analyze images or contextualize by farm context
+ • Farmers self-medicate, creating drug-resistant strains
+ • No platform combines vision + verified veterinary data + farm memory
+
+CRITICAL SAFETY BOUNDARIES:
+ ✗ Does NOT replace licensed veterinarians
+ ✗ Does NOT guarantee diagnosis accuracy
+ ✗ Does NOT prescribe controlled substances
+ ✗ ALWAYS recommends professional consultation for high-mortality events
 
 ================================================================================
-2. SOLUTION & USP (Unique Selling Points)
+2. CURRENT IMPLEMENTATION STATUS
 ================================================================================
 
-OUR SOLUTION:
-A multi-agent AI system that:
- 1. Detects disease from fecal/bird images using a custom-trained CNN model
- 2. Cross-references symptoms with a verified disease database (MCP)
- 3. Recommends medicines with dosage, route, and withdrawal periods
- 4. Optimizes feed plans based on flock age and stress levels
- 5. Evaluates housing environment (temperature, humidity, ventilation)
- 6. Validates ALL recommendations through a Safety Agent before delivery
+IMPLEMENTED COMPONENTS:
 
-USPs (What Makes Us Different):
+✓ Frontend (Next.js 15 + React 19)
+  - 20+ feature modules including dashboard, diagnosis, assistant, analytics
+  - Internationalization support (English + Hindi)
+  - Modern UI with Radix UI components
+  - State management with Zustand
+  - React Query for data fetching
+  - File: frontend/ (Next.js app structure)
 
- USP 1: Computer Vision Disease Detection (Custom CNN)
-   → A 4-layer Convolutional Neural Network trained on real poultry disease
-     images (fecal samples, bird carcasses). Classifies diseases like
-     Coccidiosis, Newcastle Disease, Salmonellosis, and Healthy flocks.
-   → Not just text — farmers can UPLOAD A PHOTO and get instant analysis.
+✓ Backend API (Express + TypeScript)
+  - RESTful routes: auth, farms, users, diagnosis, vets, dashboard
+  - PostgreSQL database schema with proper indexing
+  - File upload handling with Multer
+  - Integration with AI Core via HTTP client
+  - Redis support (configured but not actively used)
+  - File: backend/src/
 
- USP 2: Agent-to-Agent (A2A) Architecture
-   → Five specialized agents + one orchestrator collaborate:
-     Disease Agent, Medicine Agent, Feed Agent, Environment Agent,
-     Safety Agent, and the Orchestrator. Each is an expert in one domain.
+✓ AI Core (FastAPI + Python)
+  - Orchestrator with multi-agent architecture
+  - Decision Engine with confidence fusion scoring
+  - 9 specialized agents: Disease, Symptom, Environment, Feed, Medicine, 
+    Memory, Risk, Safety, and Localization
+  - Vision service integration (basic CNN)
+  - RAG service stub for knowledge retrieval
+  - File: ai-core/app/
 
- USP 3: Model Context Protocol (MCP) — 6 Microservices
-   → AI never touches databases directly. Six independent MCP services
-     fetch ONLY verified data from curated JSON datasets.
-   → Disease MCP, Medicine MCP, Feed MCP, Environment MCP, Safety MCP,
-     Memory MCP — each with strict input/output schemas.
+✓ Decision Engine (Production-Ready Core)
+  - Structured differential diagnosis with ranking
+  - Confidence fusion: vision (40%) + symptoms (20%) + environment (10%) + 
+    history (10%) + knowledge (10%) + safety (10%)
+  - Risk assessment: severity, spread, mortality, urgency
+  - Recommended actions with priority levels
+  - Safety validation with approval/blocking logic
+  - Localization renderer for farmer-friendly language
+  - File: ai-core/app/decision_engine/engine.py
 
- USP 4: RAG-Grounded Knowledge
-   → Veterinary knowledge from FAO, ICAR, and reference handbooks is
-     chunked, embedded, and searched at query time. AI cites sources.
+✓ MCP Services (6 Microservices)
+  - Disease MCP: Disease database with symptoms, treatment, prevention
+  - Medicine MCP: Medicine recommendations with dosage and withdrawal periods
+  - Feed MCP: Age-specific feed profiles
+  - Environment MCP: Temperature/humidity recommendations by age
+  - Safety MCP: Validation rules for medicine interactions
+  - Memory MCP: Farm history and incident tracking
+  - Ports: 8101-8106
+  - Files: mcp-services/*/
 
- USP 5: Safety-First Architecture
-   → A dedicated Safety Agent + Safety MCP validates EVERY recommendation.
-     Contraindicated treatments are flagged. Young-flock dosage alerts
-     are triggered automatically. Withdrawal periods are enforced.
+✓ Machine Learning Pipeline
+  - Custom 4-layer CNN for disease classification
+  - Training script with data augmentation support
+  - Model checkpointing and artifact management
+  - Support for multiple disease classes
+  - File: ml/training/train_disease_cnn.py
 
- USP 6: Real-Time Farm Context
-   → Every analysis considers: flock age, temperature, humidity, feed type,
-     batch history. Not generic advice — personalized to YOUR farm TODAY.
+✓ RAG System (Stub)
+  - Document ingestion script for PDF/TXT files
+  - Chunking strategy (450 words per chunk)
+  - Knowledge base preparation pipeline
+  - File: rag/scripts/ingest_documents.py
 
-================================================================================
-3. IMPACT & BENEFITS
-================================================================================
+✓ Database Schema
+  - Users, farms, poultry_batches tables
+  - Disease records with confidence tracking
+  - Feed logs and treatment logs
+  - Proper foreign key relationships and indexes
+  - File: backend/database/schema.sql
 
-SOCIAL IMPACT:
- • Democratizes veterinary knowledge for 25M+ Indian poultry farmers
- • Reduces catastrophic flock losses from delayed disease detection
- • Fights antimicrobial resistance by enforcing proper withdrawal periods
- • Bridges the urban-rural veterinary access gap
+✓ Localization Layer
+  - Rural Hindi formatter for farmer-friendly output
+  - Avoids clinical jargon
+  - Action-first phrasing
+  - File: ai-core/app/localization/
 
-HEALTH IMPACT (Animal & Human):
- • Early disease detection saves entire flocks (hours matter in poultry)
- • Proper medication guidance prevents drug-resistant pathogen evolution
- • Withdrawal period enforcement protects human food safety
- • Environmental optimization reduces heat stress mortality
-
-TECHNOLOGY IMPACT:
- • Demonstrates responsible AI in agriculture (safety-validated outputs)
- • Proves CNN + multi-agent + MCP architecture for farm intelligence
- • Open, modular architecture adoptable by other livestock sectors
- • Shows how RAG grounds AI responses in verified veterinary literature
-
-BUSINESS IMPACT:
- • Scalable SaaS — serves thousands of farms simultaneously
- • Low marginal cost per diagnosis (AI + CNN inference is cheap at scale)
- • Premium features: vet consultations, analytics dashboards, export reports
- • Reduces farm losses by 20-40% through early intervention
-
-================================================================================
-4. COMPLETE TECH STACK
-================================================================================
-
-LAYER              | TECHNOLOGY                    | PURPOSE
--------------------|-------------------------------|----------------------------------
-AI Engine          | Python 3.11+ / FastAPI        | AI orchestration, agent logic
-LLM               | OpenAI API (configurable)     | Reasoning, symptom summarization
-Vision Model       | PyTorch CNN (custom 4-layer)  | Disease classification from images
-Embeddings         | sentence-transformers (HF)    | Text→vector for RAG retrieval
-Vector Search      | FAISS (CPU)                   | Local vector similarity search
-Backend API        | TypeScript / Express.js 4     | Auth, farms, diagnosis, dashboard
-Database           | PostgreSQL (Supabase)         | Users, farms, batches, records
-Auth               | JWT (bcryptjs + jsonwebtoken) | Email/password authentication
-Frontend           | React 18 + Vite 5             | Single-page application
-UI Framework       | Tailwind CSS 3                | Utility-first styling
-Animations         | Framer Motion + GSAP          | Micro-animations, transitions
-Charts             | Recharts                      | Farm analytics visualization
-State Management   | Zustand                       | Lightweight global state
-Real-time          | Socket.io (client)            | Live farm event streaming
-HTTP Client        | Axios (backend) / Fetch (FE)  | Service-to-service communication
-Validation         | Zod (backend) / Pydantic (AI) | Schema validation at every layer
-File Upload        | Multer                        | Image upload handling
-Package Manager    | npm                           | Dependency management
-Deployment Target  | Docker / Cloud                | Containerized microservices
-
-PYTHON DEPENDENCIES (ai-core/requirements.txt):
- • fastapi, uvicorn — Web framework & ASGI server
- • httpx — Async HTTP client for MCP calls
- • pydantic, pydantic-settings — Data validation & config
- • torch, numpy, Pillow — CNN inference pipeline
- • scikit-learn, pandas — Data processing utilities
- • sentence-transformers — Text embedding for RAG
- • faiss-cpu — Vector similarity search
- • openai — LLM API client
-
-NODE DEPENDENCIES (backend/package.json):
- • express 4.x — Web framework
- • pg — PostgreSQL driver (Supabase)
- • bcryptjs — Password hashing
- • jsonwebtoken — JWT token signing/verification
- • zod — Runtime schema validation
- • axios — HTTP client for AI Core calls
- • multer — Multipart file upload
- • helmet, cors, morgan — Security & logging middleware
- • ioredis — Redis client (caching layer)
-
-FRONTEND DEPENDENCIES (frontend/package.json):
- • react 18.x, react-dom — UI library
- • react-router-dom 7.x — Client-side routing
- • zustand — State management
- • @tanstack/react-query — Server state & caching
- • recharts — Data visualization
- • framer-motion, gsap — Animation libraries
- • lucide-react — Icon library
- • socket.io-client — WebSocket client
- • react-hot-toast — Toast notifications
- • tailwindcss 3.x — CSS framework
+✓ Startup Automation
+  - Comprehensive startup script (start-all.sh)
+  - Handles all services: backend, frontend, ai-core, 6 MCP services
+  - Virtual environment management for Python services
+  - Dependency installation automation
+  - File: start-all.sh
 
 ================================================================================
-5. EXISTING CODEBASE ANALYSIS
+3. ARCHITECTURE ANALYSIS
 ================================================================================
 
-PROJECT STRUCTURE:
-  Flocksy/
-  ├── ai-core/                       ← Python AI Engine (FastAPI)
-  │   ├── requirements.txt           ← Python dependencies
-  │   ├── .env / .env.example        ← Environment configuration
-  │   └── app/
-  │       ├── main.py                ← FastAPI server (health + /analyze)
-  │       ├── schemas.py             ← Pydantic models (FarmContext, AnalyzeRequest, etc.)
-  │       ├── agents/
-  │       │   ├── orchestrator.py    ← Master coordinator (122 lines)
-  │       │   ├── disease_agent.py   ← CNN + MCP disease assessment
-  │       │   ├── medicine_agent.py  ← Treatment recommendation
-  │       │   ├── feed_agent.py      ← Nutritional strategy
-  │       │   ├── environment_agent.py ← Climate evaluation
-  │       │   └── safety_agent.py    ← Final validation gate
-  │       ├── clients/
-  │       │   └── mcp_client.py      ← HTTP client for all MCP services
-  │       ├── core/
-  │       │   └── config.py          ← Settings (MCP URLs, model paths, API keys)
-  │       ├── data/
-  │       │   └── knowledge_base.json ← Local RAG knowledge (3 documents)
-  │       └── services/
-  │           ├── llm_service.py     ← LLM symptom summarization
-  │           ├── vision_service.py  ← CNN model loading + inference (122 lines)
-  │           └── rag_service.py     ← Local vector search over knowledge base
-  │
-  ├── backend/                       ← TypeScript/Express API
-  │   ├── package.json               ← Node dependencies
-  │   ├── tsconfig.json              ← TypeScript configuration
-  │   └── src/
-  │       ├── server.ts              ← Server entry point (port 8080)
-  │       ├── app.ts                 ← Express app (helmet, cors, morgan, routes)
-  │       ├── config/                ← Database configuration
-  │       ├── data/                  ← Static data files
-  │       ├── lib/                   ← Utility libraries
-  │       ├── middleware/
-  │       │   └── auth.ts            ← JWT authentication middleware
-  │       ├── routes/
-  │       │   ├── auth.ts            ← Login/Register (bcrypt + JWT)
-  │       │   ├── diagnosis.ts       ← Image upload + AI Core proxy (112 lines)
-  │       │   ├── dashboard.ts       ← Farm summary statistics
-  │       │   ├── farms.ts           ← Farm CRUD operations
-  │       │   ├── users.ts           ← User profile routes
-  │       │   ├── vets.ts            ← Veterinarian directory
-  │       │   └── health.ts          ← Health check endpoint
-  │       ├── services/
-  │       │   ├── authService.ts     ← Auth business logic
-  │       │   ├── aiCoreClient.ts    ← HTTP client for AI Core
-  │       │   └── storageService.ts  ← Media upload handling
-  │       └── types/                 ← TypeScript type definitions
-  │
-  ├── mcp-services/                  ← 6 Verified Data Microservices
-  │   ├── disease_mcp/               ← Port 8101
-  │   │   ├── app/main.py            ← Disease search endpoint
-  │   │   └── data/diseases.json     ← Verified disease records
-  │   ├── medicine_mcp/              ← Port 8102
-  │   │   ├── app/main.py            ← Medicine recommendation endpoint
-  │   │   └── data/medicines.json    ← Verified medicine records
-  │   ├── feed_mcp/                  ← Port 8103
-  │   │   ├── app/main.py            ← Feed recommendation by age
-  │   │   └── data/feed_profiles.json ← Age-band feed profiles
-  │   ├── environment_mcp/           ← Port 8104
-  │   │   ├── app/main.py            ← Environment recommendation
-  │   │   └── data/environment_profiles.json ← Climate thresholds
-  │   ├── safety_mcp/                ← Port 8105
-  │   │   ├── app/main.py            ← Contraindication validation
-  │   │   └── data/rules.json        ← Safety rules database
-  │   └── memory_mcp/                ← Port 8106
-  │       ├── app/main.py            ← Farm history retrieval
-  │       └── data/history.json      ← Past incident records
-  │
-  ├── ml/                            ← Machine Learning Pipeline
-  │   └── training/
-  │       ├── train_disease_cnn.py   ← Full CNN training script (229 lines)
-  │       ├── prepare_dataset.py     ← Dataset preparation utility
-  │       ├── dataset/               ← Raw training images
-  │       ├── poultry_diseases/      ← Organized disease image classes
-  │       ├── artifacts-cpu-real/    ← Production model checkpoint
-  │       ├── artifacts-baseline/    ← Baseline experiment artifacts
-  │       └── artifacts-smoke*/      ← Smoke test artifacts
-  │
-  ├── rag/                           ← RAG Document Pipeline
-  │   ├── scripts/
-  │   │   └── ingest_documents.py    ← PDF/TXT chunker (64 lines)
-  │   └── data/
-  │       ├── raw/                   ← Source veterinary documents
-  │       └── processed/             ← Chunked knowledge JSONs
-  │
-  ├── frontend/                      ← Vite + React 18 SPA
-  │   ├── package.json               ← Frontend dependencies
-  │   ├── vite.config.js             ← Vite configuration
-  │   ├── tailwind.config.js         ← Tailwind CSS configuration
-  │   ├── index.html                 ← HTML entry point
-  │   ├── main.jsx                   ← React entry point
-  │   ├── App.jsx                    ← Root component (routing, sidebar, auth)
-  │   ├── index.css                  ← Global styles
-  │   ├── pages/
-  │   │   ├── Home.jsx               ← Landing page with hero, features
-  │   │   ├── Dashboard.jsx          ← Farm analytics dashboard
-  │   │   ├── Chatbot.jsx            ← AI chat interface + image upload
-  │   │   ├── VetDirectory.jsx       ← Veterinarian search & contact
-  │   │   └── CropAdvisor.jsx        ← Crop/feed advisory tool
-  │   ├── components/
-  │   │   ├── Navbar.jsx             ← Top navigation bar
-  │   │   ├── Sidebar.jsx            ← Collapsible side navigation
-  │   │   ├── Footer.jsx             ← Site footer
-  │   │   ├── Modals.jsx             ← Auth modal (login/register)
-  │   │   ├── Icons.jsx              ← Custom SVG icon components
-  │   │   ├── dashboard/
-  │   │   │   ├── DashboardHeader.jsx     ← Welcome + summary stats
-  │   │   │   ├── HeroBanner.jsx          ← Dashboard hero section
-  │   │   │   ├── LiveSnapshotMetrics.jsx ← Real-time flock metrics
-  │   │   │   ├── HealthAlertsPanel.jsx   ← Active health warnings
-  │   │   │   ├── FarmBalanceChart.jsx    ← Financial analytics
-  │   │   │   ├── QuickActionsGrid.jsx    ← Quick action shortcuts
-  │   │   │   ├── RecentActivityFeed.jsx  ← Activity timeline
-  │   │   │   └── TaskQueue.jsx           ← Pending farm tasks
-  │   │   ├── sections/              ← Landing page sections
-  │   │   ├── layout/                ← Layout wrapper components
-  │   │   └── ui/                    ← Reusable UI primitives
-  │   └── store/
-  │       └── useAuth.js             ← Zustand auth store
-  │
-  ├── database/
-  │   └── schema.sql                 ← PostgreSQL schema (6 tables)
-  │
-  ├── infra/                         ← Infrastructure configs (Docker, etc.)
-  ├── start-all.sh                   ← One-command startup for all 8 services
-  └── README.md                      ← Project overview
+STRENGTHS:
 
-WHAT IS ALREADY BUILT:
+1. Excellent Separation of Concerns
+   - Frontend (Next.js) handles presentation and user interaction
+   - Backend (Express) manages auth, storage, and request routing
+   - AI Core (FastAPI) owns all intelligence and decision logic
+   - MCP Services provide verified, deterministic data access
+   - ML Pipeline is isolated for independent training and iteration
+   - RAG System prepared for knowledge injection
 
- ✅ AI Core (Orchestrator + 5 Agents):
-    • FastAPI server with /health and /analyze endpoints
-    • Orchestrator coordinates all agents in sequence
-    • Disease Agent: fuses CNN vision + MCP disease data + symptoms
-    • Medicine Agent: treatment recommendation with confidence scoring
-    • Feed Agent: age-band nutritional optimization
-    • Environment Agent: climate parameter evaluation
-    • Safety Agent: contraindication validation + withdrawal enforcement
-    • Every agent output includes mandatory safety warnings
-    • Accuracy metric computed as mean of all agent confidences
+2. Production-Grade Decision Engine
+   - Not a chatbot — a structured case-based diagnostic system
+   - Confidence fusion with configurable weights
+   - Multi-agent scoring with evidence and counter-evidence
+   - Safety gates that can block unsafe recommendations
+   - Differential diagnosis ranking (up to 3 candidates)
 
- ✅ Computer Vision (CNN Disease Detection):
-    • Custom 4-layer CNN: Conv2d(3→32→64→128→256) + AdaptiveAvgPool + Classifier
-    • Trained on real poultry disease images (Coccidiosis, Newcastle, etc.)
-    • Base64 image decode → resize → normalize → inference → softmax
-    • Symptom-based fallback when no image or no model checkpoint
-    • Full training pipeline with train/val/test splits and metrics export
+3. Verified Data Architecture (MCP Pattern)
+   - AI never touches databases directly
+   - Each MCP service owns a narrow, auditable domain
+   - JSON-based datasets with clear schemas
+   - Easy to update and extend without touching AI logic
 
- ✅ MCP Microservices (6 services):
-    • Disease MCP (8101): keyword-based disease search
-    • Medicine MCP (8102): disease→medicine recommendation
-    • Feed MCP (8103): age-band feed profile lookup
-    • Environment MCP (8104): climate threshold + warnings
-    • Safety MCP (8105): contraindication rule matching + young-flock alerts
-    • Memory MCP (8106): per-farm incident history retrieval
+4. Extensible Agent Framework
+   - Each agent specializes in one domain
+   - Agent contracts include: claim, score, evidence, counter_evidence
+   - Orchestrator collects and fuses agent outputs
+   - Safety agent acts as final validation gate
 
- ✅ Backend (Express.js + TypeScript):
-    • JWT authentication (register/login with bcrypt)
-    • Diagnosis route: multipart image upload → AI Core proxy
-    • Chat route: text query → AI Core → formatted response
-    • Farm management CRUD, dashboard summary, vet directory
-    • Zod schema validation on all inputs
-    • Helmet, CORS, Morgan middleware
+5. Internationalization-Ready
+   - Localization layer separated from core logic
+   - Supports multiple Indian languages
+   - Rural-friendly language renderers
 
- ✅ Frontend (React 18 + Vite):
-    • Landing page with animated hero, feature showcase
-    • Dashboard with 8 widget components (metrics, charts, alerts, tasks)
-    • AI Chatbot with image upload + streaming-style responses
-    • Vet Directory with search and contact
-    • Responsive sidebar navigation
-    • Zustand auth store, React Query for data fetching
-    • Framer Motion + GSAP animations
+ARCHITECTURAL CONCERNS:
 
- ✅ Database Schema (PostgreSQL):
-    • 6 tables: users, farms, poultry_batches, disease_records,
-      feed_logs, treatment_logs
-    • Full UUID primary keys, foreign key constraints, indexes
-    • Role-based users (farmer, manager, vet, admin)
+1. No True Multi-Agent Debate
+   - Agents submit findings but don't negotiate conflicts
+   - Orchestrator averages scores instead of resolving contradictions
+   - Need explicit conflict detection and resolution logic
 
- ✅ RAG Pipeline:
-    • Document ingestion script (PDF/TXT → chunked JSON)
-    • Local knowledge base with FAO, ICAR, veterinary handbook data
-    • Term-frequency search over knowledge chunks
+2. Vision Pipeline Not Production-Grade
+   - Using basic 4-layer CNN instead of transfer learning
+   - No Grad-CAM for explainability
+   - No model registry or versioning
+   - No image quality validation
 
- ✅ Infrastructure:
-    • start-all.sh: single script launches all 8 services
-    • Per-service Python venvs for isolation
-    • .env-based configuration
+3. Safety Not Yet Hard Gate
+   - Safety returns warnings but doesn't block unsafe actions
+   - Need to implement: allow / allow_with_warning / block_and_escalate
+
+4. RAG Not Source-Ranked
+   - Ingestion exists but no retrieval ranking
+   - No source priority (FAO > ICAR > veterinary manuals)
+   - No metadata filtering by disease or farm context
+
+5. Farm Memory Underutilized
+   - Memory MCP exists but not integrated into decision scoring
+   - No recurrence detection or historical pattern matching
+
+6. No Test Infrastructure
+   - Zero test files found in entire codebase
+   - No unit, integration, or end-to-end tests
+   - Critical for production safety
 
 ================================================================================
-6. CORE CONCEPTS — EXPLAINED SIMPLY
+4. TECH STACK INVENTORY
 ================================================================================
 
-WHAT IS AN LLM?
-An LLM (Large Language Model) is like a brilliant veterinary textbook that can
-TALK. It has read millions of papers. But it has NO hands — it cannot open
-files, search databases, check your farm records, or look at your bird photos.
+FRONTEND:
+  Framework: Next.js 15.4.2 with React 19.1.0
+  Language: TypeScript 5.8.0
+  State: Zustand 5.0.3
+  Data Fetching: @tanstack/react-query 5.66.0
+  UI Components: Radix UI (20+ component packages)
+  Charts: Recharts 3.10.1
+  Styling: Tailwind CSS 4.1.4
+  i18n: next-intl 4.13.5
+  Forms: react-hook-form 7.54.2 + zod 3.24.2
+  Drag & Drop: @dnd-kit/*
 
-What LLM does:     Thinks, reasons, generates text, summarizes symptoms
-What LLM does NOT: Fetch data, access databases, analyze images, verify facts
+BACKEND:
+  Runtime: Node.js (Express 4.21.2)
+  Language: TypeScript 5.8.3
+  Validation: Zod 3.25.28
+  Database: PostgreSQL (pg 8.16.0)
+  Cache/Queue: ioredis 5.6.1
+  Auth: jsonwebtoken 9.0.2, bcryptjs 2.4.3
+  Security: helmet 8.1.0, cors 2.8.5
+  HTTP Client: axios 1.9.0
+  File Upload: multer 2.0.0
+  Logging: morgan 1.10.0
 
-WHAT IS MCP (Model Context Protocol)?
-MCP is like a FILING CLERK at a veterinary clinic.
+AI CORE:
+  Framework: FastAPI (Python)
+  Runtime: uvicorn
+  ML: PyTorch
+  Vision: Custom CNN (ml/training/)
+  RAG: sentence-transformers (stub)
 
-Analogy:
- • The Vet (AI Agent) says: "I need the treatment protocol for Coccidiosis"
- • The Filing Clerk (MCP) goes to the medicine cabinet (database), pulls the
-   record, and hands it to the vet
- • The Filing Clerk does NOT interpret the record, does NOT give medical advice
+MCP SERVICES:
+  Framework: FastAPI (Python)
+  Data: JSON files per service
+  Ports: 8101-8106
 
-MCP is:
- ✓ A small backend API microservice (FastAPI)
- ✓ Has strict input/output schemas
- ✓ Returns ONLY verified data from curated JSON datasets
- ✓ Responds ONLY to requests from the AI Core
+DATABASE:
+  Engine: PostgreSQL
+  Schema: backend/database/schema.sql
 
-MCP is NOT:
- ✗ Not an AI (it does NOT think or reason)
- ✗ Not a database (it READS from data files, it IS NOT the data)
- ✗ Not a learner (it does NOT improve over time)
- ✗ Not a user interface (it does NOT talk to farmers)
-
-WHY DATABASES SHOULD NEVER BE ACCESSED DIRECTLY BY THE LLM:
- • If the LLM had direct database access, it could:
-   - Read ALL farm data (privacy violation)
-   - Write incorrect data (hallucination stored as fact)
-   - Execute dangerous queries (prompt injection → SQL injection)
- • MCP acts as a FIREWALL between the AI and your data
-
-WHY SEPARATION OF CONCERNS IS CRITICAL:
- • Safety: Each component has ONE job. Fewer ways to break.
- • Debugging: If medicine is wrong, check Medicine MCP — not entire system.
- • Scalability: Upgrade the LLM without touching any MCP.
- • Compliance: Food safety regulations require auditable data access.
-
-================================================================================
-7. AI AGENTS (A2A SYSTEM) — WHO DOES WHAT
-================================================================================
-
-The A2A (Agent-to-Agent) architecture means five specialized agents + one
-orchestrator collaborate to produce a final recommendation.
-
-AGENT 1: DISEASE AGENT
- • Job: Identifies the most likely poultry disease
- • Input: CNN vision result + Disease MCP data + symptom summary
- • Output: Disease prediction with confidence score
- • Data calls: Uses Disease MCP search results (pre-fetched by orchestrator)
- • Analogy: The lab technician who reads test results
-
-AGENT 2: MEDICINE AGENT
- • Job: Recommends treatment protocol for the identified disease
- • Input: Medicine MCP recommendation data
- • Output: Medicine name, dosage, route, frequency, withdrawal period
- • Data calls: Uses Medicine MCP results (pre-fetched by orchestrator)
- • Analogy: The pharmacist who dispenses the right drug
-
-AGENT 3: FEED AGENT
- • Job: Optimizes nutritional strategy for the flock's current state
- • Input: Farm context (age, stress) + Feed MCP profile
- • Output: Feed type, protein %, energy kcal, additives
- • Data calls: Uses Feed MCP results (pre-fetched by orchestrator)
- • Analogy: The nutritionist who adjusts the diet plan
-
-AGENT 4: ENVIRONMENT AGENT
- • Job: Evaluates housing conditions against age-specific thresholds
- • Input: Environment MCP recommendation + climate warnings
- • Output: Temperature range, humidity target, ventilation advice
- • Data calls: Uses Environment MCP results (pre-fetched by orchestrator)
- • Analogy: The farm inspector checking the poultry house
-
-AGENT 5: SAFETY AGENT
- • Job: VALIDATES all recommendations before they reach the farmer
- • Input: Safety MCP flags + Medicine Agent payload
- • Output: Approved/blocked status + warning flags
- • Data calls: Uses Safety MCP validation results
- • CRITICAL: Enforces withdrawal periods, flags young-flock risks
- • ALWAYS runs last, NEVER skipped
- • Analogy: The chief veterinarian who signs off on every prescription
-
-AGENT 6: ORCHESTRATOR (Master Controller)
- • Job: Coordinates ALL agents, fetches ALL MCP data, builds final report
- • Input: Farmer's original request (symptoms + image + farm context)
- • Output: Complete FinalRecommendation with all sections + warnings
- • Sequence:
-   1. Runs CNN vision prediction on uploaded image
-   2. Summarizes symptoms via LLM
-   3. Fetches data from ALL 6 MCPs in parallel
-   4. Passes data to each specialized agent
-   5. Collects all agent insights
-   6. Computes accuracy (mean confidence)
-   7. Builds detailed analysis report with safety warnings
-   8. Returns structured JSON response
-
-HOW AGENTS TALK (Data Flow):
- 1. Farmer submits: "My birds have bloody droppings, age 21 days" + image
- 2. Orchestrator → CNN Vision → "Coccidiosis (84% confidence)"
- 3. Orchestrator → Disease MCP → confirms symptoms match Coccidiosis
- 4. Orchestrator → Medicine MCP → "Amprolium, 10mg/kg, 5 days"
- 5. Orchestrator → Feed MCP → "Grower feed, 20% protein, electrolytes"
- 6. Orchestrator → Environment MCP → "Keep 24°C, reduce humidity"
- 7. Orchestrator → Safety MCP → checks for contraindications
- 8. Orchestrator → Memory MCP → checks farm's incident history
- 9. Orchestrator → RAG → searches veterinary knowledge base
- 10. Disease Agent → produces disease insight
- 11. Medicine Agent → produces treatment insight
- 12. Feed Agent → produces nutrition insight
- 13. Environment Agent → produces climate insight
- 14. Safety Agent → validates everything, adds withdrawal warnings
- 15. Orchestrator → combines ALL insights → FinalRecommendation → Farmer
-
-KEY RULE: Agents REASON using data fetched by the Orchestrator via MCPs.
-Agents never directly access databases or external services.
+INFRASTRUCTURE:
+  Startup: Bash script (start-all.sh)
+  Storage: Local filesystem (no cloud storage yet)
+  Monitoring: Basic logging to .log files
 
 ================================================================================
-8. WHAT MCP ACTUALLY IS (Detailed)
+5. IMPLEMENTATION GAPS & DRAWBACKS
 ================================================================================
 
-Think of MCP as a VENDING MACHINE:
- • You press a button (send a request with specific parameters)
- • It gives you exactly what you asked for (structured JSON data)
- • It doesn't think about what you need
- • It doesn't remember what you asked before
- • It doesn't give you things you didn't ask for
+CRITICAL GAPS:
 
-TECHNICAL DEFINITION:
-MCP is a lightweight backend API microservice (Python FastAPI) that:
- • Exposes a fixed set of endpoints (GET /search, GET /recommend, POST /validate)
- • Has strict input schema (query parameters or JSON body)
- • Has strict output schema (JSON response)
- • Reads from a specific JSON data file (curated veterinary dataset)
- • Returns ONLY verified, structured data
- • Has NO AI, NO reasoning, NO learning capability
+1. NO TEST SUITE (Priority: CRITICAL)
+   - 0 test files found across frontend, backend, and ai-core
+   - No unit tests for agents, decision engine, or MCP services
+   - No integration tests for API endpoints
+   - No end-to-end tests for diagnosis workflows
+   - Risk: Any change could break core functionality undetected
 
-WHAT MCP DOES:
- ✓ Receives a structured HTTP request from the AI Core
- ✓ Validates the input against its schema
- ✓ Queries its designated JSON data file
- ✓ Returns structured data (JSON response)
- ✓ Logs the request for audit purposes
+2. Vision System Not Production-Ready (Priority: HIGH)
+   - Using custom 4-layer CNN instead of ResNet18/EfficientNet
+   - No transfer learning from ImageNet
+   - No Grad-CAM heatmaps for explainability
+   - No model versioning or registry
+   - No image quality validation before inference
+   - Training data split exists but no production inference service
 
-WHAT MCP DOES NOT DO:
- ✗ Does NOT think or reason
- ✗ Does NOT learn or improve
- ✗ Does NOT store AI-generated answers
- ✗ Does NOT talk to farmers directly
- ✗ Does NOT access data outside its scope
- ✗ Does NOT modify data based on AI output
+3. Safety Not Enforced (Priority: HIGH)
+   - Safety agent returns warnings but doesn't block unsafe actions
+   - Frontend still shows medication CTAs even when blocked
+   - Need hard gates: allow / allow_with_warning / block_and_escalate
+   - No dosage validation against age restrictions
+   - No withdrawal period enforcement in UI
 
-================================================================================
-9. MCPs BUILT (Detailed Breakdown)
-================================================================================
+4. No Chatbot Replacement (Priority: MEDIUM)
+   - Frontend still has chat-based diagnosis flow
+   - Need structured diagnosis workbench per architecture doc
+   - Case-based workflow not fully implemented in UI
 
-MCP 1: DISEASE MCP (Port 8101)
-  File: mcp-services/disease_mcp/app/main.py
-  Data: mcp-services/disease_mcp/data/diseases.json
+5. RAG Not Source-Ranked (Priority: MEDIUM)
+   - Ingestion pipeline exists
+   - No retrieval ranking by source credibility
+   - No filtering by disease candidate
+   - No farm-context-aware retrieval
 
-  Endpoint:  GET /search?query={text}&symptoms={text}
-  Logic:     Combines query+symptoms into lowercase string, searches diseases.json
-             for matching disease name or any matching symptom keyword.
-  Returns:   { "match": {...disease_object}, "items": [...all_diseases] }
+6. Farm Memory Not Integrated (Priority: MEDIUM)
+   - Memory MCP exists but not used in scoring
+   - No recurrence detection
+   - No historical pattern matching
+   - No outbreak timeline visualization
 
-  Data Schema (diseases.json — each record):
-    {
-      "disease": "Coccidiosis",
-      "symptoms": ["bloody droppings", "lethargy", "ruffled feathers"],
-      "cause": "Eimeria protozoan parasites",
-      "mortality_rate": "20-50%",
-      "transmission": "Fecal-oral, contaminated litter",
-      "incubation_days": 4-7,
-      "affected_age_group": "2-8 weeks"
-    }
+7. No Media Storage Strategy (Priority: MEDIUM)
+   - Files stored locally in backend
+   - No S3 or Cloudinary integration
+   - No signed URLs for secure access
+   - No artifact storage for Grad-CAM heatmaps
 
-  Key Design Decisions:
-   • Text-based matching (not AI) — deterministic, auditable
-   • Returns ALL diseases alongside match for context
-   • No write operations — read-only verified data
+8. No Monitoring & Observability (Priority: MEDIUM)
+   - Basic logs to .log files
+   - No request tracing across services
+   - No agent decision trace logging
+   - No model version logging
+   - No safety rule trigger logging
+   - No centralized logging (ELK, DataDog, etc.)
 
-MCP 2: MEDICINE MCP (Port 8102)
-  File: mcp-services/medicine_mcp/app/main.py
-  Data: mcp-services/medicine_mcp/data/medicines.json
+MODERATE GAPS:
 
-  Endpoint:  GET /recommend?disease={text}
-  Logic:     Searches medicines where the disease name appears in the
-             medicine's "used_for" array.
-  Returns:   { "recommendation": {...medicine_object} }
+9. No Docker/Containerization
+   - Services run locally via shell script
+   - No Docker Compose for development
+   - No Kubernetes manifests for production
 
-  Data Schema (medicines.json — each record):
-    {
-      "name": "Amprolium",
-      "type": "Anticoccidial",
-      "used_for": ["Coccidiosis"],
-      "dosage": "10 mg/kg body weight",
-      "route": "Drinking water",
-      "duration_days": 5,
-      "withdrawal_period_days": 1,
-      "contraindications": ["Do not combine with thiamine supplements"],
-      "manufacturer": "Various"
-    }
+10. No CI/CD Pipeline
+    - No GitHub Actions workflows
+    - No automated testing on PRs
+    - No automated deployment
 
-  Key Design Decisions:
-   • Includes withdrawal_period_days — food safety compliance
-   • Contraindications stored per-medicine for Safety Agent validation
-   • Single best-match return (first found)
+11. No Load Testing
+    - No performance benchmarks
+    - No stress tests for concurrent diagnosis requests
+    - No latency SLAs defined
 
-MCP 3: FEED MCP (Port 8103)
-  File: mcp-services/feed_mcp/app/main.py
-  Data: mcp-services/feed_mcp/data/feed_profiles.json
+12. No Vet Review Workflow
+    - No vet review queue
+    - No AI-vs-vet diff view
+    - No correction capture for training signals
+    - No escalation workflows
 
-  Endpoint:  GET /recommend?ageInDays={int}
-  Logic:     Finds the feed profile where min_day <= ageInDays <= max_day.
-             Falls back to last profile if no match.
-  Returns:   { "recommendation": {...feed_profile} }
+13. No Outbreak Detection
+    - No mortality analytics
+    - No environment trend tracking
+    - No outbreak forecasting
 
-  Data Schema (feed_profiles.json — each record):
-    {
-      "phase": "Starter",
-      "min_day": 0,
-      "max_day": 10,
-      "feed_type": "Starter Crumble",
-      "protein_percent": 22,
-      "energy_kcal": 3000,
-      "additives": ["Coccidiostat", "Vitamins A/D3/E"],
-      "notes": "High-protein for rapid early growth"
-    }
+MINOR GAPS:
 
-  Key Design Decisions:
-   • Age-band lookup — no AI needed for feed phase determination
-   • Includes additives relevant to disease prevention
-   • Fallback to last profile prevents null responses
+14. Sample Data Only
+    - MCP datasets are minimal sample JSON
+    - Need curated veterinary datasets
+    - Need expanded disease, medicine, feed coverage
 
-MCP 4: ENVIRONMENT MCP (Port 8104)
-  File: mcp-services/environment_mcp/app/main.py
-  Data: mcp-services/environment_mcp/data/environment_profiles.json
-
-  Endpoint:  GET /recommend?ageInDays={int}&temperatureC={float}&humidityPercent={float}
-  Logic:     1) Finds age-band target profile
-             2) Generates warnings if temperature < 30°C for chicks ≤14 days
-             3) Generates warnings if humidity > 75%
-  Returns:   { "recommendation": {...profile, "warnings": [...]} }
-
-  Data Schema (environment_profiles.json — each record):
-    {
-      "phase": "Brooding",
-      "min_day": 0,
-      "max_day": 7,
-      "temp_min_c": 32,
-      "temp_max_c": 35,
-      "humidity_min": 60,
-      "humidity_max": 70,
-      "ventilation": "Minimal — avoid drafts",
-      "lighting_hours": 23,
-      "notes": "Critical temperature control period"
-    }
-
-  Key Design Decisions:
-   • Active warning generation (not just data return)
-   • Temperature + humidity thresholds based on age
-   • Ventilation and lighting guidance included
-
-MCP 5: SAFETY MCP (Port 8105)
-  File: mcp-services/safety_mcp/app/main.py
-  Data: mcp-services/safety_mcp/data/rules.json
-
-  Endpoint:  POST /validate
-  Body:      { "disease": "string", "medicine": {...}, "context": {...} }
-  Logic:     1) Matches disease/medicine against safety rules
-             2) Checks flock age — flags if < 7 days old
-             3) Returns all triggered warnings
-  Returns:   { "flags": ["warning1", "warning2", ...] }
-
-  Data Schema (rules.json — each record):
-    {
-      "match": "Amprolium",
-      "warning": "Do not administer with thiamine-rich feeds — blocks absorption"
-    }
-
-  Key Design Decisions:
-   • Uses POST (accepts complex payload for validation)
-   • Age-based automatic alerts (young flock safety)
-   • Aggregates ALL matching warnings (not just first)
-   • This is the ONLY MCP that VALIDATES — others only RETRIEVE
-
-MCP 6: MEMORY MCP (Port 8106)
-  File: mcp-services/memory_mcp/app/main.py
-  Data: mcp-services/memory_mcp/data/history.json
-
-  Endpoint:  GET /history?farmId={string}
-  Logic:     Returns historical incident data for the specified farm.
-             Falls back to empty record if farm not found.
-  Returns:   { "last_incident": "...", "recommended_focus": "...",
-               "recent_treatments": [...] }
-
-  Key Design Decisions:
-   • Per-farm contextualization — AI adapts advice based on history
-   • Graceful degradation if no history exists
-   • Enables pattern detection (recurring disease outbreaks)
-
-MCP PORT MAPPING:
-  Service          | Port  | Health Check
-  -----------------|-------|------------------
-  Disease MCP      | 8101  | GET /health
-  Medicine MCP     | 8102  | GET /health
-  Feed MCP         | 8103  | GET /health
-  Environment MCP  | 8104  | GET /health
-  Safety MCP       | 8105  | GET /health
-  Memory MCP       | 8106  | GET /health
-  AI Core          | 9000  | GET /health
-  Backend API      | 8080  | GET /api/health
+15. No Offline Support
+    - Requires internet connection
+    - No PWA capabilities
+    - Critical for rural farmers with poor connectivity
 
 ================================================================================
-10. DATASETS NEEDED BEFORE CODING
+6. NEXT BUILD RECOMMENDATIONS
 ================================================================================
 
-CRITICAL: All MCP services read from curated JSON data files. These datasets
-MUST be verified by domain experts (veterinarians) before deployment.
+RECOMMENDED BUILD ORDER (Based on Implementation Roadmap):
 
-DATASET 1: diseases.json (Disease MCP)
-  Source: FAO Poultry Disease Manual, ICAR guidelines, Merck Vet Manual
-  Required fields per record:
-   • disease (string) — official name
-   • symptoms (array) — observable clinical signs
-   • cause (string) — pathogen/parasite
-   • mortality_rate (string) — expected mortality range
-   • transmission (string) — spread mechanism
-   • incubation_days (int/range) — time to symptom onset
-   • affected_age_group (string) — vulnerable age range
-  Minimum records needed: 15-20 common poultry diseases
-  Status: ✅ Partial (current stub has key diseases)
+PHASE 1: FOUNDATION REFACTOR (2-3 weeks)
+  Priority: CRITICAL
 
-DATASET 2: medicines.json (Medicine MCP)
-  Source: Licensed veterinary pharmacology references
-  Required fields per record:
-   • name, type, used_for, dosage, route
-   • duration_days, withdrawal_period_days
-   • contraindications (array)
-  Minimum records needed: 20-30 common poultry medications
-  Status: ✅ Partial (key treatments present)
+  1. Add Test Infrastructure
+     - Set up Jest for backend (Node.js)
+     - Set up Vitest for frontend (React)
+     - Set up pytest for ai-core (Python)
+     - Write unit tests for decision engine
+     - Write integration tests for diagnosis API
+     - Target: 70% code coverage minimum
 
-DATASET 3: feed_profiles.json (Feed MCP)
-  Source: ICAR poultry nutrition standards, BIS specifications
-  Required fields: phase, min_day, max_day, feed_type, protein_percent,
-                   energy_kcal, additives, notes
-  Minimum records: 4-5 feed phases (Starter, Grower, Finisher, Layer, Breeder)
-  Status: ✅ Complete (covers broiler lifecycle)
+  2. Replace Chatbot UI with Diagnosis Workbench
+     - Create structured case creation form
+     - Image upload with preview
+     - Symptom checklist with chips
+     - Differential diagnosis cards
+     - Confidence bars and risk badges
+     - Safety warning banners (red if blocked)
 
-DATASET 4: environment_profiles.json (Environment MCP)
-  Source: Poultry housing management guidelines
-  Required fields: phase, temp range, humidity range, ventilation, lighting
-  Minimum records: 4-5 age-band profiles
-  Status: ✅ Complete (covers all growth phases)
+  3. Harden Safety as Blocking Gate
+     - Implement allow / allow_with_warning / block_and_escalate
+     - Block medication CTAs when safety fails
+     - Enforce age restrictions
+     - Enforce withdrawal periods
 
-DATASET 5: rules.json (Safety MCP)
-  Source: Veterinary pharmacovigilance databases
-  Required fields: match (keyword), warning (text)
-  Minimum records: 20-30 critical safety rules
-  Status: ⚠️ Partial (needs expansion)
+PHASE 2: VISION UPGRADE (2-3 weeks)
+  Priority: HIGH
 
-DATASET 6: history.json (Memory MCP)
-  Source: Farm records (generated during usage)
-  Required fields: per-farm incident logs, treatments, focus areas
-  Status: ✅ Stub data (real data accumulates during use)
+  4. Upgrade to Transfer Learning
+     - Replace custom CNN with ResNet18 or EfficientNet-B0
+     - Pretrained on ImageNet
+     - Fine-tune on poultry disease dataset
+     - Implement weighted cross-entropy for class imbalance
 
-DATASET 7: CNN Training Images (ml/training/)
-  Source: Kaggle Avian Diseases dataset + field-collected images
-  Classes: Coccidiosis, Newcastle Disease, Salmonella, Healthy
-  Images per class: 200-500 minimum for meaningful accuracy
-  Resolution: 128x128 (resized during training)
-  Status: ✅ Trained (baseline + production models exist)
+  5. Add Grad-CAM Explainability
+     - Generate heatmaps showing where model looked
+     - Highlight lesion regions on original image
+     - Store artifacts in S3 or Cloudinary
+     - Display in diagnosis workbench
 
-DATASET 8: RAG Knowledge Documents (rag/data/raw/)
-  Source: FAO manuals, ICAR publications, veterinary handbooks (PDF/TXT)
-  Chunking: 450-word overlapping chunks
-  Status: ⚠️ Minimal (3 documents in local knowledge base)
+  6. Add Model Registry
+     - Version model checkpoints
+     - Track training metrics (loss, accuracy)
+     - Store model metadata (classes, image size)
+     - Enable model rollback
 
-================================================================================
-11. RAG SYSTEM (Retrieval-Augmented Generation)
-================================================================================
+PHASE 3: DECISION ENGINE REFINEMENT (1-2 weeks)
+  Priority: MEDIUM
 
-WHAT IS RAG?
-RAG = Retrieval-Augmented Generation. Instead of relying on the LLM's training
-data alone, we SEARCH our own verified veterinary knowledge base and feed the
-relevant chunks into the AI's prompt. This grounds the AI in factual data.
+  7. Implement Multi-Agent Debate
+     - Detect contradictions between agents
+     - Privilege deterministic evidence over generated language
+     - Let safety veto unsafe plans
+     - Downgrade confidence when strong disagreement exists
 
-WHY RAG?
- • LLMs can hallucinate — RAG forces citation of verified sources
- • Veterinary knowledge updates faster than LLM retraining
- • We control the knowledge base — no unverified internet data
- • Audit trail: every recommendation can be traced to source documents
+  8. Integrate Farm Memory
+     - Use Memory MCP in confidence scoring
+     - Detect recurrence (same disease in past 30-90 days)
+     - Score historical pattern match
+     - Display farm memory timeline
 
-CURRENT IMPLEMENTATION:
+  9. Source-Rank RAG Retrieval
+     - Implement source priority: FAO > ICAR > veterinary manuals
+     - Filter by disease candidates from decision engine
+     - Rerank by source credibility and farm relevance
 
- 1. Document Ingestion (rag/scripts/ingest_documents.py):
-    • Reads PDF and TXT files from rag/data/raw/
-    • PDF extraction via pdftotext (system utility)
-    • Chunks text into 450-word segments
-    • Outputs chunked JSON to rag/data/processed/
+PHASE 4: PRODUCTION HARDENING (2-3 weeks)
+  Priority: MEDIUM
 
- 2. RAG Service (ai-core/app/services/rag_service.py):
-    • Loads knowledge_base.json (3 curated documents)
-    • Uses sentence-transformers for text→vector encoding
-    • FAISS index for fast cosine similarity search
-    • Returns top-K most relevant chunks for a query
+  10. Add Cloud Storage
+      - Integrate AWS S3 or Cloudinary
+      - Implement signed URLs for media access
+      - Store Grad-CAM artifacts
+      - Configure lifecycle policies
 
- 3. Integration in Orchestrator:
-    • After MCP data fetch, orchestrator queries RAG
-    • Top chunks are injected into agent prompts as "verified context"
-    • AI cites these sources in its response
+  11. Add Monitoring & Observability
+      - Implement request IDs across services
+      - Add agent decision trace logging
+      - Add model version logging
+      - Add safety rule trigger logging
+      - Set up centralized logging (DataDog, ELK, or Grafana)
 
-PLANNED RAG UPGRADE:
- • Migrate from local JSON → Pinecone Vector Database
- • Expand knowledge base to 50+ veterinary documents
- • Add metadata filtering (disease type, species, region)
- • Implement chunk overlap for better context coverage
- • Add source citation in final output
+  12. Add Containerization
+      - Write Dockerfile for each service
+      - Create Docker Compose for local development
+      - Create Kubernetes manifests for production
 
-================================================================================
-12. COMPUTER VISION — CNN DISEASE DETECTION
-================================================================================
+  13. Add CI/CD Pipeline
+      - GitHub Actions for automated testing
+      - Automated build and deploy on main branch
+      - Smoke tests post-deployment
 
-ARCHITECTURE: Custom 4-Layer PoultryCNN
+PHASE 5: ADVANCED FEATURES (3-4 weeks)
+  Priority: LOW (Post-MVP)
 
-  Layer 1: Conv2d(3, 32, 3x3, padding=1) → ReLU → MaxPool2d(2)
-  Layer 2: Conv2d(32, 64, 3x3, padding=1) → ReLU → MaxPool2d(2)
-  Layer 3: Conv2d(64, 128, 3x3, padding=1) → ReLU → MaxPool2d(2)
-  Layer 4: Conv2d(128, 256, 3x3, padding=1) → ReLU → AdaptiveAvgPool2d(1,1)
-  Classifier: Flatten → Dropout(0.3) → Linear(256, num_classes)
+  14. Add Vet Review Workflow
+      - Vet review queue
+      - AI-vs-vet diff view
+      - Correction capture for training signals
+      - Escalation workflows
 
-  Input:  RGB image → resize to 128x128 → normalize to [-1, 1]
-  Output: Softmax probability distribution over disease classes
+  15. Add Outbreak Detection
+      - Mortality analytics
+      - Environment trend tracking
+      - Outbreak forecasting
+      - Predictive analytics cards
 
-TRAINING PIPELINE (ml/training/train_disease_cnn.py):
-  • PoultryImageDataset: Custom PyTorch Dataset with balanced sampling
-  • Supports: .jpg, .jpeg, .png, .bmp, .webp
-  • Optimizer: Adam (lr=1e-3)
-  • Loss: CrossEntropyLoss
-  • Epochs: 12 (configurable)
-  • Best model saved by validation accuracy
-  • Exports: best_poultry_disease_cnn.pt + metrics.json
-
-  CLI: python train_disease_cnn.py --data-dir ./dataset --epochs 12
-
-INFERENCE PIPELINE (ai-core/app/services/vision_service.py):
-  1. Receive base64-encoded image from frontend
-  2. Decode → PIL Image → resize(128x128) → tensor
-  3. Normalize: (pixel / 255 - 0.5) / 0.5
-  4. Forward pass through loaded model
-  5. Softmax → top prediction + confidence score
-  6. Return: { predicted_class, confidence, all_probabilities }
-
-FALLBACK MECHANISM:
-  • If no image provided OR model file not found → falls back to
-    symptom-based analysis via Disease MCP text matching
-  • Ensures the system ALWAYS produces a response, even without vision
-
-MODEL ARTIFACTS:
-  • ml/training/artifacts-cpu-real/best_poultry_disease_cnn.pt — Production model
-  • ml/training/artifacts-baseline/ — Baseline experiment
-  • ml/training/artifacts-smoke*/ — Smoke test checkpoints
-  • Each artifact directory includes metrics.json with full training history
+  16. Expand MCP Datasets
+      - Replace sample JSON with curated veterinary datasets
+      - Add medicine interaction rules
+      - Add withdrawal period coverage
+      - Add environment-linked disease risk scoring
 
 ================================================================================
-13. COMPLETE DATA FLOW (Step-by-Step)
+7. TESTING & QUALITY GAPS
 ================================================================================
 
-SCENARIO: Farmer uploads a photo of bloody droppings + types "birds not eating,
-bloody stool, 21-day-old broilers, 28°C house temp, 65% humidity"
+CURRENT STATE: 0% test coverage
 
-STEP 1: FRONTEND (React)
- → User opens Chatbot page → types symptoms → attaches photo
- → Chatbot.jsx calls diagnosisApi.uploadImage(formData)
- → FormData contains: image file + query text
- → Request: POST /api/diagnosis/upload (multipart)
+REQUIRED TEST SUITE:
 
-STEP 2: BACKEND (Express.js)
- → diagnosis.ts receives multipart upload via Multer
- → Extracts image buffer → converts to base64
- → Validates request body with Zod schema
- → Builds payload: { query, image_base64, context: { ageInDays, temp, humidity } }
- → Forwards to AI Core: POST http://localhost:9000/analyze
- → Request: POST /analyze (JSON)
+BACKEND (Jest/Vitest):
+  - Unit tests for each route handler
+  - Integration tests for diagnosis API
+  - File upload handling tests
+  - AI Core client mock tests
+  - Validation schema tests
 
-STEP 3: AI CORE — ORCHESTRATOR (FastAPI)
- → orchestrator.py receives AnalyzeRequest
- → PHASE 1: Vision Analysis
-   → vision_service.predict(image_base64)
-   → Decodes base64 → PIL Image → tensor → CNN forward pass
-   → Result: { class: "Coccidiosis", confidence: 0.84 }
- → PHASE 2: LLM Symptom Summary
-   → llm_service.summarize(symptoms_text)
-   → OpenAI API call → "Bloody droppings and anorexia in 21-day broilers"
- → PHASE 3: Parallel MCP Data Fetch (via mcp_client.py)
-   → Disease MCP:     GET http://localhost:8101/search?query=Coccidiosis&symptoms=bloody
-   → Medicine MCP:    GET http://localhost:8102/recommend?disease=Coccidiosis
-   → Feed MCP:        GET http://localhost:8103/recommend?ageInDays=21
-   → Environment MCP: GET http://localhost:8104/recommend?ageInDays=21&temperatureC=28&humidityPercent=65
-   → Memory MCP:      GET http://localhost:8106/history?farmId=farm_001
- → PHASE 4: RAG Knowledge Retrieval
-   → rag_service.search("Coccidiosis treatment broiler")
-   → Returns top-3 relevant chunks from veterinary knowledge base
- → PHASE 5: Agent Execution (Sequential)
-   → Disease Agent: Fuses CNN result + MCP match + symptoms → disease insight
-   → Medicine Agent: Formats MCP medicine data → treatment protocol
-   → Feed Agent: Adjusts feed for disease stress → nutrition plan
-   → Environment Agent: Evaluates housing conditions → climate advice
-   → Safety Agent: POST http://localhost:8105/validate → checks contraindications
- → PHASE 6: Build Final Response
-   → Combines all agent insights into structured FinalRecommendation
-   → Computes accuracy = mean(all_agent_confidences)
-   → Appends mandatory safety warnings to every section
-   → Returns JSON to backend
+AI CORE (pytest):
+  - Unit tests for each agent
+  - Decision engine scoring tests
+  - Confidence fusion tests
+  - Safety validation tests
+  - MCP client mock tests
+  - Vision service mock tests
 
-STEP 4: BACKEND → FRONTEND
- → Backend receives AI Core response
- → Formats and returns to frontend
- → Chatbot.jsx renders: disease card, treatment plan, feed advice,
-   environment warnings, safety alerts, confidence score
+MCP SERVICES (pytest):
+  - Unit tests for each endpoint
+  - Data validation tests
+  - Error handling tests
 
-TOTAL LATENCY (Expected):
- • CNN Inference: ~50ms (CPU), ~10ms (GPU)
- • MCP Calls (parallel): ~20-50ms each
- • LLM Call: ~1-3 seconds
- • RAG Search: ~100ms
- • Agent Processing: ~200ms
- • Total: ~2-4 seconds end-to-end
+FRONTEND (Vitest + React Testing Library):
+  - Component render tests
+  - User interaction tests
+  - Form validation tests
+  - API mock tests
+  - Accessibility tests
+
+END-TO-END (Playwright/Cypress):
+  - Full diagnosis workflow test
+  - Auth flow test
+  - Case creation and retrieval test
+  - File upload test
+
+RECOMMENDED TARGETS:
+  - Backend: 80% coverage
+  - AI Core: 85% coverage (critical decision logic)
+  - MCP Services: 70% coverage
+  - Frontend: 60% coverage
+  - E2E: 10 critical user journeys
 
 ================================================================================
-14. RECOMMENDED BUILD ORDER
+8. SECURITY & COMPLIANCE STATUS
 ================================================================================
 
-If rebuilding or extending Flocksy from scratch, follow this order:
+IMPLEMENTED:
+  ✓ Password hashing with bcryptjs
+  ✓ JWT-based authentication
+  ✓ Helmet for HTTP headers
+  ✓ CORS configuration
+  ✓ Input validation with Zod
+  ✓ SQL injection protection (parameterized queries via pg)
 
-PHASE 1: DATA FOUNDATION (Week 1)
- ┌─────────────────────────────────────────────────────────┐
- │ 1.1 Curate diseases.json (15-20 diseases minimum)      │
- │ 1.2 Curate medicines.json (20-30 treatments)           │
- │ 1.3 Curate feed_profiles.json (4-5 age phases)         │
- │ 1.4 Curate environment_profiles.json (4-5 phases)      │
- │ 1.5 Curate rules.json (20-30 safety rules)             │
- │ 1.6 Collect CNN training images (200+ per class)        │
- │ 1.7 Collect RAG source documents (10+ vet manuals)     │
- └─────────────────────────────────────────────────────────┘
+MISSING:
+  ✗ Rate limiting (no express-rate-limit)
+  ✗ Request logging to centralized system
+  ✗ API key management for AI Core
+  ✗ Role-based access control (RBAC)
+  ✗ Audit logging for sensitive actions
+  ✗ Data encryption at rest
+  ✗ Secure file upload validation (file type, size limits)
+  ✗ HTTPS enforcement (depends on deployment)
+  ✗ Content Security Policy headers
+  ✗ GDPR compliance (data retention, user rights)
 
-PHASE 2: MCP MICROSERVICES (Week 2)
- ┌─────────────────────────────────────────────────────────┐
- │ 2.1 Build Disease MCP (search endpoint)                 │
- │ 2.2 Build Medicine MCP (recommend endpoint)             │
- │ 2.3 Build Feed MCP (recommend endpoint)                 │
- │ 2.4 Build Environment MCP (recommend + warnings)        │
- │ 2.5 Build Safety MCP (validate endpoint)                │
- │ 2.6 Build Memory MCP (history endpoint)                 │
- │ 2.7 Write health check endpoints for all                │
- │ 2.8 Test each MCP independently with curl               │
- └─────────────────────────────────────────────────────────┘
-
-PHASE 3: AI CORE (Week 3)
- ┌─────────────────────────────────────────────────────────┐
- │ 3.1 Train CNN model on disease images                   │
- │ 3.2 Build VisionService (base64 → prediction)           │
- │ 3.3 Build RAG pipeline (ingest → embed → search)        │
- │ 3.4 Build MCPClient (HTTP client for all MCPs)          │
- │ 3.5 Build LLMService (symptom summarization)            │
- │ 3.6 Build 5 specialized agents                          │
- │ 3.7 Build Orchestrator (coordinates everything)         │
- │ 3.8 Integration test: full /analyze pipeline            │
- └─────────────────────────────────────────────────────────┘
-
-PHASE 4: BACKEND API (Week 4)
- ┌─────────────────────────────────────────────────────────┐
- │ 4.1 Set up Express + TypeScript + PostgreSQL            │
- │ 4.2 Implement auth (register/login/JWT)                 │
- │ 4.3 Build diagnosis route (upload + AI Core proxy)      │
- │ 4.4 Build chat route (text query → AI Core)             │
- │ 4.5 Build farm management CRUD                          │
- │ 4.6 Build dashboard summary endpoint                    │
- │ 4.7 Build vet directory endpoint                        │
- │ 4.8 Add Zod validation + error handling                 │
- └─────────────────────────────────────────────────────────┘
-
-PHASE 5: FRONTEND (Week 5)
- ┌─────────────────────────────────────────────────────────┐
- │ 5.1 Set up Vite + React + Tailwind                      │
- │ 5.2 Build auth flow (login/register modals)             │
- │ 5.3 Build chatbot page (text + image upload)            │
- │ 5.4 Build dashboard (8 widget components)               │
- │ 5.5 Build vet directory page                            │
- │ 5.6 Build responsive sidebar + navigation               │
- │ 5.7 Add animations (Framer Motion + GSAP)               │
- │ 5.8 Polish responsive design                            │
- └─────────────────────────────────────────────────────────┘
-
-PHASE 6: INTEGRATION & POLISH (Week 6)
- ┌─────────────────────────────────────────────────────────┐
- │ 6.1 End-to-end testing (frontend → backend → AI → MCPs)│
- │ 6.2 Error handling and edge case coverage               │
- │ 6.3 Performance optimization (parallel MCP calls)       │
- │ 6.4 Security hardening (rate limiting, input sanitize)  │
- │ 6.5 Docker containerization                             │
- │ 6.6 Documentation and README                            │
- └─────────────────────────────────────────────────────────┘
+CRITICAL FOR PRODUCTION:
+  - Add rate limiting to prevent abuse
+  - Implement RBAC for farmer vs vet vs admin roles
+  - Add comprehensive audit logging
+  - Validate file uploads (MIME type, size limits)
+  - Implement data retention policies
+  - Add HTTPS in production
 
 ================================================================================
-15. FINAL CHECKLIST & SUMMARY
+9. PERFORMANCE CONSIDERATIONS
 ================================================================================
 
-ARCHITECTURE CHECKLIST:
- ✅ Multi-agent A2A architecture with 5 agents + 1 orchestrator
- ✅ 6 MCP microservices with strict data boundaries
- ✅ CNN-based computer vision for disease detection
- ✅ RAG pipeline for knowledge-grounded responses
- ✅ Safety-first validation (Safety Agent always runs last)
- ✅ JWT authentication with role-based access
- ✅ PostgreSQL database with normalized schema
- ✅ Responsive React frontend with dashboard analytics
- ✅ One-command startup script (start-all.sh)
+POTENTIAL BOTTLENECKS:
 
-DATA CHECKLIST:
- ✅ diseases.json — curated disease records
- ✅ medicines.json — treatment protocols with withdrawal periods
- ✅ feed_profiles.json — age-band nutritional profiles
- ✅ environment_profiles.json — climate thresholds by age
- ✅ rules.json — safety validation rules
- ✅ history.json — per-farm incident history
- ⚠️ RAG knowledge base — needs expansion (currently 3 documents)
- ⚠️ Safety rules — needs expansion (currently minimal)
- ✅ CNN training images — multiple training runs completed
+1. Synchronous Diagnosis Flow
+   - Frontend waits for full AI Core analysis
+   - No async job queue for long-running tasks
+   - Recommendation: Use Redis queue for diagnosis jobs
 
-SECURITY CHECKLIST:
- ✅ LLM never accesses databases directly (MCP firewall)
- ✅ All inputs validated (Zod backend, Pydantic AI Core)
- ✅ JWT authentication on protected routes
- ✅ Helmet security headers on Express
- ✅ CORS configured for allowed origins
- ✅ Passwords hashed with bcrypt
- ⬜ Rate limiting (planned)
- ⬜ Input sanitization against prompt injection (planned)
- ⬜ End-to-end encryption (planned — libsodium)
+2. Vision Inference Latency
+   - No GPU acceleration configured
+   - Model size not optimized (mobile deployment?)
+   - Recommendation: Benchmark and optimize inference time
 
-WHAT MAKES THIS PRODUCTION-READY:
- • Each MCP is independently deployable and testable
- • CNN model is version-controlled with metrics tracking
- • Safety Agent prevents dangerous recommendations
- • Fallback mechanisms at every layer (no image? use symptoms)
- • Audit trail: every MCP call is logged and traceable
- • Modular: swap the LLM, upgrade the CNN, add MCPs — independently
+3. No Caching Strategy
+   - MCP responses not cached
+   - RAG retrieval not cached
+   - Recommendation: Add Redis caching with TTL
+
+4. Database Not Optimized
+   - Basic indexes only
+   - No query analysis performed
+   - Recommendation: Add query logging and optimize hot paths
+
+5. Frontend Bundle Size
+   - Next.js with many dependencies
+   - No bundle analysis performed
+   - Recommendation: Analyze and tree-shake unused code
+
+DEFINED SLAs NEEDED:
+  - Diagnosis latency target: < 5 seconds (95th percentile)
+  - API response time: < 500ms (95th percentile)
+  - Vision inference: < 2 seconds per image
+  - Uptime target: 99.5%
 
 ================================================================================
-16. VETERINARIAN PORTAL (Dashboard & Integration)
+10. DEPLOYMENT READINESS
 ================================================================================
 
-PURPOSE: Enable licensed veterinarians to review AI-generated diagnoses,
-provide expert overrides, and build trust through Human-in-the-Loop (HITL).
+READY: ❌ NOT READY FOR PRODUCTION
 
-CURRENT STATE: ⚠️ Partially implemented (Vet Directory exists, review portal planned)
+BLOCKERS:
+  - No test suite
+  - No containerization
+  - No CI/CD pipeline
+  - No monitoring
+  - No cloud storage
+  - Safety not enforced as hard gate
+  - No HTTPS configured
+  - No backup/disaster recovery plan
 
-PLANNED FEATURES:
- • Vet Dashboard: View all AI diagnoses awaiting expert review
- • Case Review: Vet can confirm, modify, or reject AI recommendations
- • Override System: Vet corrections feed back into knowledge base
- • Alert Escalation: High-mortality events auto-escalate to nearest vet
- • Telemedicine: Video call integration for remote consultations
- • Certification: Verified vet profiles with license validation
+PRE-PRODUCTION CHECKLIST:
+  □ Achieve 70% test coverage minimum
+  □ Containerize all services with Docker
+  □ Set up CI/CD pipeline (GitHub Actions)
+  □ Configure production database (RDS/Supabase)
+  □ Set up cloud storage (S3/Cloudinary)
+  □ Configure monitoring (DataDog/Grafana)
+  □ Set up centralized logging (ELK/DataDog)
+  □ Configure HTTPS with SSL certificates
+  □ Implement rate limiting
+  □ Add audit logging
+  □ Perform security audit
+  □ Load test with expected traffic
+  □ Set up backup and disaster recovery
+  □ Define and test SLOs
 
-INTEGRATION WITH AI:
- 1. Farmer submits query → AI generates recommendation
- 2. If confidence < 70% → auto-flag for vet review
- 3. Vet reviews case → approves/modifies/rejects
- 4. Modified recommendations sent back to farmer
- 5. Vet feedback stored for RAG knowledge improvement
-
-DATABASE TABLES (Already in schema.sql):
- • users table has role field: 'farmer', 'manager', 'vet', 'admin'
- • disease_records stores AI diagnosis + vet_verified boolean (planned)
- • treatment_logs tracks prescribed vs actual treatments
-
-================================================================================
-17. ARCHITECTURE DIAGRAM
-================================================================================
-
-                    ┌─────────────────────────┐
-                    │     FARMER (Browser)     │
-                    │   React 18 + Vite SPA    │
-                    │  Chatbot | Dashboard     │
-                    └──────────┬──────────────┘
-                               │ HTTP (REST)
-                    ┌──────────▼──────────────┐
-                    │   BACKEND (Express.js)   │
-                    │  Auth | Diagnosis | CRUD │
-                    │  Port 8080               │
-                    │  JWT + Zod Validation    │
-                    └──────────┬──────────────┘
-                               │ HTTP POST /analyze
-                    ┌──────────▼──────────────┐
-                    │   AI CORE (FastAPI)       │
-                    │   Port 9000              │
-                    │                          │
-                    │  ┌─────────────────┐     │
-                    │  │  ORCHESTRATOR   │     │
-                    │  │  (Master Agent) │     │
-                    │  └──┬──┬──┬──┬──┬─┘     │
-                    │     │  │  │  │  │        │
-                    │  ┌──▼┐┌▼─┐┌▼┐┌▼─┐┌▼──┐  │
-                    │  │DIS││MED││FD││ENV││SAF│  │
-                    │  │AGT││AGT││AG││AGT││AGT│  │
-                    │  └───┘└──┘└──┘└──┘└───┘  │
-                    │     │                    │
-                    │  ┌──▼────────────────┐   │
-                    │  │  CNN VisionService│   │
-                    │  │  (PyTorch Model)  │   │
-                    │  └──────────────────┘   │
-                    │  ┌──────────────────┐   │
-                    │  │  RAG Service     │   │
-                    │  │  (FAISS + HF)    │   │
-                    │  └──────────────────┘   │
-                    └──────────┬──────────────┘
-                               │ HTTP (MCP Protocol)
-          ┌────────────────────┼────────────────────┐
-          │         │          │         │          │
-     ┌────▼───┐ ┌──▼────┐ ┌──▼───┐ ┌──▼────┐ ┌──▼─────┐
-     │DISEASE │ │MEDICINE│ │ FEED │ │ ENV   │ │SAFETY  │
-     │  MCP   │ │  MCP   │ │ MCP  │ │ MCP   │ │  MCP   │
-     │ :8101  │ │ :8102  │ │:8103 │ │:8104  │ │ :8105  │
-     └────┬───┘ └──┬────┘ └──┬───┘ └──┬────┘ └──┬─────┘
-          │        │         │        │         │
-     ┌────▼───┐ ┌──▼────┐ ┌──▼───┐ ┌──▼────┐ ┌──▼─────┐
-     │diseases│ │medicine│ │ feed │ │environ│ │ rules  │
-     │ .json  │ │ s.json │ │.json │ │ .json │ │ .json  │
-     └────────┘ └───────┘ └──────┘ └───────┘ └────────┘
-
-     + MEMORY MCP (:8106) → history.json
-     + PostgreSQL (Supabase) → users, farms, batches, records
-
-COMMUNICATION PATTERN:
- • Frontend → Backend:   REST API (JSON over HTTPS)
- • Backend → AI Core:    REST API (JSON over HTTP)
- • AI Core → MCPs:       REST API (JSON over HTTP, MCP Protocol)
- • AI Core → LLM:        OpenAI API (HTTPS)
- • Backend → PostgreSQL: pg driver (TCP)
- • All inter-service:    HTTP with health check heartbeats
+RECOMMENDED HOSTING:
+  - Frontend: Vercel (edge caching, i18n support)
+  - Backend: Railway, Render, or AWS ECS
+  - AI Core: AWS EC2 with GPU option
+  - Database: AWS RDS PostgreSQL or Supabase
+  - Storage: AWS S3 or Cloudinary
+  - Cache/Queue: AWS ElastiCache (Redis)
+  - Monitoring: DataDog or Grafana Cloud
 
 ================================================================================
-END OF FLOCKSY PROJECT INFO
+11. PRIORITY ACTION ITEMS
+================================================================================
+
+WEEK 1-2: CRITICAL FOUNDATION
+  1. Set up test infrastructure (Jest, Vitest, pytest)
+  2. Write tests for decision engine core logic
+  3. Implement safety as blocking gate
+  4. Create diagnosis workbench UI shell
+
+WEEK 3-4: VISION & EXPLAINABILITY
+  5. Upgrade to ResNet18/EfficientNet with transfer learning
+  6. Implement Grad-CAM heatmaps
+  7. Add model versioning and registry
+  8. Integrate heatmap display in UI
+
+WEEK 5-6: PRODUCTION PREP
+  9. Add Docker configuration for all services
+  10. Set up GitHub Actions CI/CD
+  11. Integrate cloud storage (S3/Cloudinary)
+  12. Add request tracing and monitoring
+
+WEEK 7-8: ADVANCED FEATURES
+  13. Implement multi-agent debate logic
+  14. Integrate farm memory into scoring
+  15. Add source-ranked RAG retrieval
+  16. Expand MCP datasets with real veterinary data
+
+ONGOING:
+  - Expand test coverage to 80%+
+  - Security hardening and audit
+  - Performance optimization
+  - Documentation updates
+
+================================================================================
+12. FINAL ASSESSMENT
+================================================================================
+
+OVERALL SCORE: 6.5/10
+
+STRENGTHS:
+  ✓ Excellent architectural foundation
+  ✓ Production-grade decision engine logic
+  ✓ Proper separation of concerns
+  ✓ Verified data architecture (MCP pattern)
+  ✓ Internationalization-ready
+  ✓ Clear roadmap and documentation
+  ✓ Comprehensive startup automation
+
+WEAKNESSES:
+  ✗ Zero test coverage (CRITICAL)
+  ✗ Vision system not production-grade
+  ✗ Safety not enforced as hard gate
+  ✗ No monitoring or observability
+  ✗ No containerization or CI/CD
+  ✗ Sample data only
+  ✗ No deployment strategy
+
+READINESS ASSESSMENT:
+  - Concept/Design: 95% complete ⭐⭐⭐⭐⭐
+  - Architecture: 90% complete ⭐⭐⭐⭐⭐
+  - Core Logic: 75% complete ⭐⭐⭐⭐☆
+  - UI/UX: 60% complete ⭐⭐⭐☆☆
+  - Testing: 0% complete ☆☆☆☆☆
+  - Production Hardening: 10% complete ⭐☆☆☆☆
+  - Deployment Readiness: 5% complete ☆☆☆☆☆
+
+RECOMMENDATION:
+Flocksy has excellent architectural bones and demonstrates strong product thinking. 
+The decision engine is well-designed and the MCP pattern provides a solid foundation 
+for verified AI outputs. However, the project is NOT production-ready.
+
+PRIORITY: Focus on testing and production hardening before adding new features.
+
+ESTIMATED TIME TO PRODUCTION:
+  - Minimum viable production: 6-8 weeks with focused effort
+  - Full production with all features: 12-16 weeks
+
+SUCCESS CRITERIA FOR MVP LAUNCH:
+  ✓ 70%+ test coverage
+  ✓ Safety enforced as hard gate
+  ✓ Vision system with Grad-CAM
+  ✓ Cloud storage integrated
+  ✓ Monitoring and logging configured
+  ✓ Docker deployment working
+  ✓ Basic CI/CD pipeline
+  ✓ Security audit passed
+  ✓ Load tested to expected traffic
+
+================================================================================
+PROJECT FILES STRUCTURE (Current State)
+================================================================================
+
+Flocksy/
+├── frontend/                     # Next.js 15 app (React 19)
+│   ├── src/
+│   │   ├── app/[locale]/         # Internationalized routing
+│   │   ├── features/             # 20+ feature modules
+│   │   ├── components/           # Shared UI components
+│   │   ├── services/             # API client services
+│   │   ├── store/                # Zustand state management
+│   │   ├── hooks/                # Custom React hooks
+│   │   ├── lib/                  # Utility functions
+│   │   ├── i18n/                 # Internationalization config
+│   │   └── constants/            # App constants
+│   ├── public/                   # Static assets
+│   ├── messages/                 # Translation files (en.json, hi.json)
+│   └── package.json              # Dependencies
+│
+├── backend/                      # Express + TypeScript API
+│   ├── src/
+│   │   ├── routes/               # API endpoints
+│   │   │   ├── diagnosis.ts      # Diagnosis case management
+│   │   │   ├── auth.ts           # Authentication
+│   │   │   ├── farms.ts          # Farm management
+│   │   │   ├── users.ts          # User management
+│   │   │   ├── vets.ts           # Veterinarian routes
+│   │   │   ├── dashboard.ts      # Dashboard data
+│   │   │   └── health.ts         # Health check
+│   │   ├── services/             # Business logic
+│   │   ├── config/               # Configuration
+│   │   ├── middleware/           # Express middleware
+│   │   ├── types/                # TypeScript types
+│   │   └── app.ts                # Express app setup
+│   ├── database/
+│   │   └── schema.sql            # PostgreSQL schema
+│   └── package.json              # Dependencies
+│
+├── ai-core/                      # FastAPI AI orchestration
+│   ├── app/
+│   │   ├── agents/               # 9 specialized agents
+│   │   │   ├── orchestrator.py   # Multi-agent coordinator
+│   │   │   ├── disease_agent.py
+│   │   │   ├── symptom_agent.py
+│   │   │   ├── environment_agent.py
+│   │   │   ├── feed_agent.py
+│   │   │   ├── medicine_agent.py
+│   │   │   ├── memory_agent.py
+│   │   │   ├── risk_agent.py
+│   │   │   └── safety_agent.py
+│   │   ├── decision_engine/
+│   │   │   └── engine.py         # Core decision logic (13k lines)
+│   │   ├── localization/         # Language rendering
+│   │   │   ├── formatter.py
+│   │   │   └── rural_hindi_formatter.py
+│   │   ├── services/             # Vision, RAG, etc.
+│   │   ├── clients/              # MCP client
+│   │   ├── schemas.py            # Pydantic models
+│   │   └── main.py               # FastAPI app
+│   └── requirements.txt          # Python dependencies
+│
+├── mcp-services/                 # 6 microservices (verified data)
+│   ├── disease_mcp/              # Port 8101
+│   │   ├── data/diseases.json    # Disease database
+│   │   └── app/main.py
+│   ├── medicine_mcp/             # Port 8102
+│   │   ├── data/medicines.json
+│   │   └── app/main.py
+│   ├── feed_mcp/                 # Port 8103
+│   │   ├── data/feed_profiles.json
+│   │   └── app/main.py
+│   ├── environment_mcp/          # Port 8104
+│   │   ├── data/environment_profiles.json
+│   │   └── app/main.py
+│   ├── safety_mcp/               # Port 8105
+│   │   ├── data/rules.json
+│   │   └── app/main.py
+│   └── memory_mcp/               # Port 8106
+│       ├── data/history.json
+│       └── app/main.py
+│
+├── ml/                           # Machine learning pipeline
+│   └── training/
+│       ├── train_disease_cnn.py  # Training script
+│       ├── artifacts-*/          # Model checkpoints
+│       ├── README.md
+│       └── dataset/              # Training data
+│
+├── rag/                          # Retrieval-augmented generation
+│   ├── scripts/
+│   │   └── ingest_documents.py   # Document ingestion
+│   └── data/
+│       ├── raw/                  # Source documents
+│       └── processed/            # Chunked knowledge
+│
+├── docs/                         # Architecture docs
+│   ├── flocksy-ai-architecture.md
+│   └── implementation-roadmap.md
+│
+├── start-all.sh                  # Service startup script
+├── info.txt                      # This file
+└── README.md                     # Project overview
+
+================================================================================
+KEY INSIGHTS FOR NEXT DEVELOPMENT
+================================================================================
+
+1. DON'T ADD NEW FEATURES YET
+   The core architecture is sound. Focus on quality, testing, and production 
+   hardening before expanding functionality.
+
+2. SAFETY FIRST
+   The most critical gap is the safety system. It must be a hard gate that 
+   blocks unsafe recommendations, not just a warning generator.
+
+3. EXPLAINABILITY IS TRUST
+   Grad-CAM heatmaps are essential for farmer trust. Farmers need to see 
+   "where the AI looked" to believe the diagnosis.
+
+4. TEST EVERYTHING
+   Zero tests means zero confidence. Every change is a potential regression. 
+   Start with decision engine tests.
+
+5. PREPARE FOR FAILURE
+   Add monitoring, logging, and alerting. Know when things break before 
+   users complain.
+
+6. REAL DATA MATTERS
+   Sample JSON datasets are fine for development but won't work in production. 
+   Curate real veterinary datasets.
+
+7. MOBILE MATTERS
+   Rural farmers use phones, not laptops. Ensure UI is mobile-first and 
+   consider PWA for offline support.
+
+8. LOCALIZATION IS KEY
+   Farmers need information in their language. Continue investing in 
+   rural language formatters.
+
+================================================================================
+CONCLUSION
+================================================================================
+
+Flocksy is a well-conceived project with strong architectural foundations. The 
+team has demonstrated excellent product thinking and technical planning. However, 
+the project is currently at 55-60% completion and requires 6-8 weeks of focused 
+work on testing, production hardening, and safety enforcement before it can be 
+safely deployed to real farmers.
+
+The good news: The hard part (architecture and decision engine) is done. The 
+remaining work is mostly engineering discipline—testing, monitoring, deployment.
+
+Focus on quality over features. Ship a safe, tested, monitored MVP before 
+expanding functionality.
+
+================================================================================
+END OF ANALYSIS
 ================================================================================
