@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 import {
   MotionConfig,
   motion,
@@ -8,8 +8,10 @@ import {
   useReducedMotion,
   useScroll,
   useSpring,
+  useTransform,
   animate,
   type Variants,
+  type MotionValue,
 } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -205,20 +207,145 @@ export function Meter({
 export function SectionLabel({
   children,
   className,
+  light = false,
 }: {
   children: ReactNode;
   className?: string;
+  light?: boolean;
 }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground",
+        "inline-flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.18em]",
+        light ? "text-white/60" : "text-muted-foreground",
         className,
       )}
     >
       <span aria-hidden className="h-px w-8 bg-current opacity-40" />
       {children}
     </span>
+  );
+}
+
+/* ========================= useSectionScroll ============================= */
+
+/**
+ * Returns a scroll progress MotionValue (0–1) scoped to a specific section
+ * element. Use `offset` to control when the animation starts and ends.
+ */
+export function useSectionScroll(
+  ref: RefObject<HTMLElement | null>,
+  offset: [string, string] = ["start end", "end start"],
+): MotionValue<number> {
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: offset as Parameters<typeof useScroll>[0]["offset"],
+  });
+  return scrollYProgress;
+}
+
+/* ============================ ParallaxLayer ============================= */
+
+/**
+ * Wraps children with a scroll-driven vertical translation.
+ * `outputRange` controls how far the layer moves across the scroll range.
+ */
+export function ParallaxLayer({
+  children,
+  className,
+  progress,
+  outputRange = [-60, 60],
+}: {
+  children: ReactNode;
+  className?: string;
+  progress: MotionValue<number>;
+  outputRange?: [number, number];
+}) {
+  const y = useTransform(progress, [0, 1], outputRange);
+  const reduced = useReducedMotion();
+
+  return (
+    <motion.div
+      className={cn("will-change-transform", className)}
+      style={reduced ? {} : { y }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/* ========================== HorizontalReveal ============================ */
+
+/**
+ * Slides content in from either side as scroll progresses.
+ * Completes by `inputRange[1]` so content is readable when centered.
+ */
+export function HorizontalReveal({
+  children,
+  className,
+  progress,
+  from = "left",
+  distance = 80,
+  inputRange = [0, 0.45],
+}: {
+  children: ReactNode;
+  className?: string;
+  progress: MotionValue<number>;
+  from?: "left" | "right";
+  distance?: number;
+  inputRange?: [number, number];
+}) {
+  const reduced = useReducedMotion();
+  const xStart = from === "left" ? -distance : distance;
+  const x = useTransform(progress, inputRange, [xStart, 0]);
+  const opacity = useTransform(progress, inputRange, [0, 1]);
+
+  return (
+    <motion.div
+      className={cn("will-change-transform", className)}
+      style={reduced ? {} : { x, opacity }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/* ========================= CurtainPanel ================================= */
+
+/**
+ * A foliage panel that slides horizontally away from the center as the user
+ * scrolls into the section — the "curtain opening" effect.
+ *
+ * progress 0 = curtain closed, 1 = curtain fully open.
+ */
+export function CurtainPanel({
+  children,
+  className,
+  progress,
+  side,
+  travelVw = 28,
+  inputRange = [0, 0.6],
+}: {
+  children: ReactNode;
+  className?: string;
+  progress: MotionValue<number>;
+  side: "left" | "right";
+  travelVw?: number;
+  inputRange?: [number, number];
+}) {
+  const reduced = useReducedMotion();
+  const sign = side === "right" ? 1 : -1;
+  const x = useTransform(progress, inputRange, [0, sign * travelVw], { clamp: true });
+  const xPct = useTransform(x, (v) => `${v}vw`);
+  const opacity = useTransform(progress, [0, 0.15, 0.75, 1], [0.9, 0.85, 0.35, 0.1]);
+
+  return (
+    <motion.div
+      className={cn("pointer-events-none will-change-transform", className)}
+      style={reduced ? {} : { x: xPct, opacity }}
+    >
+      {children}
+    </motion.div>
   );
 }
 
@@ -253,4 +380,4 @@ export function ScrollProgress() {
   );
 }
 
-export { motion };
+export { motion, useScroll, useTransform, useSpring, useReducedMotion, useInView };
