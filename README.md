@@ -4,7 +4,7 @@ Flocksy AI is a backend-first poultry intelligence platform that is being redesi
 
 ## Workspace Layout
 
-- `frontend `: existing Vite React client
+- `frontend`: Next.js 15 App Router client (React 19, locale-prefixed routes)
 - `backend`: Express + TypeScript application layer
 - `ai-core`: FastAPI orchestration and agent layer
 - `mcp-services`: verified data microservices

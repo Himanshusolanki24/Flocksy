@@ -11,3 +11,4 @@ sentence-transformers>=3.0.0
 faiss-cpu>=1.7.4
 openai>=1.50.0
 Pillow>=10.0.0
+torch>=2.0.0

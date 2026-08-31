@@ -1,7 +1,7 @@
 import {
   Geist,
   Geist_Mono,
-  Instrument_Serif,
+  Playfair_Display,
   Noto_Sans_Devanagari,
 } from "next/font/google";
 
@@ -11,8 +11,9 @@ import {
  * - Geist: primary UI sans (Latin) for crisp, premium interface text.
  * - Noto Sans Devanagari: fallback for Hindi/English mixed UI so the whole
  *   Devanagari script is always rendered beautifully.
- * - Instrument Serif: editorial display face used sparingly on the landing
- *   page for an award-winning, premium feel.
+ * - Playfair Display: high-contrast editorial display face for the marketing
+ *   headlines. Italic is loaded too — the landing page pairs roman and italic
+ *   within a single headline.
  */
 export const fontSans = Geist({
   variable: "--font-geist-sans",
@@ -26,9 +27,10 @@ export const fontMono = Geist_Mono({
   display: "swap",
 });
 
-export const fontDisplay = Instrument_Serif({
+export const fontDisplay = Playfair_Display({
   variable: "--font-display",
-  weight: "400",
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
 });

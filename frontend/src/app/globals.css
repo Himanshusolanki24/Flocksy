@@ -31,6 +31,8 @@
   --primary-foreground: oklch(0.985 0.005 90);
   --harvest: oklch(0.74 0.14 72);
   --harvest-foreground: oklch(0.32 0.05 60);
+  --ink: oklch(0.26 0.03 155);
+  --ink-foreground: oklch(0.95 0.008 90);
 
   --destructive: oklch(0.577 0.19 27);
   --destructive-foreground: oklch(0.985 0.005 90);
@@ -69,7 +71,7 @@
     system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), var(--font-noto-devanagari), ui-monospace,
     monospace;
-  --font-display: "Instrument Serif", var(--font-noto-devanagari), ui-serif, serif;
+  --font-display: var(--font-noto-devanagari), Georgia, ui-serif, serif;
 }
 
 .dark {
@@ -90,6 +92,8 @@
   --primary-foreground: oklch(0.16 0.02 158);
   --harvest: oklch(0.78 0.13 75);
   --harvest-foreground: oklch(0.2 0.04 60);
+  --ink: oklch(0.2 0.025 155);
+  --ink-foreground: oklch(0.95 0.008 90);
 
   --destructive: oklch(0.63 0.18 25);
   --destructive-foreground: oklch(0.98 0.005 25);
@@ -122,6 +126,50 @@
 }
 
 /* =========================================================================
+   Paper — the marketing surface
+   -------------------------------------------------------------------------
+   An editorial, warm-cream palette scoped to the landing pages only. It
+   re-points the same token names, so every existing Tailwind utility
+   (bg-background, text-muted-foreground, border, …) retargets automatically
+   and the in-app UI is left completely untouched.
+
+   Light only, on purpose: the reference this is modelled on has no dark mode,
+   and a dark cream palette reads as mud. `.paper` sits below `.dark` in the
+   tree, so its tokens win either way.
+   ========================================================================= */
+.paper {
+  --background: #f2efe5; /* bone paper, never white */
+  --foreground: #2b2927; /* warm charcoal ink */
+  --card: #fdfbf5;
+  --card-foreground: #2b2927;
+  --popover: #fdfbf5;
+  --popover-foreground: #2b2927;
+  --secondary: #e7e1ce;
+  --secondary-foreground: #3a3733;
+  --muted: #ebe4d7;
+  --muted-foreground: #6d6863; /* warm grey, body copy — AA on paper */
+  --accent: #e7e1ce;
+  --accent-foreground: #3a3733;
+
+  --primary: #5c7c68; /* sage — the only saturated colour */
+  --primary-foreground: #f7f5ee;
+  --harvest: #b8622f; /* terracotta, used once or twice */
+  --harvest-foreground: #f7f5ee;
+
+  --ink: #233426; /* deep forest, for inverted sections */
+  --ink-foreground: #ecebe1;
+
+  --border: #e0d8c7;
+  --input: #e0d8c7;
+  --ring: #5c7c68;
+
+  --shadow-soft: 0 1px 2px oklch(0.3 0.02 70 / 0.04);
+  --shadow-lift: 0 1px 2px oklch(0.3 0.02 70 / 0.05), 0 12px 32px oklch(0.3 0.02 70 / 0.07);
+  --shadow-glow: none;
+}
+
+
+/* =========================================================================
    Map primitives to Tailwind utilities
    ========================================================================= */
 @theme inline {
@@ -135,6 +183,8 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-harvest: var(--harvest);
   --color-harvest-foreground: var(--harvest-foreground);
+  --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -182,6 +232,8 @@
   --animate-float: float 6s ease-in-out infinite;
   --animate-aurora: aurora 18s ease-in-out infinite;
   --animate-typing: typing 1.4s ease-in-out infinite;
+  --animate-scan: scan 2.4s ease-in-out infinite;
+  --animate-cloud: cloud 90s linear infinite;
 }
 
 /* =========================================================================
@@ -296,6 +348,32 @@
   }
 }
 
+/* Cloud banks drifting across the sky backdrop. */
+@keyframes cloud {
+  from {
+    transform: translateX(-12%);
+  }
+  to {
+    transform: translateX(12%);
+  }
+}
+
+/* Vision "scan" sweep across an uploaded photo. */
+@keyframes scan {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  15%,
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(5rem);
+    opacity: 0;
+  }
+}
+
 /* =========================================================================
    Utility helpers
    ========================================================================= */
@@ -325,6 +403,21 @@
     animation: shimmer 1.8s linear infinite;
   }
 
+  /* Three cloud layers at different speeds; alternate keeps them in frame. */
+  .cloud-drift,
+  .cloud-drift-slow,
+  .cloud-drift-fast {
+    animation: cloud 90s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  .cloud-drift-slow {
+    animation-duration: 150s;
+  }
+  .cloud-drift-fast {
+    animation-duration: 62s;
+    animation-direction: alternate-reverse;
+  }
+
   .text-balance {
     text-wrap: balance;
   }
@@ -337,6 +430,17 @@
   .scrollbar-thin {
     scrollbar-width: thin;
     scrollbar-color: var(--border) transparent;
+  }
+
+  /* Framer Motion server-renders its `initial` state as inline styles, so
+     every reveal ships hidden and only unhides on hydration. With scripting
+     off that never happens and the page stays blank. */
+  @media (scripting: none) {
+    .paper [style*="opacity:0"],
+    .paper [style*="translateY(108%)"] {
+      opacity: 1 !important;
+      transform: none !important;
+    }
   }
 }
 

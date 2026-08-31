@@ -1,20 +1,41 @@
 "use client";
 
-import type { ReactNode } from "react";
-import { motion, type Variants } from "framer-motion";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import {
+  MotionConfig,
+  motion,
+  useInView,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  animate,
+  type Variants,
+} from "framer-motion";
 import { cn } from "@/lib/utils";
 
+/**
+ * Motion vocabulary for the marketing surface.
+ *
+ * The register here is editorial, not promotional: slow, short travel, no
+ * bounce, no glow. Type settles onto the page rather than flying in.
+ */
+
+const EASE = [0.16, 1, 0.3, 1] as const;
+
 export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+  hidden: { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.85, ease: EASE } },
 };
 
 export const staggerContainer: Variants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
 };
 
-/** Reveal-on-scroll wrapper (respects reduced motion). */
+const VIEWPORT = { once: true, margin: "-90px" } as const;
+
+/* =============================== Reveal ================================= */
+
 export function Reveal({
   children,
   className,
@@ -30,7 +51,7 @@ export function Reveal({
       variants={fadeUp}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
+      viewport={VIEWPORT}
       transition={{ delay }}
     >
       {children}
@@ -38,31 +59,198 @@ export function Reveal({
   );
 }
 
-/** Section heading block for consistent marketing typography. */
-export function SectionHeading({
-  eyebrow,
-  title,
-  subtitle,
+/* ============================= LineReveal =============================== */
+
+/**
+ * Display headline that rises line by line out of a clipping mask — the
+ * standard editorial entrance, and the reason the serif lands as typography
+ * rather than as an effect. Pass one array entry per visual line.
+ */
+export function LineReveal({
+  lines,
+  className,
+  lineClassName,
+  delay = 0,
+  animateOnScroll = false,
+}: {
+  lines: ReactNode[];
+  className?: string;
+  lineClassName?: string;
+  delay?: number;
+  animateOnScroll?: boolean;
+}) {
+  const trigger = animateOnScroll
+    ? { whileInView: "visible" as const, viewport: VIEWPORT }
+    : { animate: "visible" as const };
+
+  return (
+    <motion.span
+      className={cn("block", className)}
+      initial="hidden"
+      {...trigger}
+      variants={{
+        visible: { transition: { staggerChildren: 0.11, delayChildren: delay } },
+      }}
+    >
+      {lines.map((line, i) => (
+        <span key={i} className="block overflow-hidden pb-[0.08em]">
+          <motion.span
+            className={cn("block", lineClassName)}
+            variants={{
+              hidden: { y: "108%" },
+              visible: { y: "0%", transition: { duration: 1.05, ease: EASE } },
+            }}
+          >
+            {line}
+          </motion.span>
+        </span>
+      ))}
+    </motion.span>
+  );
+}
+
+/* ============================== CountUp ================================= */
+
+export function CountUp({
+  to,
+  prefix = "",
+  suffix = "",
+  decimals = 0,
   className,
 }: {
-  eyebrow?: string;
-  title: ReactNode;
-  subtitle?: ReactNode;
+  to: number;
+  prefix?: string;
+  suffix?: string;
+  decimals?: number;
+  className?: string;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const reduced = useReducedMotion();
+  const [display, setDisplay] = useState(() => format(0, decimals));
+
+  useEffect(() => {
+    if (!inView) return;
+    if (reduced) {
+      setDisplay(format(to, decimals));
+      return;
+    }
+    const controls = animate(0, to, {
+      duration: 1.8,
+      ease: EASE,
+      onUpdate: (v) => setDisplay(format(v, decimals)),
+    });
+    return () => controls.stop();
+  }, [inView, to, decimals, reduced]);
+
+  return (
+    <span ref={ref} className={cn("tabular-nums", className)}>
+      {prefix}
+      {display}
+      {suffix}
+    </span>
+  );
+}
+
+function format(value: number, decimals: number) {
+  return value.toLocaleString("en-IN", {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  });
+}
+
+/* ============================== Meter =================================== */
+
+/**
+ * Single-series magnitude bar (a confidence readout, not a chart).
+ * Thin mark, rounded data-end on a recessive track, always direct-labeled so
+ * the value never depends on colour alone.
+ */
+export function Meter({
+  value,
+  label,
+  className,
+  active = true,
+}: {
+  value: number;
+  label?: string;
+  className?: string;
+  active?: boolean;
+}) {
+  const pct = Math.max(0, Math.min(100, value));
+  return (
+    <div className={cn("w-full", className)}>
+      {label ? (
+        <div className="mb-1.5 flex items-baseline justify-between text-[11px]">
+          <span className="uppercase tracking-wider text-muted-foreground">{label}</span>
+          <span className="font-semibold tabular-nums">{pct}%</span>
+        </div>
+      ) : null}
+      <div className="h-1 w-full overflow-hidden rounded-full bg-muted">
+        <motion.div
+          className="h-full rounded-full bg-primary"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: active ? pct / 100 : 0 }}
+          transition={{ duration: 1.1, ease: EASE, delay: 0.3 }}
+          style={{ originX: 0 }}
+        />
+      </div>
+    </div>
+  );
+}
+
+/* ============================ SectionLabel ============================== */
+
+/** Small tracked label with a leading rule — the editorial section marker. */
+export function SectionLabel({
+  children,
+  className,
+}: {
+  children: ReactNode;
   className?: string;
 }) {
   return (
-    <Reveal className={cn("mx-auto max-w-2xl text-center", className)}>
-      {eyebrow ? (
-        <span className="inline-flex items-center rounded-full border bg-secondary px-3 py-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-          {eyebrow}
-        </span>
-      ) : null}
-      <h2 className="mt-4 text-3xl font-bold tracking-tight text-balance sm:text-4xl lg:text-5xl">
-        {title}
-      </h2>
-      {subtitle ? (
-        <p className="mt-4 text-lg text-muted-foreground text-pretty">{subtitle}</p>
-      ) : null}
-    </Reveal>
+    <span
+      className={cn(
+        "inline-flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground",
+        className,
+      )}
+    >
+      <span aria-hidden className="h-px w-8 bg-current opacity-40" />
+      {children}
+    </span>
   );
 }
+
+/* =========================== MotionProvider ============================= */
+
+/**
+ * The CSS guard in globals.css only neutralises CSS animations — Framer Motion
+ * drives transforms from JS and sails straight past it. `reducedMotion="user"`
+ * closes that hole for every motion component below this provider.
+ */
+export function MotionProvider({ children }: { children: ReactNode }) {
+  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
+}
+
+/* =========================== ScrollProgress ============================= */
+
+/** Hairline reading-progress rail. */
+export function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  return (
+    <motion.div
+      aria-hidden
+      style={{ scaleX }}
+      className="fixed inset-x-0 top-0 z-50 h-px origin-left bg-primary/70"
+    />
+  );
+}
+
+export { motion };

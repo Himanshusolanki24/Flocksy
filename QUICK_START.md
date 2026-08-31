@@ -2,24 +2,29 @@
 
 ## Local-first setup
 
-This project now runs as a local multi-service poultry intelligence workspace. No Docker is required.
+This project runs as a local multi-service poultry intelligence workspace. No Docker is required.
 
 ### Services
 
-- Frontend: `http://localhost:5173`
-- Backend: `http://localhost:8080`
-- AI Core: `http://localhost:8000`
-- Disease MCP: `http://localhost:8101`
-- Medicine MCP: `http://localhost:8102`
-- Feed MCP: `http://localhost:8103`
-- Environment MCP: `http://localhost:8104`
-- Safety MCP: `http://localhost:8105`
-- Memory MCP: `http://localhost:8106`
+| Service | URL |
+|---|---|
+| Frontend (Next.js) | `http://localhost:3000` |
+| Backend (Express) | `http://localhost:8080` |
+| AI Core (FastAPI) | `http://localhost:8000` |
+| Disease MCP | `http://localhost:8101` |
+| Medicine MCP | `http://localhost:8102` |
+| Feed MCP | `http://localhost:8103` |
+| Environment MCP | `http://localhost:8104` |
+| Safety MCP | `http://localhost:8105` |
+| Memory MCP | `http://localhost:8106` |
+
+> If port 3000 is already taken, Next.js starts on the next free port and prints
+> the real URL — check the `start-all.sh` output rather than assuming 3000.
 
 ## Prerequisites
 
 - Node.js 18+
-- Python 3.10+
+- Python 3.9 (the checked-in virtualenvs are built against 3.9)
 - npm
 
 Database and Redis URLs only need to be valid environment values for local development. The current backend boot flow does not require an active connection just to start the server.
@@ -34,6 +39,8 @@ cp backend/.env.example backend/.env
 cp ai-core/.env.example ai-core/.env
 ./start-all.sh
 ```
+
+`start-all.sh` installs dependencies, creates the Python virtualenvs if missing, and starts all nine services. Ctrl-C stops everything.
 
 ## Manual startup
 
@@ -53,6 +60,9 @@ cd Flocksy/frontend
 npm install
 npm run dev
 ```
+
+The frontend defaults to `http://localhost:8080/api/v1` for the backend. To point
+it elsewhere, set `NEXT_PUBLIC_API_URL` in `frontend/.env.local`.
 
 ### AI Core
 
@@ -85,21 +95,25 @@ Repeat the same pattern for:
 - `safety_mcp` on `8105`
 - `memory_mcp` on `8106`
 
-## What changed
+## Where to go in the UI
 
-The project now has both:
+All app routes are locale-prefixed (`en` or `hi`):
 
-- `AI Chatbot` at `http://localhost:5173/chatbot`
-- `Diagnosis` at `http://localhost:5173/diagnosis`
+- Landing page — `http://localhost:3000/en`
+- Diagnosis workbench — `http://localhost:3000/en/diagnosis`
+- AI assistant — `http://localhost:3000/en/assistant`
+- Dashboard — `http://localhost:3000/en/dashboard`
 
-Both pages use the same diagnosis case endpoint underneath.
+Swap `/en` for `/hi` for the Hindi build of any page.
+
+Diagnosis and the assistant both hit the same diagnosis case endpoint underneath, sending:
 
 - symptoms
 - farm context
 - environment readings
 - optional image upload
 
-The UI now returns:
+and returning:
 
 - provisional diagnosis
 - differential diagnosis ranking
@@ -113,12 +127,7 @@ The UI now returns:
 ## Quick checks
 
 ```bash
-curl http://localhost:8080/api/v1/health
-curl http://localhost:8000/health
-curl http://localhost:8101/health
+curl http://localhost:8080/api/v1/health   # backend
+curl http://localhost:8000/health          # ai-core
+curl http://localhost:8101/health          # disease MCP (same path on 8102-8106)
 ```
-
-Then open either:
-
-- `http://localhost:5173/chatbot`
-- `http://localhost:5173/diagnosis`
