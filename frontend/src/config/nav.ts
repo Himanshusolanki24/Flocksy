@@ -48,7 +48,6 @@ export const navigation: NavSection[] = [
     items: [
       { title: "nav.assistant", href: "/assistant", icon: Bot, badge: "new" },
       { title: "nav.diagnosis", href: "/diagnosis", icon: ScanSearch },
-      { title: "nav.cropAdvisor", href: "/crop-advisor", icon: Sprout },
       { title: "nav.weather", href: "/weather", icon: CloudSun },
       { title: "nav.analytics", href: "/analytics", icon: BarChart3 },
     ],

@@ -45,6 +45,7 @@ export function NotificationsView() {
   return (
     <div className="mx-auto max-w-2xl px-4 pb-10 sm:px-6">
       <PageHeader
+        icon={<Bell className="h-6 w-6" />}
         title={t("title")}
         description={t("subtitle")}
         actions={

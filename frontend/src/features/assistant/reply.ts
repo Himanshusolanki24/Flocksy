@@ -28,24 +28,24 @@ export function generateReply(query: string): string {
     ].join("\n");
   }
 
-  if (q.includes("डेयरी") || q.includes("dairy") || q.includes("feed for cow") || q.includes("milk") || q.includes("गाय")) {
+  if (q.includes("feed") || q.includes("दाना") || q.includes("पोषण") || q.includes("egg production") || q.includes("अंडे")) {
     return [
-      "Great question — dairy nutrition directly affects milk yield.",
+      "Optimal nutrition is the biggest driver of broiler growth and egg laying.",
       "",
-      "**Best feed mix for dairy cows (per day):**",
-      "| Feed | Amount |",
-      "|------|--------|",
-      "| Green fodder | 30–35 kg |",
-      "| Concentrate mix | 2–3 kg |",
-      "| Mineral mixture | 50 g |",
-      "| Clean water | 45–60 L |",
+      "**Recommended poultry feed balance:**",
+      "| Stage / Bird | Feed Type | Protein % | Key Additives |",
+      "|--------------|-----------|-----------|---------------|",
+      "| Days 1–10 | Pre-Starter Mash | 22–23% | Probiotics, Electrolytes |",
+      "| Days 11–24 | Broiler Starter | 21–22% | Coccidiostat, Amino Acids |",
+      "| Days 25–42 | Broiler Finisher | 19–20% | Phytase, Essential Enzymes |",
+      "| Layers (18w+) | Layer Mash | 17–18% | 3.8–4.2% Calcium for eggshell strength |",
       "",
       "**Key tips:**",
-      "- Feed after milking, not before",
-      "- Add mineral mixture every day for better fat %",
-      "- Keep feeding times fixed — cows like routine",
+      "- Always keep water:feed ratio around 2:1",
+      "- Check feed troughs twice daily to prevent caking and mold",
+      "- Weigh 50 random birds weekly to measure Feed Conversion Ratio (FCR)",
       "",
-      "Need a **full diet chart** for your specific breed and milk target?",
+      "Want me to calculate **daily feed requirement** for your current flock size?",
     ].join("\n");
   }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { MapPin, Droplets, Wind, Sun, Umbrella, Sunrise, Sunset, AlertTriangle, LocateFixed } from "lucide-react";
+import { MapPin, Droplets, Wind, Sun, Umbrella, Sunrise, Sunset, AlertTriangle, LocateFixed, CloudSun } from "lucide-react";
 import { useWeather } from "@/lib/queries";
 import { DataState } from "@/components/shared/data-state";
 import { PageHeader } from "@/components/shared/page-header";
@@ -30,6 +30,7 @@ export function WeatherView() {
   return (
     <div className="mx-auto max-w-5xl px-4 pb-10 sm:px-6">
       <PageHeader
+        icon={<CloudSun className="h-6 w-6" />}
         title={t("title")}
         description={t("subtitle")}
         actions={

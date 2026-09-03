@@ -2,7 +2,7 @@
 export type UserRole = "farmer" | "manager" | "vet" | "admin";
 
 /** The primary farming activity a farmer runs. */
-export type FarmType = "poultry" | "dairy" | "livestock" | "crops";
+export type FarmType = "poultry";
 
 export interface User {
   id: string;
@@ -256,7 +256,7 @@ export interface InventoryItem {
 
 /* ============================== Feed =================================== */
 
-export type FeedType = "starter" | "grower" | "finisher" | "layer" | "dairy";
+export type FeedType = "starter" | "grower" | "finisher" | "layer";
 
 export interface FeedBatch {
   id: string;
@@ -301,7 +301,7 @@ export interface Vaccination {
 
 /* ============================== Schemes ================================ */
 
-export type SchemeCategory = "poultry" | "dairy" | "crop" | "insurance" | "loan";
+export type SchemeCategory = "poultry" | "insurance" | "loan" | "subsidy";
 
 export interface GovernmentScheme {
   id: string;
@@ -320,7 +320,7 @@ export interface GovernmentScheme {
 export interface Lesson {
   id: string;
   title: string;
-  category: "poultry" | "dairy" | "finance" | "crops";
+  category: "poultry" | "finance" | "biosecurity" | "health";
   durationMin: number;
   level: "beginner" | "intermediate" | "advanced";
   completed: boolean;
@@ -347,7 +347,7 @@ export interface CommunityPost {
 export type TransactionType = "income" | "expense";
 export type TransactionCategory =
   | "sellEggs"
-  | "sellMilk"
+  | "sellBirds"
   | "feedPurchase"
   | "vetVisit"
   | "medicine"

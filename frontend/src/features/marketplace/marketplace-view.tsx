@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Search, MapPin, ArrowUpRight, ArrowDownRight, Plus, Tag } from "lucide-react";
+import { Search, MapPin, ArrowUpRight, ArrowDownRight, Plus, Tag, Store } from "lucide-react";
 import { useMarketPrices } from "@/lib/queries";
 import { DataState } from "@/components/shared/data-state";
 import { PageHeader } from "@/components/shared/page-header";
@@ -19,21 +19,21 @@ import { cn } from "@/lib/utils";
 
 const categoryIcons: Record<string, string> = {
   eggs: "🥚",
-  milk: "🥛",
   birds: "🐔",
-  goats: "🐐",
-  vegetables: "🥬",
-  grains: "🌾",
+  desi: "🐓",
+  layers: "🪶",
+  chicks: "🐥",
+  feed: "🌾",
 };
 
 function priceCategory(commodity: string): string {
   const c = commodity.toLowerCase();
   if (c.includes("egg")) return "eggs";
-  if (c.includes("milk")) return "milk";
-  if (c.includes("bird") || c.includes("broiler")) return "birds";
-  if (c.includes("goat")) return "goats";
-  if (c.includes("wheat") || c.includes("rice") || c.includes("grain")) return "grains";
-  return "vegetables";
+  if (c.includes("desi") || c.includes("country")) return "desi";
+  if (c.includes("chick")) return "chicks";
+  if (c.includes("layer")) return "layers";
+  if (c.includes("feed")) return "feed";
+  return "birds";
 }
 
 function ListItemForm() {
@@ -97,10 +97,12 @@ export function MarketplaceView() {
   const { data, isLoading, isError, refetch } = useMarketPrices();
   const [tab, setTab] = useState("sell");
   const [query, setQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   return (
     <div className="mx-auto max-w-5xl px-4 pb-10 sm:px-6">
       <PageHeader
+        icon={<Store className="h-6 w-6" />}
         title={t("title")}
         description={t("subtitle")}
         actions={<ListItemForm />}
@@ -125,22 +127,38 @@ export function MarketplaceView() {
       </div>
 
       <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-        {Object.keys(categoryIcons).map((cat) => (
-          <button
-            key={cat}
-            type="button"
-            className="flex flex-col items-center gap-1.5 rounded-xl border bg-card py-3 transition-colors hover:border-primary/40 hover:bg-primary/5"
-          >
-            <span className="text-2xl">{categoryIcons[cat]}</span>
-            <span className="text-xs font-medium">{t(cat)}</span>
-          </button>
-        ))}
+        {Object.keys(categoryIcons).map((cat) => {
+          const active = selectedCategory === cat;
+          return (
+            <button
+              key={cat}
+              type="button"
+              onClick={() => setSelectedCategory(active ? null : cat)}
+              className={cn(
+                "flex flex-col items-center gap-1.5 rounded-xl border bg-card py-3 transition-colors cursor-pointer",
+                active
+                  ? "border-[#225424] bg-[#EAF3EA] text-[#225424] font-semibold ring-1 ring-[#225424]"
+                  : "border-border/80 hover:border-primary/40 hover:bg-primary/5"
+              )}
+            >
+              <span className="text-2xl">{categoryIcons[cat]}</span>
+              <span className="text-xs font-medium">{t(cat)}</span>
+            </button>
+          );
+        })}
       </div>
 
       <DataState isLoading={isLoading} isError={isError} onRetry={() => refetch()}>
         <div className="mt-5 space-y-3">
           {(data ?? [])
-            .filter((p) => p.commodity.toLowerCase().includes(query.toLowerCase()))
+            .filter((p) => {
+              const matchesQuery =
+                p.commodity.toLowerCase().includes(query.toLowerCase()) ||
+                p.mandi.toLowerCase().includes(query.toLowerCase());
+              const matchesCategory =
+                !selectedCategory || priceCategory(p.commodity) === selectedCategory;
+              return matchesQuery && matchesCategory;
+            })
             .map((p) => {
               const up = p.changePct >= 0;
               return (

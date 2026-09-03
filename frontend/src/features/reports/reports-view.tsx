@@ -22,7 +22,11 @@ export function ReportsView() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 pb-10 sm:px-6">
-      <PageHeader title={t("title")} description={t("subtitle")} />
+      <PageHeader
+        icon={<FileText className="h-6 w-6" />}
+        title={t("title")}
+        description={t("subtitle")}
+      />
 
       <Card>
         <CardHeader>

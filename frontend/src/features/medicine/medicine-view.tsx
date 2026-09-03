@@ -132,7 +132,12 @@ export function MedicineView() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 pb-10 sm:px-6">
-      <PageHeader title={t("title")} description={t("subtitle")} actions={<AddMedicineDialog />} />
+      <PageHeader
+        icon={<Pill className="h-6 w-6" />}
+        title={t("title")}
+        description={t("subtitle")}
+        actions={<AddMedicineDialog />}
+      />
 
       <Tabs defaultValue="activeCourses">
         <TabsList>

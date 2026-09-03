@@ -38,7 +38,7 @@ export const mockDashboard = () => {
     stats: [
       { label: "Active Flocks", value: "12", subtext: "+2 this week", trend: "up" },
       { label: "Birds", value: "2,400", subtext: "broilers + layers", trend: "up" },
-      { label: "Milk Yield", value: "32 L/day", subtext: "+0.8 L vs yesterday", trend: "up" },
+      { label: "Egg Production", value: "1,850 eggs/day", subtext: "+45 vs yesterday", trend: "up" },
       { label: "Profit (30d)", value: "₹1,84,500", subtext: "+12% vs last month", trend: "up" },
     ],
     alerts: [
@@ -147,13 +147,35 @@ export const mockVets: Vet[] = [
   {
     id: "vet-3",
     name: "Dr. Sunita Rathore",
-    specialty: "Dairy & livestock care",
+    specialty: "Poultry disease & avian pathology",
     city: "Jaipur",
     availability: "Today, 4 PM",
     rating: 4.7,
     online: false,
     experience: "15 years",
     languages: ["Hindi", "English", "Rajasthani"],
+  },
+  {
+    id: "vet-4",
+    name: "Dr. Vikram Deshmukh",
+    specialty: "Commercial layer flock & egg yield",
+    city: "Nashik",
+    availability: "Available now",
+    rating: 4.9,
+    online: true,
+    experience: "11 years",
+    languages: ["Hindi", "English", "Marathi"],
+  },
+  {
+    id: "vet-5",
+    name: "Dr. Harpreet Singh",
+    specialty: "Poultry biosecurity & shed climate",
+    city: "Ludhiana",
+    availability: "Today, 6 PM",
+    rating: 4.8,
+    online: true,
+    experience: "14 years",
+    languages: ["Hindi", "English", "Punjabi"],
   },
 ];
 
@@ -214,11 +236,11 @@ export const mockWeatherData: WeatherData = {
 };
 
 export const mockMarketPrices: MarketPrice[] = [
-  { id: "m1", commodity: "Eggs", unit: "dozen", price: 62, mandi: "Nashik", changePct: 3.2, trend: mkTrend([58, 59, 60, 59, 61, 62]) },
-  { id: "m2", commodity: "Milk", unit: "litre", price: 54, mandi: "Nashik", changePct: 1.1, trend: mkTrend([52, 53, 53, 54, 54, 54]) },
-  { id: "m3", commodity: "Broiler bird", unit: "kg", price: 88, mandi: "Pune", changePct: -0.8, trend: mkTrend([90, 91, 89, 88, 88, 88]) },
-  { id: "m4", commodity: "Goat", unit: "kg (live)", price: 320, mandi: "Pune", changePct: 2.4, trend: mkTrend([308, 312, 315, 318, 320, 320]) },
-  { id: "m5", commodity: "Wheat", unit: "quintal", price: 2450, mandi: "Nashik", changePct: 0.4, trend: mkTrend([2440, 2445, 2450, 2452, 2450]) },
+  { id: "m1", commodity: "Table Eggs", unit: "tray (30)", price: 165, mandi: "Nashik", changePct: 3.2, trend: mkTrend([155, 158, 160, 159, 162, 165]) },
+  { id: "m2", commodity: "Broiler live weight", unit: "kg", price: 92, mandi: "Pune", changePct: -0.8, trend: mkTrend([95, 94, 93, 91, 92, 92]) },
+  { id: "m3", commodity: "Desi / Country Bird", unit: "kg", price: 240, mandi: "Nashik", changePct: 2.1, trend: mkTrend([230, 232, 235, 238, 240, 240]) },
+  { id: "m4", commodity: "Culled Layer Birds", unit: "kg", price: 78, mandi: "Mumbai", changePct: 1.4, trend: mkTrend([74, 75, 76, 77, 78, 78]) },
+  { id: "m5", commodity: "Day-Old Broiler Chicks", unit: "chick", price: 34, mandi: "Hatchery (Nashik)", changePct: 0.0, trend: mkTrend([34, 34, 34, 34, 34]) },
 ];
 
 export const mockInventory: InventoryItem[] = [
@@ -249,19 +271,19 @@ export const mockVaccinations: Vaccination[] = [
 ];
 
 export const mockSchemes: GovernmentScheme[] = [
-  { id: "s1", title: "KISAN Poultry Subsidy", ministry: "MoA&FW", category: "poultry", benefit: "₹2.5L for broiler shed", eligibility: "Poultry farmers with ≥500 birds", deadline: "31 Mar 2026", applyUrl: "#", open: true },
-  { id: "s2", title: "Dairy entrepreneurship", ministry: "NDDB / MoFAHD", category: "dairy", benefit: "25% capital subsidy", eligibility: "2+ cows or 10+ buffalo", deadline: "Open year-round", applyUrl: "#", open: true },
-  { id: "s3", title: "Kisan Credit Card", ministry: "NABARD", category: "loan", benefit: "Loan up to ₹3L at 4%", eligibility: "All registered farmers", applyUrl: "#", open: true },
-  { id: "s4", title: "PM Fasal Bima Yojana", ministry: "MoA&FW", category: "insurance", benefit: "Insurance at 2% premium", eligibility: "All crop growers", applyUrl: "#", open: true },
-  { id: "s5", title: "Dairy manure / biogas subsidy", ministry: "MNRE", category: "dairy", benefit: "₹1.5L biogas", eligibility: "Households with 5+ cattle", applyUrl: "#", open: false },
+  { id: "s1", title: "National Livestock Mission (NLM) — Poultry", ministry: "MoFAHD", category: "poultry", benefit: "Up to ₹25L capital subsidy (50%)", eligibility: "Broiler/Layer poultry farmers (1000+ birds)", deadline: "31 Mar 2026", applyUrl: "#", open: true },
+  { id: "s2", title: "Poultry Venture Capital Fund (PVCF)", ministry: "NABARD", category: "subsidy", benefit: "25% back-ended capital subsidy", eligibility: "Individual poultry farmers and SHGs", deadline: "Open year-round", applyUrl: "#", open: true },
+  { id: "s3", title: "Kisan Credit Card (Poultry / Animal Husbandry)", ministry: "NABARD", category: "loan", benefit: "Working capital loan up to ₹2L at 4%", eligibility: "All registered poultry farmers", applyUrl: "#", open: true },
+  { id: "s4", title: "Comprehensive Poultry Insurance Scheme", ministry: "MoA&FW", category: "insurance", benefit: "Bird mortality risk coverage at 2.5% premium", eligibility: "Commercial broiler & layer flocks", applyUrl: "#", open: true },
+  { id: "s5", title: "Poultry Shed Solar & Environmental Control Subsidy", ministry: "MNRE", category: "subsidy", benefit: "40% subsidy for solar exhaust fans & cooling pads", eligibility: "Registered poultry sheds", applyUrl: "#", open: true },
 ];
 
 export const mockLessons: Lesson[] = [
   { id: "l1", title: "Day-old chick care basics", category: "poultry", durationMin: 6, level: "beginner", completed: true, points: 20 },
   { id: "l2", title: "Feed conversion for broilers", category: "poultry", durationMin: 8, level: "intermediate", completed: false, points: 30 },
-  { id: "l3", title: "Milk hygiene & mastitis", category: "dairy", durationMin: 7, level: "intermediate", completed: false, points: 25 },
-  { id: "l4", title: "Simple farm bookkeeping", category: "finance", durationMin: 10, level: "beginner", completed: false, points: 40 },
-  { id: "l5", title: "Natural pest control for crops", category: "crops", durationMin: 9, level: "advanced", completed: false, points: 35 },
+  { id: "l3", title: "Biosecurity and farm sanitization", category: "biosecurity", durationMin: 7, level: "intermediate", completed: false, points: 25 },
+  { id: "l4", title: "Poultry farm accounting & profits", category: "finance", durationMin: 10, level: "beginner", completed: false, points: 40 },
+  { id: "l5", title: "Managing heat stress in poultry sheds", category: "health", durationMin: 9, level: "advanced", completed: false, points: 35 },
 ];
 
 export const mockFinance: FinanceSummary = {
@@ -275,7 +297,7 @@ export const mockTransactions: Transaction[] = [
   { id: "t1", type: "income", amount: 1240, category: "sellEggs", note: "20 dozen @ Nashik", date: new Date().toISOString() },
   { id: "t2", type: "expense", amount: 1580, category: "feedPurchase", note: "Grower feed 50 kg", date: new Date().toISOString() },
   { id: "t3", type: "expense", amount: 640, category: "vetVisit", note: "Coop 1 health check", date: new Date(Date.now() - 864e5).toISOString() },
-  { id: "t4", type: "income", amount: 3240, category: "sellMilk", note: "46 L @ ₹54", date: new Date(Date.now() - 864e5).toISOString() },
+  { id: "t4", type: "income", amount: 3240, category: "sellBirds", note: "36 broilers @ ₹90/kg", date: new Date(Date.now() - 864e5).toISOString() },
 ];
 
 export const mockTestimonials = [

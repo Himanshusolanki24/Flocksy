@@ -1,0 +1,32 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="800" rx="40" fill="#F7F7F0"/>
+  <rect x="48" y="48" width="1104" height="704" rx="32" fill="white" stroke="#D9E2CF" stroke-width="2"/>
+  <text x="80" y="118" fill="#233127" font-family="Arial, sans-serif" font-size="42" font-weight="700">Isolation Protocol for Sick Birds</text>
+  <text x="80" y="156" fill="#627161" font-family="Arial, sans-serif" font-size="22">Simple order of work to reduce flock-to-flock spread</text>
+  <g>
+    <circle cx="220" cy="320" r="70" fill="#3D5438"/>
+    <text x="198" y="334" fill="white" font-family="Arial, sans-serif" font-size="40" font-weight="700">1</text>
+    <text x="130" y="440" fill="#233127" font-family="Arial, sans-serif" font-size="26" font-weight="700">Check healthy birds first</text>
+    <text x="116" y="474" fill="#627161" font-family="Arial, sans-serif" font-size="20">Do routine work before</text>
+    <text x="132" y="500" fill="#627161" font-family="Arial, sans-serif" font-size="20">touching sick birds</text>
+  </g>
+  <g>
+    <circle cx="600" cy="320" r="70" fill="#8E9B44"/>
+    <text x="578" y="334" fill="white" font-family="Arial, sans-serif" font-size="40" font-weight="700">2</text>
+    <text x="520" y="440" fill="#233127" font-family="Arial, sans-serif" font-size="26" font-weight="700">Move weak birds aside</text>
+    <text x="503" y="474" fill="#627161" font-family="Arial, sans-serif" font-size="20">Use a separate pen, feeder,</text>
+    <text x="510" y="500" fill="#627161" font-family="Arial, sans-serif" font-size="20">and drinker if possible</text>
+  </g>
+  <g>
+    <circle cx="980" cy="320" r="70" fill="#D4904B"/>
+    <text x="958" y="334" fill="white" font-family="Arial, sans-serif" font-size="40" font-weight="700">3</text>
+    <text x="906" y="440" fill="#233127" font-family="Arial, sans-serif" font-size="26" font-weight="700">Clean before exit</text>
+    <text x="873" y="474" fill="#627161" font-family="Arial, sans-serif" font-size="20">Disinfect hands, footwear,</text>
+    <text x="893" y="500" fill="#627161" font-family="Arial, sans-serif" font-size="20">and equipment after handling</text>
+  </g>
+  <path d="M292 320H528" stroke="#C6D1BA" stroke-width="10" stroke-linecap="round" stroke-dasharray="14 16"/>
+  <path d="M672 320H908" stroke="#C6D1BA" stroke-width="10" stroke-linecap="round" stroke-dasharray="14 16"/>
+  <rect x="80" y="590" width="1040" height="108" rx="24" fill="#EEF7F0" stroke="#C9E2CF" stroke-width="2"/>
+  <text x="112" y="634" fill="#25543B" font-family="Arial, sans-serif" font-size="24" font-weight="700">Remember:</text>
+  <text x="260" y="634" fill="#25543B" font-family="Arial, sans-serif" font-size="24">Keep mortality records, watch feed and water intake, and avoid sharing tools between pens.</text>
+</svg>

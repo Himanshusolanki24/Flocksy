@@ -8,9 +8,6 @@ export const SUPPORT_EMAIL = "support@flocksy.app";
 
 export const FARM_TYPES: { value: FarmType; icon: string }[] = [
   { value: "poultry", icon: "🐔" },
-  { value: "dairy", icon: "🐄" },
-  { value: "livestock", icon: "🐐" },
-  { value: "crops", icon: "🌾" },
 ];
 
 /** Transaction categories keyed to translation messages. */
@@ -19,7 +16,7 @@ export const TRANSACTION_CATEGORIES: {
   kind: "income" | "expense";
 }[] = [
   { value: "sellEggs", kind: "income" },
-  { value: "sellMilk", kind: "income" },
+  { value: "sellBirds", kind: "income" },
   { value: "feedPurchase", kind: "expense" },
   { value: "vetVisit", kind: "expense" },
   { value: "medicine", kind: "expense" },

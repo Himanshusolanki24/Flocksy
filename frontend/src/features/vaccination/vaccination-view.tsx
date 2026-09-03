@@ -34,7 +34,11 @@ export function VaccinationView() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 pb-10 sm:px-6">
-      <PageHeader title={t("title")} description={t("subtitle")} />
+      <PageHeader
+        icon={<Syringe className="h-6 w-6" />}
+        title={t("title")}
+        description={t("subtitle")}
+      />
 
       <div className="mb-5 flex flex-wrap gap-2">
         <Badge variant="soft" className="gap-1 text-success"><CheckCircle2 className="h-3 w-3" /> {t("completed")}: {done.length}</Badge>

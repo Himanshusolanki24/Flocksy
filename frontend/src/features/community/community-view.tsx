@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Heart, MessageCircle, Share2, Radio, Plus, ThumbsUp } from "lucide-react";
+import { Heart, MessageCircle, Share2, Radio, Plus, ThumbsUp, Users } from "lucide-react";
 import { useCommunityPosts } from "@/lib/queries";
 import { DataState } from "@/components/shared/data-state";
 import { PageHeader } from "@/components/shared/page-header";
@@ -66,7 +66,12 @@ export function CommunityView() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 pb-10 sm:px-6">
-      <PageHeader title={t("title")} description={t("subtitle")} actions={<PostComposer />} />
+      <PageHeader
+        icon={<Users className="h-6 w-6" />}
+        title={t("title")}
+        description={t("subtitle")}
+        actions={<PostComposer />}
+      />
 
       <Tabs value={tab} onValueChange={setTab}>
         <TabsList>

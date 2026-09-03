@@ -1,17 +1,17 @@
 /** Central site configuration used across metadata, OG tags and the app. */
 export const siteConfig = {
   name: "Flocksy",
-  title: "Flocksy — AI Farm Intelligence for Indian Farmers",
+  title: "Flocksy — AI Poultry Farm Intelligence for Indian Farmers",
   description:
-    "Manage poultry, dairy, livestock and crops with AI. Disease detection, weather, market prices, government schemes and expert advice — in one simple, beautiful app for Indian farmers.",
+    "Manage your poultry flock with AI. Flock health tracking, bird disease detection, weather alerts, feed management and poultry expert advice — in one simple, beautiful app for poultry farmers.",
   keywords: [
-    "farm management app",
     "poultry farm app India",
-    "dairy farm app",
-    "crop advisor",
-    "disease detection",
-    "smart farming India",
-    "AI for farmers",
+    "poultry disease detection",
+    "broiler farm management",
+    "layer farm tracker",
+    "flock health monitoring",
+    "smart poultry farming",
+    "AI for poultry farmers",
   ] as string[],
   url: process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000",
   ogImage: "/og.png",

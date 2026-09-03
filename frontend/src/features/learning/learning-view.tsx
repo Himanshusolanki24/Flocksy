@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { PlayCircle, Clock, Award, BookOpen, CheckCircle2 } from "lucide-react";
+import { PlayCircle, Clock, Award, BookOpen, CheckCircle2, GraduationCap } from "lucide-react";
 import { useLessons } from "@/lib/queries";
 import { DataState } from "@/components/shared/data-state";
 import { PageHeader } from "@/components/shared/page-header";
@@ -15,9 +15,9 @@ import type { Lesson } from "@/types";
 
 const categoryEmoji: Record<Lesson["category"], string> = {
   poultry: "🐔",
-  dairy: "🥛",
+  biosecurity: "🛡️",
   finance: "💰",
-  crops: "🌾",
+  health: "🩺",
 };
 
 export function LearningView() {
@@ -31,7 +31,11 @@ export function LearningView() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 pb-10 sm:px-6">
-      <PageHeader title={t("title")} description={t("subtitle")} />
+      <PageHeader
+        icon={<GraduationCap className="h-6 w-6" />}
+        title={t("title")}
+        description={t("subtitle")}
+      />
 
       <div className="grid grid-cols-3 gap-4">
         <Summary icon={<CheckCircle2 className="h-5 w-5 text-success" />} label={t("lessonsCompleted")} value={String(completed.length)} />
@@ -43,9 +47,9 @@ export function LearningView() {
         <TabsList className="flex-wrap">
           <TabsTrigger value="all">{t("categories")}</TabsTrigger>
           <TabsTrigger value="poultry">{t("poultry")}</TabsTrigger>
-          <TabsTrigger value="dairy">{t("dairy")}</TabsTrigger>
+          <TabsTrigger value="biosecurity">Biosecurity</TabsTrigger>
+          <TabsTrigger value="health">Health</TabsTrigger>
           <TabsTrigger value="finance">{t("finance")}</TabsTrigger>
-          <TabsTrigger value="crops">{t("crops")}</TabsTrigger>
         </TabsList>
       </Tabs>
 

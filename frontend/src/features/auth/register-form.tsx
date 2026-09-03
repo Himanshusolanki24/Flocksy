@@ -24,14 +24,18 @@ export function RegisterForm() {
       password: "",
       confirmPassword: "",
       farmName: "",
-      farmType: undefined,
+      farmType: "",
     },
   });
 
   const onSubmit = (values: RegisterValues) => {
     const { confirmPassword: _confirm, ...payload } = values;
     void _confirm;
-    registerUser.mutate(payload);
+    const cleanPayload = {
+      ...payload,
+      farmType: payload.farmType || undefined,
+    };
+    registerUser.mutate(cleanPayload);
   };
 
   return (
@@ -70,16 +74,19 @@ export function RegisterForm() {
       />
       <NativeSelectField
         label={t("farmType")}
+        error={errors.farmType?.message}
         options={[
           { value: "", label: t("farmType") + "…" },
-          { value: "poultry", label: "🐔 Poultry" },
-          { value: "dairy", label: "🐄 Dairy" },
-          { value: "livestock", label: "🐐 Livestock" },
-          { value: "crops", label: "🌾 Crops" },
+          { value: "poultry", label: "🐔 Poultry (Broiler & Layer)" },
         ]}
         {...register("farmType")}
       />
-      <Button type="submit" size="lg" className="w-full" disabled={registerUser.isPending}>
+      <Button
+        type="submit"
+        size="lg"
+        className="w-full bg-[#0E4D34] hover:bg-[#0A3D28] text-white font-semibold transition-colors"
+        disabled={registerUser.isPending}
+      >
         {registerUser.isPending ? t("sending") : t("register")}
       </Button>
     </form>

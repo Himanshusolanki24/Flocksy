@@ -11,7 +11,7 @@ interface PreferencesState {
   /** Active app language ("en" | "hi" | future regional codes). */
   language: string;
   /** User-chosen farming activity, used to personalize home. */
-  farmType: "poultry" | "dairy" | "livestock" | "crops" | null;
+  farmType: "poultry" | null;
   /** Large-text accessibility mode for low-vision users. */
   largeText: boolean;
   notificationPrefs: {
@@ -39,7 +39,7 @@ interface PreferencesState {
 export const usePreferencesStore = create<PreferencesState>()(
   persist(
     (set) => ({
-      theme: "system",
+      theme: "light",
       language: "en",
       farmType: null,
       largeText: false,

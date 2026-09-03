@@ -80,6 +80,7 @@ export function FinanceView() {
   return (
     <div className="mx-auto max-w-5xl px-4 pb-10 sm:px-6">
       <PageHeader
+        icon={<Wallet className="h-6 w-6" />}
         title={t("title")}
         description={t("subtitle")}
         actions={

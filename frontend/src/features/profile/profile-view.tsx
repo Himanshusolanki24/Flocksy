@@ -38,6 +38,7 @@ export function ProfileView() {
   return (
     <div className="mx-auto max-w-2xl px-4 pb-10 sm:px-6">
       <PageHeader
+        icon={<User className="h-6 w-6" />}
         title={t("title")}
         description={t("subtitle")}
         actions={

@@ -1,192 +1,221 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
-import { MessageSquarePlus, History, Trash2, Sparkles } from "lucide-react";
-import { useAssistantStore } from "@/store/use-assistant-store";
-import { useAiChat } from "@/lib/queries";
-import { uid } from "@/lib/utils";
-import { generateReply } from "./reply";
-import { MessageList } from "./message-list";
-import { Composer } from "./composer";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  ArrowRight,
+  Check,
+  Stethoscope,
+  Syringe,
+  Salad,
+  ClipboardList,
+  HelpCircle,
+  Sprout,
+  Bot,
+  Sparkles,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const suggestions = [
-  "My chicken is not eating, what should I do?",
-  "Best feed mix for dairy cows",
-  "Monsoon readiness checklist",
-  "Broiler vaccination schedule",
-];
-
-function ConversationList() {
-  const t = useTranslations("assistant");
-  const conversations = useAssistantStore((s) => s.conversations);
-  const activeId = useAssistantStore((s) => s.activeConversationId);
-  const setActive = useAssistantStore((s) => s.setActiveConversation);
-  const deleteConversation = useAssistantStore((s) => s.deleteConversation);
-
-  return (
-    <ScrollArea className="flex-1">
-      <div className="flex flex-col gap-1 p-2">
-        {conversations.length === 0 ? (
-          <p className="px-3 py-6 text-center text-xs text-muted-foreground">{t("noHistory")}</p>
-        ) : (
-          conversations.map((c) => {
-            const title =
-              c.title === "New chat"
-                ? (c.messages.find((m) => m.role === "user")?.content.slice(0, 32) ?? c.title)
-                : c.title;
-            return (
-              <button
-                key={c.id}
-                type="button"
-                onClick={() => setActive(c.id)}
-                className={cn(
-                  "group flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm transition-colors",
-                  activeId === c.id
-                    ? "bg-primary/10 text-foreground"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground",
-                )}
-              >
-                <History className="h-4 w-4 shrink-0" />
-                <span className="min-w-0 flex-1 truncate">{title}</span>
-                <span
-                  role="button"
-                  tabIndex={0}
-                  className="hidden shrink-0 text-muted-foreground group-hover:block"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    deleteConversation(c.id);
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      e.stopPropagation();
-                      deleteConversation(c.id);
-                    }
-                  }}
-                  aria-label="Delete"
-                >
-                  <Trash2 className="h-3.5 w-3.5" />
-                </span>
-              </button>
-            );
-          })
-        )}
-      </div>
-    </ScrollArea>
-  );
+interface Message {
+  id: string;
+  role: "assistant" | "user";
+  text: string;
+  actions?: string[];
+  time?: string;
 }
 
+const initialMessages: Message[] = [
+  {
+    id: "msg-1",
+    role: "assistant",
+    text: "Hi! I'm Flocksy AI.\nHow can I help you today?",
+  },
+  {
+    id: "msg-2",
+    role: "user",
+    text: "Some birds are not eating and look weak.",
+  },
+  {
+    id: "msg-3",
+    role: "assistant",
+    text: "It could be due to heat stress or coccidiosis.\n\nWould you like me to run a health check or show possible causes?",
+    actions: ["Run Health Check", "Possible Causes", "Talk to Vet"],
+  },
+];
+
+const topics = [
+  { icon: Stethoscope, label: "Symptoms & Diseases" },
+  { icon: Syringe, label: "Vaccination Schedule" },
+  { icon: Salad, label: "Nutrition Tips" },
+  { icon: ClipboardList, label: "Farm Management" },
+  { icon: HelpCircle, label: "General Queries" },
+];
+
 export function ChatView() {
-  const t = useTranslations("assistant");
-  const conversations = useAssistantStore((s) => s.conversations);
-  const activeId = useAssistantStore((s) => s.activeConversationId);
-  const addUserMessage = useAssistantStore((s) => s.addUserMessage);
-  const appendAssistantMessage = useAssistantStore((s) => s.appendAssistantMessage);
-  const setComposing = useAssistantStore((s) => s.setComposing);
-  const clearConversation = useAssistantStore((s) => s.clearConversation);
-  const aiChat = useAiChat();
-  const [busy, setBusy] = useState(false);
+  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const [input, setInput] = useState("");
 
-  const active = conversations.find((c) => c.id === activeId);
-  const isComposing = useAssistantStore((s) => s.isComposing);
+  const handleSend = (textToSend?: string) => {
+    const text = textToSend || input.trim();
+    if (!text) return;
 
-  const send = async (text: string, imageUrl?: string) => {
-    if (busy) return;
-    const conversationId = addUserMessage(text || (imageUrl ? "Analyze this photo" : ""), imageUrl);
-    setBusy(true);
-    setComposing(true);
-
-    let reply = generateReply(text);
-    try {
-      const res = await aiChat.mutateAsync({ query: text || "diagnose image" });
-      if (res?.advice) reply = res.advice;
-    } catch {
-      // fallback to local reply — backend offline
-    }
-
-    const assistantMessage = {
-      id: uid("msg"),
-      role: "assistant" as const,
-      content: reply,
-      timestamp: new Date().toISOString(),
+    const userMsg: Message = {
+      id: `user-${Date.now()}`,
+      role: "user",
+      text,
     };
-    setTimeout(() => {
-      appendAssistantMessage(conversationId, assistantMessage);
-      setComposing(false);
-      setBusy(false);
-    }, 350);
-  };
 
-  const newChat = () => {
-    // Force a brand-new conversation regardless of current state.
-    useAssistantStore.setState({ activeConversationId: null });
-    useAssistantStore.getState().startConversation();
+    setMessages((prev) => [...prev, userMsg]);
+    if (!textToSend) setInput("");
+
+    // Simulate smart AI response
+    setTimeout(() => {
+      let reply = "I'm analyzing that for your flock. Ensure adequate shade and fresh water immediately.";
+      let actions: string[] | undefined = ["Run Health Check", "Talk to Vet"];
+
+      if (text.toLowerCase().includes("vaccin")) {
+        reply = "For broilers: Lasota (Newcastle) on Day 5-7, IBD (Gumboro) on Day 12-14, booster on Day 21.";
+        actions = ["Download Schedule", "Set Reminder"];
+      } else if (text.toLowerCase().includes("health") || text.toLowerCase().includes("symptom")) {
+        reply = "Based on symptoms, check flock temperature and water intake. Would you like to upload a photo for disease detection?";
+        actions = ["Upload Image", "Talk to Vet"];
+      } else if (text.toLowerCase().includes("nutrition") || text.toLowerCase().includes("feed")) {
+        reply = "Maintain high protein starter feed (22-24% CP) for chicks, transition to finisher (19% CP) after week 3.";
+        actions = ["Calculate Feed", "View Suppliers"];
+      }
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `ai-${Date.now()}`,
+          role: "assistant",
+          text: reply,
+          actions,
+        },
+      ]);
+    }, 600);
   };
 
   return (
-    <div className="flex h-[calc(100dvh-3.5rem)] overflow-hidden rounded-xl border bg-background sm:h-[calc(100dvh-4.5rem)]">
-      {/* History sidebar (desktop) */}
-      <aside className="hidden w-64 shrink-0 flex-col border-r bg-muted/30 lg:flex">
-        <div className="p-2">
-          <Button className="w-full justify-start gap-2" onClick={newChat}>
-            <MessageSquarePlus className="h-4 w-4" />
-            {t("newChat")}
-          </Button>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center gap-3.5">
+        <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#EAF3EA] to-[#D5E9D5] text-[#225424] shadow-xs border border-[#CDE3CD]/80 ring-2 ring-white">
+          <Bot className="h-6 w-6" />
+          <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-500"></span>
+          </span>
         </div>
-        <ConversationList />
-      </aside>
+        <div>
+          <h1 className="text-2xl font-extrabold tracking-tight text-[#1E2922] sm:text-3xl">AI Assistant</h1>
+          <p className="text-xs sm:text-sm text-muted-foreground">Your 24/7 intelligent poultry farm copilot.</p>
+        </div>
+      </div>
 
-      {/* Chat area */}
-      <section className="flex min-w-0 flex-1 flex-col">
-        <header className="flex items-center gap-3 border-b px-4 py-2.5">
-          <Button variant="ghost" size="sm" className="lg:hidden" onClick={newChat}>
-            <MessageSquarePlus className="h-4 w-4" />
-            {t("newChat")}
-          </Button>
-          <div className="min-w-0 flex-1">
-            <h1 className="truncate text-sm font-semibold sm:text-base">
-              {active && active.messages.length > 0
-                ? (active.messages.find((m) => m.role === "user")?.content.slice(0, 48) ?? "Chat")
-                : t("welcome")}
-            </h1>
-            <p className="flex items-center gap-1 text-[11px] text-muted-foreground">
-              <Sparkles className="h-3 w-3 text-primary" /> {t("online")}
-            </p>
-          </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => activeId && clearConversation(activeId)}
-            disabled={!active || active.messages.length === 0}
-          >
-            <Trash2 className="h-4 w-4" />
-            <span className="hidden sm:inline">{t("clearChat")}</span>
-          </Button>
-        </header>
-
-        <MessageList messages={active?.messages ?? []} />
-
-        {!active || active.messages.length === 0 ? (
-          <div className="grid grid-cols-1 gap-2 px-4 pb-2 sm:grid-cols-2">
-            {suggestions.map((s) => (
-              <button
-                key={s}
-                type="button"
-                disabled={busy}
-                onClick={() => send(s)}
-                className="rounded-xl border bg-card px-4 py-2.5 text-left text-sm text-muted-foreground transition-colors hover:border-primary/40 hover:bg-primary/5 hover:text-foreground disabled:opacity-50"
+      {/* Main Grid: Left Chat, Right Topics */}
+      <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
+        {/* Chat Thread */}
+        <div className="flex h-[430px] flex-col justify-between rounded-xl border border-border/80 bg-white p-5 shadow-soft">
+          {/* Scrollable messages area */}
+          <div className="flex-1 space-y-3.5 overflow-y-auto pr-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+            {messages.map((m) => (
+              <div
+                key={m.id}
+                className={cn("flex items-start gap-3", m.role === "user" ? "justify-end" : "justify-start")}
               >
-                {s}
-              </button>
+                {m.role === "assistant" && (
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#EAF3EA] text-[#225424]">
+                    <Sprout className="h-4 w-4" />
+                  </div>
+                )}
+
+                <div className={cn("max-w-[80%] space-y-2.5", m.role === "user" ? "items-end" : "items-start")}>
+                  <div
+                    className={cn(
+                      "rounded-2xl px-4 py-3 text-sm leading-relaxed",
+                      m.role === "user"
+                        ? "relative rounded-br-sm bg-[#E5F2E5] text-foreground"
+                        : "rounded-tl-sm border border-border/60 bg-[#F9FAF8] text-foreground"
+                    )}
+                  >
+                    <p className="whitespace-pre-line">{m.text}</p>
+                    {m.role === "user" && (
+                      <span className="mt-1 flex justify-end text-[#225424]">
+                        <Check className="h-3.5 w-3.5" />
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Suggestion pills under assistant message */}
+                  {m.actions && (
+                    <div className="flex flex-wrap gap-2 pt-1">
+                      {m.actions.map((act) => (
+                        <button
+                          key={act}
+                          type="button"
+                          onClick={() => handleSend(act)}
+                          className="rounded-lg border border-border/90 bg-white px-3 py-1.5 text-xs font-medium text-muted-foreground shadow-2xs transition-colors hover:border-[#225424] hover:bg-[#EAF3EA] hover:text-[#225424]"
+                        >
+                          {act}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
             ))}
           </div>
-        ) : null}
 
-        <Composer onSend={send} busy={busy || isComposing} />
-      </section>
+          {/* Bottom Chat Input Bar */}
+          <div className="mt-4 pt-3">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSend();
+              }}
+              className="flex items-center gap-2 rounded-full border border-border/80 bg-white px-4 py-1.5 shadow-soft focus-within:border-[#225424] focus-within:ring-1 focus-within:ring-[#225424]"
+            >
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Type your message..."
+                className="flex-1 bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground/70"
+              />
+              <button
+                type="submit"
+                disabled={!input.trim()}
+                aria-label="Send message"
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-[#205223] text-white transition-opacity hover:bg-[#18401a] disabled:opacity-40"
+              >
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </form>
+          </div>
+        </div>
+
+        {/* Right Panel: You can ask me about */}
+        <div>
+          <div className="rounded-xl border border-border/80 bg-white p-5 shadow-soft">
+            <h2 className="mb-4 text-sm font-semibold text-foreground">You can ask me about</h2>
+            <div className="space-y-2">
+              {topics.map(({ icon: Icon, label }) => (
+                <button
+                  key={label}
+                  type="button"
+                  onClick={() => handleSend(`Tell me about ${label}`)}
+                  className="flex w-full items-center gap-3 rounded-xl border border-transparent p-3 text-left transition-colors hover:border-border/60 hover:bg-[#F6F8F5]"
+                >
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#F0F5EF] text-[#225424]">
+                    <Icon className="h-4 w-4" />
+                  </div>
+                  <span className="text-sm font-medium text-foreground/90">{label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

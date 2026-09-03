@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Save, Download, Trash2, HelpCircle, Info } from "lucide-react";
+import { Save, Download, Trash2, HelpCircle, Info, Settings } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
@@ -45,7 +45,11 @@ export function SettingsView() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 pb-10 sm:px-6">
-      <PageHeader title={t("title")} description={t("subtitle")} />
+      <PageHeader
+        icon={<Settings className="h-6 w-6" />}
+        title={t("title")}
+        description={t("subtitle")}
+      />
 
       <div className="space-y-5">
         <Card>

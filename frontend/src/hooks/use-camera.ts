@@ -18,7 +18,7 @@ export interface CameraState {
 
 /**
  * MediaDevices camera wrapper for the "Detect disease" flow.
- * Uses the rear camera by default (ideal for photographing livestock).
+ * Uses the rear camera by default (ideal for photographing poultry birds).
  */
 export function useCamera({ facingMode = "environment" }: CameraOptions = {}): CameraState {
   const [streamActive, setStreamActive] = useState(false);

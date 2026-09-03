@@ -1,394 +1,216 @@
 "use client";
 
-import { useState } from "react";
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
 import {
-  Bot,
-  ScanSearch,
-  Wallet,
-  Wheat,
-  ChevronRight,
-  BellRing,
-  CloudSun,
-  Activity,
-  Check,
-  Sparkles,
   AlertTriangle,
+  HeartPulse,
+  Lightbulb,
+  SunMedium,
+  Users,
+  Bug,
+  Activity,
+  ArrowUpRight,
 } from "lucide-react";
-import { useDashboard, useWeather } from "@/lib/queries";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
-import { DonutChart, Sparkline, AreaTrend } from "@/components/charts";
-import { useAuthStore } from "@/store/use-auth-store";
 import { cn } from "@/lib/utils";
-import { timeAgo } from "@/lib/dates";
-import { formatIndianNumber } from "@/lib/utils";
+
+const flockStats = [
+  { label: "Total Birds", value: "2,400", sub: "3 active sheds", icon: Users, color: "text-emerald-700", bg: "bg-emerald-50", border: "border-l-4 border-l-emerald-600" },
+  { label: "Healthy", value: "2,194", sub: "91% doing well", icon: HeartPulse, color: "text-emerald-600", bg: "bg-emerald-50", border: "border-l-4 border-l-emerald-600" },
+  { label: "At Risk", value: "156", sub: "Watch closely today", icon: AlertTriangle, color: "text-amber-600", bg: "bg-amber-50", border: "border-l-4 border-l-amber-500" },
+  { label: "Diseased", value: "50", sub: "Needs treatment", icon: Bug, color: "text-rose-600", bg: "bg-rose-50", border: "border-l-4 border-l-rose-500" },
+];
 
 export function DashboardView() {
   return (
     <div className="space-y-6">
-      <DashboardHeader />
-      <QuickActions />
-      <div className="grid gap-6 lg:grid-cols-3">
-        <div className="space-y-6 lg:col-span-2">
-          <FarmHealth />
-          <TasksAndAlerts />
-          <RecentActivity />
-        </div>
-        <div className="space-y-6">
-          <WeatherMini />
-          <AiInsights />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function DashboardHeader() {
-  const t = useTranslations("dashboard");
-  const user = useAuthStore((s) => s.user);
-  const name = user?.name?.split(" ")[0] ?? "Farmer";
-
-  const hour = new Date().getHours();
-  const greeting =
-    hour < 12 ? t("greetingMorning", { name }) : hour < 17 ? t("greetingAfternoon", { name }) : t("greetingEvening", { name });
-
-  return (
-    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">{greeting}</h1>
-        <p className="mt-1 text-muted-foreground">{t("subtitle")}</p>
-      </div>
-      <Button asChild size="lg">
-        <Link href="/assistant">
-          <Bot className="mr-1" /> {t("askAi")}
-        </Link>
-      </Button>
-    </div>
-  );
-}
-
-const actions = [
-  { href: "/assistant", icon: Bot, key: "askAi" },
-  { href: "/diagnosis", icon: ScanSearch, key: "detectDisease" },
-  { href: "/finance", icon: Wallet, key: "recordSale" },
-  { href: "/feed", icon: Wheat, key: "addFeed" },
-];
-
-function QuickActions() {
-  const t = useTranslations("dashboard");
-  return (
-    <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-      {actions.map(({ href, icon: Icon, key }) => (
-        <Link
-          key={key}
-          href={href}
-          className="group flex items-center gap-3 rounded-2xl border bg-card p-4 shadow-soft transition-all hover:shadow-lift active:scale-[0.98]"
-        >
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-            <Icon className="h-5 w-5" />
-          </span>
-          <span className="text-sm font-medium">{t(key)}</span>
-        </Link>
-      ))}
-    </div>
-  );
-}
-
-function FarmHealth() {
-  const { data, isLoading } = useDashboard();
-  const t = useTranslations("dashboard");
-
-  if (isLoading) {
-    return (
-      <Card>
-        <CardHeader>
-          <Skeleton className="h-5 w-40" />
-        </CardHeader>
-        <CardContent className="grid gap-4 sm:grid-cols-2">
-          <Skeleton className="h-52 w-full" />
-          <Skeleton className="h-52 w-full" />
-        </CardContent>
-      </Card>
-    );
-  }
-
-  return (
-    <Card>
-      <CardHeader className="flex-row items-center justify-between space-y-0">
-        <div>
-          <CardTitle>{t("farmHealth")}</CardTitle>
-          <CardDescription>{t("subtitle")}</CardDescription>
-        </div>
-        <Badge variant="soft">✓ {t("allHealthy")}</Badge>
-      </CardHeader>
-      <CardContent className="grid gap-6 sm:grid-cols-2">
-        <div className="flex flex-col items-center justify-center">
-          <DonutChart
-            data={(data?.chartData ?? []).map((d) => ({ name: d.label, value: d.value, color: d.color }))}
-            height={180}
-            centerCaption={t("healthyBirds")}
-            className="max-w-[220px]"
-          />
-        </div>
-        <div className="space-y-3">
-          <MiniMetric label={t("healthyBirds")} value={`${data?.healthyBirdRatio ?? 0}%`} tone="text-success" />
-          <MiniMetric label={t("feedEfficiency")} value={`${data?.feedEfficiency ?? 0}%`} tone="text-primary" />
-          <MiniMetric label={t("activeAlerts")} value={String(data?.activeAlerts ?? 0)} tone="text-warning" />
-          <MemberBreakdown data={data?.chartData ?? []} />
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-function MiniMetric({ label, value, tone }: { label: string; value: string; tone: string }) {
-  return (
-    <div className="flex items-center justify-between rounded-xl border bg-muted/40 px-4 py-3">
-      <span className="text-sm text-muted-foreground">{label}</span>
-      <span className={cn("text-lg font-semibold", tone)}>{value}</span>
-    </div>
-  );
-}
-
-function MemberBreakdown({ data }: { data: { label: string; value: number; color?: string }[] }) {
-  return (
-    <div className="space-y-2">
-      {data.map((item, i) => (
-        <div key={i} className="flex items-center gap-3 text-sm">
-          <span className="h-2.5 w-2.5 rounded-full" style={{ background: item.color ?? "var(--chart-1)" }} />
-          <span className="flex-1 truncate text-muted-foreground">{item.label}</span>
-          <span className="font-semibold">{formatIndianNumber(item.value)}%</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function TasksAndAlerts() {
-  const { data, isLoading } = useDashboard();
-  const t = useTranslations("dashboard");
-  const [done, setDone] = useState<string[]>([]);
-
-  const tasks = data?.tasks ?? [];
-  const alerts = data?.alerts ?? [];
-
-  return (
-    <div className="grid gap-6 sm:grid-cols-2">
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <BellRing className="h-4 w-4 text-primary" /> {t("todayTasks")}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2">
-          {isLoading ? <TasksSkeleton /> : tasks.length === 0 ? (
-            <p className="py-6 text-center text-sm text-muted-foreground">{t("noTasks")}</p>
-          ) : (
-            tasks.map((task) => {
-              const isDone = done.includes(task.id);
-              return (
-                <button
-                  key={task.id}
-                  onClick={() =>
-                    setDone((prev) => (isDone ? prev.filter((id) => id !== task.id) : [...prev, task.id]))
-                  }
-                  className={cn(
-                    "flex w-full items-center gap-3 rounded-xl border p-3 text-left transition-colors",
-                    isDone ? "border-transparent bg-muted/50" : "hover:bg-muted/40",
-                  )}
-                  aria-pressed={isDone}
-                >
-                  <span
-                    className={cn(
-                      "flex h-5 w-5 shrink-0 items-center justify-center rounded-full border",
-                      isDone ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/40",
-                    )}
-                  >
-                    {isDone ? <Check className="h-3 w-3" /> : null}
-                  </span>
-                  <span className={cn("flex-1 text-sm font-medium", isDone && "line-through opacity-60")}>
-                    {task.title}
-                  </span>
-                  {task.priority === "high" && <Badge variant="destructive">{t("highPriority")}</Badge>}
-                </button>
-              );
-            })
-          )}
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <AlertTriangle className="h-4 w-4 text-warning" /> {t("diseaseAlerts")}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2">
-          {isLoading ? <TasksSkeleton /> : alerts.length === 0 ? (
-            <p className="py-6 text-center text-sm text-muted-foreground">—</p>
-          ) : (
-            alerts.map((alert) => (
-              <div key={alert.id} className="flex items-start gap-3 rounded-xl border p-3">
-                <AlertDot severity={alert.severity} />
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium">{alert.title}</p>
-                  {alert.note ? <p className="text-xs text-muted-foreground">{alert.note}</p> : null}
-                </div>
-              </div>
-            ))
-          )}
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
-
-function AlertDot({ severity }: { severity: "critical" | "warning" | "info" }) {
-  const tone =
-    severity === "critical" ? "bg-destructive" : severity === "warning" ? "bg-warning" : "bg-info";
-  return <span className={cn("mt-1 h-2.5 w-2.5 shrink-0 rounded-full", tone)} />;
-}
-
-function TasksSkeleton() {
-  return (
-    <div className="space-y-2">
-      {Array.from({ length: 3 }).map((_, i) => (
-        <Skeleton key={i} className="h-12 w-full" />
-      ))}
-    </div>
-  );
-}
-
-function RecentActivity() {
-  const { data } = useDashboard();
-  const t = useTranslations("dashboard");
-  const activities = data?.activities ?? [];
-  const weekly = data?.weeklyTrend ?? [];
-
-  return (
-    <div className="grid gap-6 lg:grid-cols-2">
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Activity className="h-4 w-4 text-primary" /> {t("recentActivity")}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          {activities.length === 0 ? (
-            <p className="py-6 text-center text-sm text-muted-foreground">{t("noActivities")}</p>
-          ) : (
-            activities.map((activity) => (
-              <div key={activity.id} className="flex items-start gap-3">
-                <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-primary" />
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium">{activity.title}</p>
-                  {activity.meta ? <p className="text-xs text-muted-foreground">{activity.meta}</p> : null}
-                </div>
-                <span className="shrink-0 text-xs text-muted-foreground">{timeAgo(activity.timestamp)}</span>
-              </div>
-            ))
-          )}
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader className="flex-row items-center justify-between space-y-0">
-          <CardTitle>Weekly trend</CardTitle>
-          <Badge variant="soft">↑ 6%</Badge>
-        </CardHeader>
-        <CardContent>
-          <AreaTrend data={weekly.map((p) => ({ label: p.day, value: p.value }))} height={170} />
-          <div className="mt-2 flex overflow-hidden rounded-lg">
-            {weekly.map((p, i) => (
-              <div key={i} className="flex-1 text-center text-xs text-muted-foreground">
-                {p.value}%
-              </div>
-            ))}
+      {/* Page header with Heading Icon & Farm Silhouette Illustration */}
+      <div className="relative flex flex-col justify-between overflow-hidden rounded-xl bg-transparent sm:flex-row sm:items-center">
+        <div className="flex items-center gap-3.5 z-10">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#EAF3EA] to-[#D5E9D5] text-[#225424] shadow-xs border border-[#CDE3CD]/80 ring-2 ring-white">
+            <Activity className="h-6 w-6" />
           </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
-
-function WeatherMini() {
-  const { data } = useWeather();
-  const t = useTranslations("dashboard");
-  const daily = data?.daily ?? [];
-
-  return (
-    <Card>
-      <CardHeader className="flex-row items-center justify-between space-y-0">
-        <CardTitle className="flex items-center gap-2">
-          <CloudSun className="h-4 w-4 text-primary" /> {t("weatherToday")}
-        </CardTitle>
-        <Button asChild variant="ghost" size="sm" className="px-2">
-          <Link href="/weather">
-            {t("viewWeather")} <ChevronRight className="h-4 w-4" />
-          </Link>
-        </Button>
-      </CardHeader>
-      <CardContent>
-        <div className="flex items-center gap-4">
-          <span className="text-4xl font-bold">{data?.tempC ?? "–"}°</span>
-          <div className="flex-1 space-y-0.5 text-sm">
-            <Sparkline values={daily.map((d) => d.maxTempC)} height={36} />
-            <p className="text-xs text-muted-foreground">
-              H {daily[0]?.maxTempC ?? "–"}° · L {daily[0]?.minTempC ?? "–"}°
-            </p>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#225424]/80">Today on your farm</p>
+            <h1 className="text-2xl font-extrabold tracking-tight text-[#1E2922] sm:text-3xl">Flock Health Dashboard</h1>
           </div>
         </div>
-        <div className="mt-4 grid grid-cols-3 gap-2 border-t pt-4 text-center">
-          {daily.slice(0, 3).map((d) => (
-            <div key={d.date} className="rounded-lg bg-muted/40 py-2">
-              <p className="text-xs text-muted-foreground">{d.date}</p>
-              <p className="text-sm font-semibold">{d.maxTempC}°</p>
-            </div>
-          ))}
+
+        {/* Decorative farm landscape illustration */}
+        <div className="pointer-events-none absolute -right-2 -top-4 hidden h-24 w-80 opacity-80 sm:block lg:h-28 lg:w-96">
+          <svg viewBox="0 0 400 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-full w-full">
+            {/* Distant Hills */}
+            <path d="M0 100 Q 110 50 220 85 T 400 65 L 400 120 L 0 120 Z" fill="#E2EBE0" />
+            <path d="M50 110 Q 180 70 300 95 T 420 80 L 420 120 L 50 120 Z" fill="#D3E2D0" />
+            
+            {/* Silo */}
+            <rect x="310" y="52" width="16" height="42" rx="2" fill="#B9D0B6" />
+            <path d="M310 52 C310 44 326 44 326 52 Z" fill="#A8C4A5" />
+            
+            {/* Barn House */}
+            <path d="M330 65 L352 50 L374 65 V94 H330 Z" fill="#C5DCC1" />
+            <polygon points="340,94 340,76 364,76 364,94" fill="#EBF3EA" />
+            <polygon points="344,94 344,79 360,79 360,94" fill="#A8C4A5" />
+
+            {/* Trees */}
+            <circle cx="280" cy="78" r="14" fill="#B0CBB0" />
+            <rect x="278" y="86" width="4" height="12" fill="#8FA88F" />
+            <circle cx="296" cy="82" r="11" fill="#A2C0A2" />
+            <circle cx="385" cy="80" r="13" fill="#B0CBB0" />
+            
+            {/* Fore-ground hill */}
+            <path d="M0 115 Q 160 90 320 110 T 450 105 L 450 120 L 0 120 Z" fill="#C2D8BF" />
+          </svg>
         </div>
-      </CardContent>
-    </Card>
-  );
-}
+      </div>
 
-function AiInsights() {
-  const t = useTranslations("dashboard");
-  const { data } = useDashboard();
-  const insights = data?.recentDetections ?? [];
-
-  return (
-    <Card className="border-primary/20 bg-primary/[0.03]">
-      <CardHeader className="flex-row items-center justify-between space-y-0">
-        <CardTitle className="flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-primary" /> {t("aiInsights")}
-        </CardTitle>
-        <Button asChild variant="ghost" size="sm" className="px-2">
-          <Link href="/assistant">
-            {t("viewAll")} <ChevronRight className="h-4 w-4" />
-          </Link>
-        </Button>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        {insights.map((d, i) => (
-          <div key={i} className="flex items-center gap-3 rounded-xl border bg-background p-3">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
-              <Sparkles className="h-4 w-4 text-primary" />
-            </span>
-            <div className="min-w-0 flex-1">
-              <p className="text-sm font-medium">{d.disease}</p>
-              <p className="text-xs text-muted-foreground">
-                Confidence {Math.round(d.confidence * 100)}% · {timeAgo(d.timestamp)}
-              </p>
+      {/* Stats Cards with Hover Lift and Eye-catching Icons */}
+      <div className="grid gap-3.5 sm:grid-cols-2 xl:grid-cols-4">
+        {flockStats.map(({ label, value, sub, icon: Icon, color, bg, border }) => (
+          <div
+            key={label}
+            className={cn(
+              "group flex items-center justify-between rounded-xl border border-border/80 bg-white p-4 shadow-soft transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md cursor-pointer",
+              border
+            )}
+          >
+            <div className="flex items-center gap-3.5">
+              <div className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-xl shadow-xs transition-transform duration-200 group-hover:scale-105", bg, color)}>
+                <Icon className="h-5 w-5" aria-hidden />
+              </div>
+              <div className="min-w-0">
+                <p className="text-xs font-medium text-muted-foreground">{label}</p>
+                <p className="text-2xl font-extrabold tracking-tight text-[#1E2922]">{value}</p>
+                <p className="text-xs text-muted-foreground">{sub}</p>
+              </div>
             </div>
-            <Badge variant="warning">{Math.round(d.confidence * 100)}%</Badge>
+            <ArrowUpRight className="h-4 w-4 text-muted-foreground/40 opacity-0 transition-all duration-200 group-hover:opacity-100 group-hover:text-muted-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </div>
         ))}
-        {insights.length === 0 ? <p className="text-sm text-muted-foreground">—</p> : null}
-      </CardContent>
-    </Card>
+      </div>
+
+      {/* Main grid */}
+      <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
+        {/* Left column */}
+        <div className="space-y-6">
+          <HealthOverview />
+          <RecentAlerts />
+        </div>
+
+        {/* Right column */}
+        <div className="space-y-6">
+          <AiRecommendation />
+          <WeatherToday />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function HealthOverview() {
+  return (
+    <section className="rounded-xl border border-border/80 bg-white p-6 shadow-soft">
+      <h2 className="mb-4 text-sm font-semibold text-foreground">Flock Health Overview</h2>
+
+      {/* Segmented bar */}
+      <div className="flex h-2.5 overflow-hidden rounded-full bg-[#E5EAE2]">
+        <span className="h-full rounded-l-full bg-[#2E7D32]" style={{ width: "91%" }} />
+        <span className="h-full bg-[#E67E22]" style={{ width: "7%" }} />
+        <span className="h-full rounded-r-full bg-[#D32F2F]" style={{ width: "2%" }} />
+      </div>
+
+      {/* Legend */}
+      <div className="mt-4 flex flex-wrap items-center gap-6">
+        <div className="flex items-center gap-2">
+          <span className="h-2.5 w-2.5 rounded-full bg-[#2E7D32]" />
+          <span className="text-xs text-muted-foreground">Healthy</span>
+          <span className="text-xs font-semibold text-foreground">91%</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="h-2.5 w-2.5 rounded-full bg-[#E67E22]" />
+          <span className="text-xs text-muted-foreground">At Risk</span>
+          <span className="text-xs font-semibold text-foreground">7%</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="h-2.5 w-2.5 rounded-full bg-[#D32F2F]" />
+          <span className="text-xs text-muted-foreground">Diseased</span>
+          <span className="text-xs font-semibold text-foreground">2%</span>
+        </div>
+      </div>
+
+      {/* Insight hint */}
+      <div className="mt-5 rounded-lg border border-border/60 bg-[#F5F8F4] px-4 py-3 text-xs leading-relaxed text-muted-foreground">
+        <span className="font-semibold text-foreground">Best next step — </span>
+        Check Coop 3 before noon. Heat and low activity are the main reasons the risk score changed today.
+      </div>
+    </section>
+  );
+}
+
+function AiRecommendation() {
+  return (
+    <section className="rounded-xl border border-[#D5E5D3] bg-[#F2F8F1] p-5 shadow-soft">
+      <div className="mb-2.5 flex items-center gap-2">
+        <Lightbulb className="h-4 w-4 text-[#2E7D32]" />
+        <p className="text-xs font-semibold text-[#2E7D32]">AI Recommendation</p>
+      </div>
+      <p className="text-sm font-semibold text-foreground">Give extra cool water and improve airflow in Coop 3.</p>
+      <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+        Flocksy noticed warm weather, lower movement and two recent alerts. Recheck birds after 4 hours.
+      </p>
+    </section>
+  );
+}
+
+function WeatherToday() {
+  return (
+    <section className="rounded-xl border border-border/80 bg-white p-5 shadow-soft">
+      <div className="mb-3 flex items-center gap-2">
+        <SunMedium className="h-4 w-4 text-amber-500" />
+        <p className="text-xs font-semibold text-foreground">Weather Today</p>
+      </div>
+      <div className="flex items-start justify-between">
+        <div>
+          <p className="text-3xl font-bold tracking-tight text-foreground">29°C</p>
+          <p className="mt-0.5 text-xs text-muted-foreground">Partly cloudy · Nashik</p>
+        </div>
+        <span className="rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-[11px] font-medium text-amber-700">
+          Heat warning
+        </span>
+      </div>
+      <div className="mt-4 grid grid-cols-3 gap-2 text-center">
+        {[
+          ["Humidity", "68%"],
+          ["Wind", "12 km/h"],
+          ["Rain", "0%"],
+        ].map(([label, value]) => (
+          <div key={label} className="rounded-lg bg-[#F5F7F3] px-2 py-2">
+            <p className="text-[10px] font-medium text-muted-foreground">{label}</p>
+            <p className="mt-0.5 text-xs font-bold text-foreground">{value}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function RecentAlerts() {
+  return (
+    <section className="rounded-xl border border-border/80 bg-white p-6 shadow-soft">
+      <h2 className="mb-4 flex items-center gap-2 text-sm font-semibold text-foreground">
+        <AlertTriangle className="h-4 w-4 text-rose-500" />
+        Recent Alerts
+      </h2>
+      <div className="rounded-lg border border-border/70 p-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <p className="text-sm font-semibold text-foreground">Coop 3 is warmer than usual</p>
+            <span className="rounded-full bg-rose-50 px-2 py-0.5 text-[10px] font-semibold text-rose-600">
+              High
+            </span>
+          </div>
+          <span className="text-xs text-muted-foreground">4h ago</span>
+        </div>
+        <p className="mt-1 text-xs text-muted-foreground">Open side vents and refill cool water.</p>
+      </div>
+    </section>
   );
 }

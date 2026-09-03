@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Plus, PackageCheck, Timer, AlertTriangle, Droplets, ShieldCheck, Scale } from "lucide-react";
+import { Plus, PackageCheck, Timer, AlertTriangle, Droplets, ShieldCheck, Scale, Wheat } from "lucide-react";
 import { useFeedBatches } from "@/lib/queries";
 import { DataState } from "@/components/shared/data-state";
 import { PageHeader } from "@/components/shared/page-header";
@@ -51,7 +51,7 @@ function AddBatchDialog() {
               <div className="space-y-1.5">
                 <Label>{t("type")}</Label>
                 <select className="h-9 w-full rounded-md border bg-transparent px-3 text-sm">
-                  {["starter", "grower", "finisher", "layer", "dairy"].map((ty) => (
+                  {["starter", "grower", "finisher", "layer"].map((ty) => (
                     <option key={ty} value={ty}>{t(ty)}</option>
                   ))}
                 </select>
@@ -150,7 +150,12 @@ export function FeedView() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 pb-10 sm:px-6">
-      <PageHeader title={t("title")} description={t("subtitle")} actions={<AddBatchDialog />} />
+      <PageHeader
+        icon={<Wheat className="h-6 w-6" />}
+        title={t("title")}
+        description={t("subtitle")}
+        actions={<AddBatchDialog />}
+      />
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <SummaryTile icon={<PackageCheck className="h-5 w-5 text-primary" />} label={t("weight")} value={`${totalKg} kg`} />

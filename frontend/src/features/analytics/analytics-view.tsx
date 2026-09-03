@@ -1,157 +1,98 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
-import { Download, TrendingUp, TrendingDown, Egg, Milk, Beef, IndianRupee } from "lucide-react";
-import { useFinance } from "@/lib/queries";
-import { PageHeader } from "@/components/shared/page-header";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { StatCard } from "@/components/shared/stat-card";
-import { AreaTrend, BarSeries, LineSeries } from "@/components/charts";
-import { formatINR } from "@/lib/utils";
+import { Calendar, ChevronDown, Award, BarChart3, TrendingUp } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+const metrics = [
+  {
+    label: "Mortality Rate",
+    value: "1.2%",
+    change: "↓ 0.3% vs last 7 days",
+    positive: true,
+  },
+  {
+    label: "Feed Conversion",
+    value: "1.65",
+    change: "↓ 0.10 vs last 7 days",
+    positive: true,
+  },
+  {
+    label: "Avg. Weight",
+    value: "1.42 kg",
+    change: "↑ 0.05 vs last 7 days",
+    positive: true,
+  },
+  {
+    label: "Cost / Bird",
+    value: "₹32.5",
+    change: "↓ ₹1.2 vs last 7 days",
+    positive: true,
+  },
+];
 
 export function AnalyticsView() {
-  const t = useTranslations("analytics");
-    const { data: finance } = useFinance();
-  const [range, setRange] = useState("last7Days");
-
-  const trend = (finance?.monthlyTrend ?? []).map((p) => ({ label: p.day, value: p.value }));
-  const costTrend = trend.map((p) => ({ label: p.label, value: 30 + ((p.value * 7) % 60) }));
+  const [range, setRange] = useState("Last 7 Days");
 
   return (
-    <div className="mx-auto max-w-6xl px-4 pb-10 sm:px-6">
-      <PageHeader
-        title={t("title")}
-        description={t("subtitle")}
-        actions={
-          <Button variant="outline" size="sm" className="gap-2">
-            <Download className="h-4 w-4" /> {t("download")}
-          </Button>
-        }
-      />
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+        <div className="flex items-center gap-3.5">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#EAF3EA] to-[#D5E9D5] text-[#225424] shadow-xs border border-[#CDE3CD]/80 ring-2 ring-white">
+            <BarChart3 className="h-6 w-6" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-extrabold tracking-tight text-[#1E2922] sm:text-3xl">Analytics</h1>
+            <p className="text-xs sm:text-sm text-muted-foreground">Track flock growth, mortality, and financial metrics.</p>
+          </div>
+        </div>
 
-      <Tabs value={range} onValueChange={setRange}>
-        <TabsList>
-          <TabsTrigger value="last7Days">{t("last7Days")}</TabsTrigger>
-          <TabsTrigger value="last30Days">{t("last30Days")}</TabsTrigger>
-          <TabsTrigger value="thisMonth">{t("thisMonth")}</TabsTrigger>
-          <TabsTrigger value="lastYear">{t("lastYear")}</TabsTrigger>
-        </TabsList>
-      </Tabs>
-
-      <div className="mt-5 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatCard
-          label={t("production")}
-          value="12,480"
-          icon={Egg}
-          trend="up"
-          trendLabel="+4.2%"
-        />
-        <StatCard
-          label={t("mortality")}
-          value="1.8%"
-          icon={TrendingDown}
-          trend="down"
-          trendLabel="−0.3%"
-        />
-        <StatCard
-          label={t("feedCost")}
-          value={formatINR(84700)}
-          icon={TrendingUp}
-          trend="up"
-          trendLabel="+2.1%"
-        />
-        <StatCard
-          label={t("profitMargin")}
-          value="31%"
-          icon={IndianRupee}
-          trend="up"
-          trendLabel="+5.0%"
-        />
+        {/* Date Filter Dropdown */}
+        <div className="relative">
+          <button
+            type="button"
+            className="flex items-center gap-2 rounded-lg border border-border/80 bg-white px-3.5 py-2 text-xs font-medium text-foreground shadow-soft hover:bg-muted/30"
+          >
+            <Calendar className="h-3.5 w-3.5 text-muted-foreground" />
+            <span>{range}</span>
+            <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
+          </button>
+        </div>
       </div>
 
-      <div className="mt-5 grid gap-5 lg:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">{t("revenue")}</CardTitle>
-            <CardDescription>{t("eggProduction")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <AreaTrend data={trend} height={240} color="var(--chart-1)" prefix="₹" />
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">{t("expenses")}</CardTitle>
-            <CardDescription>{t("feedCost")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <BarSeries data={costTrend} height={240} color="var(--chart-2)" prefix="₹" />
-          </CardContent>
-        </Card>
+      {/* 4 Metrics Cards */}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {metrics.map((m) => (
+          <div
+            key={m.label}
+            className="group rounded-xl border border-border/80 bg-white p-5 shadow-soft transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-pointer"
+          >
+            <div className="flex items-center justify-between">
+              <p className="text-xs font-medium text-muted-foreground">{m.label}</p>
+              <span className="flex h-6 w-6 items-center justify-center rounded-md bg-[#EAF3EA] text-[#225424] opacity-80 group-hover:opacity-100">
+                <TrendingUp className="h-3.5 w-3.5" />
+              </span>
+            </div>
+            <p className="mt-2 text-2xl font-extrabold tracking-tight text-[#1E2922]">{m.value}</p>
+            <div className="mt-2 flex items-center gap-1.5">
+              <span className="inline-flex items-center rounded-md bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-700">
+                {m.change}
+              </span>
+            </div>
+          </div>
+        ))}
       </div>
 
-      <div className="mt-5 grid gap-5 lg:grid-cols-3">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-sm">
-              <Egg className="h-4 w-4 text-primary" /> {t("eggProduction")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">320/day</p>
-            <p className="text-xs text-muted-foreground">85% laying rate</p>
-            <LineSeries data={trend.slice(0, 7)} height={120} color="var(--chart-1)" />
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-sm">
-              <Milk className="h-4 w-4 text-primary" /> {t("milkProduction")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">46 L/day</p>
-            <p className="text-xs text-muted-foreground">3 cows · 15.3 L avg</p>
-            <LineSeries data={trend.slice(0, 7)} height={120} color="var(--chart-3)" />
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-sm">
-              <Beef className="h-4 w-4 text-primary" /> {t("weightGain")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">1.9 kg</p>
-            <p className="text-xs text-muted-foreground">broiler ADG</p>
-            <LineSeries data={trend.slice(0, 7)} height={120} color="var(--chart-4)" />
-          </CardContent>
-        </Card>
+      {/* Celebration Banner Card */}
+      <div className="flex items-center justify-center gap-3 rounded-xl border border-border/80 bg-white p-5 shadow-soft">
+        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#EAF3EA] text-[#225424]">
+          <Award className="h-5 w-5" />
+        </div>
+        <p className="text-sm font-semibold text-foreground">
+          Great job! Your flock performance is better than last week.
+        </p>
       </div>
-
-      <Card className="mt-5">
-        <CardHeader>
-          <CardTitle className="text-base">{t("insights")}</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          <InsightLine text={t("insight1")} />
-          <InsightLine text={t("insight2")} />
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
-
-function InsightLine({ text }: { text: string }) {
-  return (
-    <div className="flex items-start gap-3 rounded-xl bg-muted/40 px-4 py-3 text-sm">
-      <Badge variant="soft" className="mt-0.5 shrink-0">💡</Badge>
-      <span>{text}</span>
     </div>
   );
 }
