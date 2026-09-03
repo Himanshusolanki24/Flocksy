@@ -16,22 +16,30 @@ export interface VoiceState {
  * The language is chosen by the user's UI language.
  */
 export function useVoice(language = "hi-IN"): VoiceState {
-  const [supported] = useState(
-    () => typeof window !== "undefined" && "webkitSpeechRecognition" in window,
-  );
+  // Stays false through SSR + first render, so the markup hydrates identically.
+  const [supported, setSupported] = useState(false);
   const [listening, setListening] = useState(false);
   const [transcript, setTranscript] = useState("");
-  const recognitionRef = useRef<{ stop: () => void; onresult: unknown } | null>(null);
+  const recognitionRef = useRef<{ stop: () => void; onresult: unknown } | null>(
+    null,
+  );
+
+  useEffect(() => {
+    setSupported("webkitSpeechRecognition" in window);
+  }, []);
 
   useEffect(() => {
     if (!supported) return;
-    const SR = (window as unknown as { webkitSpeechRecognition: new () => unknown })
-      .webkitSpeechRecognition;
+    const SR = (
+      window as unknown as { webkitSpeechRecognition: new () => unknown }
+    ).webkitSpeechRecognition;
     const recognition = new SR() as {
       lang: string;
       continuous: boolean;
       interimResults: boolean;
-      onresult: (e: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void;
+      onresult: (e: {
+        results: ArrayLike<ArrayLike<{ transcript: string }>>;
+      }) => void;
       onend: () => void;
       onerror: () => void;
       start: () => void;

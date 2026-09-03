@@ -22,6 +22,13 @@ const statusStyle: Record<StockStatus, string> = {
   "out-of-stock": "bg-destructive/15 text-destructive",
 };
 
+/** Message keys are camelCase; the data uses kebab-case. */
+const statusKey: Record<StockStatus, string> = {
+  "in-stock": "inStock",
+  "low-stock": "lowStock",
+  "out-of-stock": "outOfStock",
+};
+
 function AddItemDialog() {
   const t = useTranslations("inventory");
   const [open, setOpen] = useState(false);
@@ -141,7 +148,7 @@ export function InventoryView() {
                     </div>
                   </div>
                   <Badge variant="soft" className={cn("text-[11px]", statusStyle[item.stockStatus])}>
-                    {t(item.stockStatus)}
+                    {t(statusKey[item.stockStatus])}
                   </Badge>
                 </div>
                 <div className="mt-4 flex items-center justify-between">

@@ -2,16 +2,162 @@
 
 Flocksy AI is a backend-first poultry intelligence platform that is being redesigned into a production-grade diagnostic and farm decision system.
 
-## Workspace Layout
+## Project Directory Tree
 
-- `frontend`: Next.js 15 App Router client (React 19, locale-prefixed routes)
-- `backend`: Express + TypeScript application layer
-- `ai-core`: FastAPI orchestration and agent layer
-- `mcp-services`: verified data microservices
-- `ml`: training pipeline for poultry disease vision model
-- `rag`: document ingestion and retrieval preparation
-- `database`: PostgreSQL schema
-- `docs`: architecture and implementation blueprints
+```
+flocksy/
+├── ai-core/                          # FastAPI orchestration and multi-agent AI service
+│   ├── app/
+│   │   ├── agents/                   # Specialized AI agents
+│   │   │   ├── disease_agent.py      # Disease diagnostic agent
+│   │   │   ├── environment_agent.py  # Environment analysis agent
+│   │   │   ├── feed_agent.py         # Feed & nutrition agent
+│   │   │   ├── medicine_agent.py     # Medicine & dosage agent
+│   │   │   ├── memory_agent.py       # Historical farm memory agent
+│   │   │   ├── orchestrator.py       # Multi-agent coordinator
+│   │   │   ├── risk_agent.py         # Farm risk calculation agent
+│   │   │   ├── safety_agent.py       # Safety and contraindication checks
+│   │   │   └── symptom_agent.py      # Symptom analysis agent
+│   │   ├── clients/
+│   │   │   └── mcp_client.py         # HTTP client for MCP microservices
+│   │   ├── core/
+│   │   │   └── config.py             # Configuration settings
+│   │   ├── data/
+│   │   │   └── knowledge_base.json   # Local domain knowledge base
+│   │   ├── decision_engine/
+│   │   │   └── engine.py             # Core deterministic decision engine
+│   │   ├── localization/             # Multi-lingual & vernacular support
+│   │   │   ├── formatter.py
+│   │   │   └── rural_hindi_formatter.py
+│   │   ├── services/
+│   │   │   ├── llm_service.py        # LLM integration service
+│   │   │   ├── rag_service.py        # Vector / RAG retrieval service
+│   │   │   └── vision_service.py     # CNN vision model inference
+│   │   ├── main.py                   # FastAPI application entrypoint
+│   │   └── schemas.py                # Pydantic request/response models
+│   ├── .env.example
+│   └── requirements.txt
+├── backend/                          # Express + TypeScript core REST API backend
+│   ├── database/
+│   │   └── schema.sql                # PostgreSQL relational database schema
+│   ├── src/
+│   │   ├── config/
+│   │   │   └── env.ts                # Environment configurations
+│   │   ├── lib/
+│   │   │   └── logger.ts             # Logging utility
+│   │   ├── middleware/
+│   │   │   └── auth.ts               # JWT authentication middleware
+│   │   ├── routes/                   # API routes
+│   │   │   ├── auth.ts               # Auth & registration endpoints
+│   │   │   ├── dashboard.ts          # Farm dashboard metrics endpoints
+│   │   │   ├── diagnosis.ts          # Multi-modal diagnosis endpoints
+│   │   │   ├── farms.ts              # Farm management endpoints
+│   │   │   ├── health.ts             # Health check endpoint
+│   │   │   ├── users.ts              # User profile endpoints
+│   │   │   └── vets.ts               # Tele-vet booking & contact endpoints
+│   │   ├── services/
+│   │   │   ├── aiCoreClient.ts       # AI-Core integration client
+│   │   │   ├── authService.ts        # Authentication business logic
+│   │   │   ├── dashboardService.ts   # Metrics aggregator logic
+│   │   │   ├── db.ts                 # Database connection pool
+│   │   │   └── storageService.ts     # File / image storage handling
+│   │   ├── types/
+│   │   │   └── index.ts              # TypeScript type definitions
+│   │   ├── app.ts                    # Express application setup
+│   │   └── server.ts                 # HTTP server entrypoint
+│   ├── .env.example
+│   ├── package.json
+│   └── tsconfig.json
+├── frontend/                         # Next.js 15 App Router frontend (React 19, TailwindCSS)
+│   ├── messages/                     # Localization message bundles
+│   │   ├── en.json                   # English translations
+│   │   └── hi.json                   # Hindi translations
+│   ├── public/                       # Static public assets & icons
+│   │   ├── icons/
+│   │   └── images/
+│   ├── src/
+│   │   ├── app/                      # App router directory
+│   │   │   ├── [locale]/             # Internationalized route wrapper
+│   │   │   │   ├── (app)/            # Authenticated application views
+│   │   │   │   │   ├── analytics/
+│   │   │   │   │   ├── assistant/
+│   │   │   │   │   ├── community/
+│   │   │   │   │   ├── crop-advisor/
+│   │   │   │   │   ├── dashboard/
+│   │   │   │   │   ├── diagnosis/
+│   │   │   │   │   ├── feed/
+│   │   │   │   │   ├── finance/
+│   │   │   │   │   ├── inventory/
+│   │   │   │   │   ├── learning/
+│   │   │   │   │   ├── marketplace/
+│   │   │   │   │   ├── medicine/
+│   │   │   │   │   ├── notifications/
+│   │   │   │   │   ├── profile/
+│   │   │   │   │   ├── reports/
+│   │   │   │   │   ├── schemes/
+│   │   │   │   │   ├── settings/
+│   │   │   │   │   ├── vaccination/
+│   │   │   │   │   ├── vets/
+│   │   │   │   │   ├── weather/
+│   │   │   │   │   └── layout.tsx
+│   │   │   │   ├── (auth)/           # Authentication pages (login/register)
+│   │   │   │   ├── (marketing)/      # Landing & marketing pages
+│   │   │   │   └── layout.tsx
+│   │   │   ├── favicon.ico
+│   │   │   └── globals.css
+│   │   ├── components/               # Reusable UI & shared components
+│   │   │   ├── charts/               # Chart visualizations
+│   │   │   ├── shared/               # Shell, navigation, sidebar, headers
+│   │   │   └── ui/                   # Radix UI / shadcn style atomic components
+│   │   ├── config/                   # Site and navigation configurations
+│   │   ├── constants/                # Global constants
+│   │   ├── features/                 # Modular feature view implementations
+│   │   ├── hooks/                    # Custom React hooks (camera, voice, debounce, etc.)
+│   │   ├── i18n/                     # Next-intl configuration & routing
+│   │   ├── lib/                      # Utilities, fonts, dates, query helpers
+│   │   ├── middleware.ts             # Internationalization & routing middleware
+│   │   ├── providers/                # Theme, React Query, and online status providers
+│   │   ├── services/                 # API service clients
+│   │   ├── store/                    # Zustand state management stores
+│   │   └── types/                    # Frontend TypeScript types
+│   ├── next.config.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── mcp-services/                     # Verified Domain Microservices (FastAPI / JSON datasets)
+│   ├── disease_mcp/                  # Poultry disease reference dataset & service
+│   ├── environment_mcp/              # Environmental safety guidelines service
+│   ├── feed_mcp/                     # Feed formulas & nutrition service
+│   ├── medicine_mcp/                 # Veterinary medicine dosages service
+│   ├── memory_mcp/                   # Farm case history & memory service
+│   └── safety_mcp/                   # Safety & drug contraindication service
+├── ml/                               # Machine Learning & Computer Vision
+│   └── training/                     # Disease classification CNN training scripts & checkpoints
+│       ├── artifacts-baseline/
+│       ├── artifacts-cpu-real/
+│       ├── artifacts-smoke/
+│       ├── artifacts-smoke-balanced/
+│       ├── train_disease_cnn.py      # PyTorch CNN training pipeline
+│       └── README.md
+├── rag/                              # Retrieval-Augmented Generation
+│   ├── data/
+│   │   ├── raw/                      # Raw poultry manuals & reference PDFs
+│   │   └── processed/                # Chunked & processed text datasets
+│   └── scripts/
+│       └── ingest_documents.py       # Document extraction & embedding pipeline
+├── charts/                           # Generated analytical charts & infographics
+├── docs/                             # Architecture blueprints & roadmaps
+│   ├── flocksy-ai-architecture.md
+│   ├── implementation-roadmap.md
+│   └── landing-design.md
+├── CLAUDE.md                         # Development commands & guidelines
+├── QUICK_START.md                    # Quick startup guide
+├── README.md                         # Project overview and documentation
+├── TESTING.md                        # Testing suite documentation
+├── download_dataset.sh               # Kaggle dataset download helper
+├── start-all.sh                      # Script to spin up all microservices locally
+├── test-api.sh                       # End-to-end API test script
+└── upload_to_kaggle.py               # Kaggle model upload script
+```
 
 ## Build Order
 

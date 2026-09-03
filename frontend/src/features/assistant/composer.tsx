@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Mic, Square, ImagePlus, SendHorizontal, Bot } from "lucide-react";
 import { useVoice } from "@/hooks/use-voice";
 import { useAssistantStore } from "@/store/use-assistant-store";
@@ -18,9 +18,15 @@ interface ComposerProps {
 export function Composer({ onSend, busy }: ComposerProps) {
   const t = useTranslations("assistant");
   const setComposing = useAssistantStore((s) => s.setComposing);
-  const { supported: voiceSupported, listening, transcript, start, stop, reset } = useVoice(
-    typeof window !== "undefined" ? (document.documentElement.lang === "hi" ? "hi-IN" : "en-IN") : "en-IN",
-  );
+  const locale = useLocale();
+  const {
+    supported: voiceSupported,
+    listening,
+    transcript,
+    start,
+    stop,
+    reset,
+  } = useVoice(locale === "hi" ? "hi-IN" : "en-IN");
 
   const [text, setText] = useState("");
   const [imageUrl, setImageUrl] = useState<string | undefined>();
@@ -59,9 +65,19 @@ export function Composer({ onSend, busy }: ComposerProps) {
       {imageUrl ? (
         <div className="mb-3 flex items-center gap-3 rounded-lg border p-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={imageUrl} alt="Attachment" className="h-12 w-12 rounded-md object-cover" />
-          <span className="flex-1 text-sm text-muted-foreground">Analyzing your photo…</span>
-          <Button variant="ghost" size="sm" onClick={() => setImageUrl(undefined)}>
+          <img
+            src={imageUrl}
+            alt="Attachment"
+            className="h-12 w-12 rounded-md object-cover"
+          />
+          <span className="flex-1 text-sm text-muted-foreground">
+            Analyzing your photo…
+          </span>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setImageUrl(undefined)}
+          >
             ✕
           </Button>
         </div>
@@ -106,11 +122,17 @@ export function Composer({ onSend, busy }: ComposerProps) {
             variant="ghost"
             size="icon"
             type="button"
-            className={cn(listening && "bg-destructive text-destructive-foreground")}
+            className={cn(
+              listening && "bg-destructive text-destructive-foreground",
+            )}
             aria-label={t("voiceHint")}
             onClick={toggleMic}
           >
-            {listening ? <Square className="h-5 w-5" /> : <Mic className="h-5 w-5" />}
+            {listening ? (
+              <Square className="h-5 w-5" />
+            ) : (
+              <Mic className="h-5 w-5" />
+            )}
           </Button>
         ) : null}
 
@@ -122,7 +144,11 @@ export function Composer({ onSend, busy }: ComposerProps) {
           disabled={(!effectiveText.trim() && !imageUrl) || busy}
           aria-label="Send"
         >
-          {busy ? <Bot className="h-5 w-5 animate-pulse" /> : <SendHorizontal className="h-5 w-5" />}
+          {busy ? (
+            <Bot className="h-5 w-5 animate-pulse" />
+          ) : (
+            <SendHorizontal className="h-5 w-5" />
+          )}
         </Button>
       </div>
     </div>

@@ -30,7 +30,10 @@ export function uid(prefix = "id"): string {
 }
 
 /** Format an amount in Indian Rupees. */
-export function formatINR(value: number, options?: { compact?: boolean }): string {
+export function formatINR(
+  value: number,
+  options?: { compact?: boolean },
+): string {
   const formatted = new Intl.NumberFormat("en-IN", {
     style: "currency",
     currency: "INR",
@@ -56,20 +59,32 @@ export function absoluteUrl(path: string): string {
     process.env.NEXT_PUBLIC_APP_URL ??
     process.env.NEXT_PUBLIC_VERCEL_URL ??
     "http://localhost:3000";
-  return new URL(path, base.startsWith("http") ? base : `https://${base}`).toString();
+  return new URL(
+    path,
+    base.startsWith("http") ? base : `https://${base}`,
+  ).toString();
 }
 
 /** Grab the authenticated token from storage (safe on server). */
 export function getAuthToken(): string | null {
   if (typeof window === "undefined") return null;
-  return window.localStorage.getItem("flocksy_token");
+  return (
+    window.localStorage.getItem("flocksy_token") ??
+    window.sessionStorage.getItem("flocksy_token")
+  );
 }
 
-/** Store the auth token. */
-export function setAuthToken(token: string | null): void {
+/**
+ * Store the auth token. `remember: false` keeps it in sessionStorage so the
+ * session ends with the tab — what "keep me logged in" unticked should mean.
+ */
+export function setAuthToken(token: string | null, remember = true): void {
   if (typeof window === "undefined") return;
-  if (token) window.localStorage.setItem("flocksy_token", token);
-  else window.localStorage.removeItem("flocksy_token");
+  window.localStorage.removeItem("flocksy_token");
+  window.sessionStorage.removeItem("flocksy_token");
+  if (!token) return;
+  const store = remember ? window.localStorage : window.sessionStorage;
+  store.setItem("flocksy_token", token);
 }
 
 /** Read a cached user (lightweight session sync across tabs). */

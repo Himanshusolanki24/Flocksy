@@ -1,7 +1,6 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
 import { useRouter } from "@/i18n/navigation";
 import {
   authService,
@@ -22,7 +21,11 @@ import {
 } from "@/services";
 import { useAuthStore } from "@/store/use-auth-store";
 import { useNotificationsStore } from "@/store/use-notifications-store";
-import type { DiagnosisUploadPayload, LoginRequest, RegisterRequest } from "@/types";
+import type {
+  DiagnosisUploadPayload,
+  LoginRequest,
+  RegisterRequest,
+} from "@/types";
 import { setAuthToken } from "@/lib/utils";
 
 /** Centralized query keys keep cache invalidation predictable. */
@@ -45,7 +48,10 @@ export const qk = {
 };
 
 export function useDashboard() {
-  return useQuery({ queryKey: qk.dashboard, queryFn: dashboardService.getSummary });
+  return useQuery({
+    queryKey: qk.dashboard,
+    queryFn: dashboardService.getSummary,
+  });
 }
 
 export function useWeather() {
@@ -69,7 +75,10 @@ export function useMedicines() {
 }
 
 export function useVaccinations() {
-  return useQuery({ queryKey: qk.vaccinations, queryFn: vaccinationService.list });
+  return useQuery({
+    queryKey: qk.vaccinations,
+    queryFn: vaccinationService.list,
+  });
 }
 
 export function useSchemes() {
@@ -96,7 +105,10 @@ export function useFinance() {
 }
 
 export function useTransactions() {
-  return useQuery({ queryKey: qk.transactions, queryFn: financeService.transactions });
+  return useQuery({
+    queryKey: qk.transactions,
+    queryFn: financeService.transactions,
+  });
 }
 
 export function useNotifications() {
@@ -111,20 +123,24 @@ export function useNotifications() {
   });
 }
 
-/** Sign in: persist session, navigate to dashboard, toast on success. */
+/** Sign in: persist session, then move to the dashboard. */
 export function useLogin() {
   const router = useRouter();
   const setSession = useAuthStore((s) => s.setSession);
   return useMutation({
-    mutationFn: (payload: LoginRequest) => authService.login(payload),
-    onSuccess: (data) => {
-      setAuthToken(data.token);
+    mutationFn: (variables: LoginRequest & { remember?: boolean }) =>
+      authService.login({
+        email: variables.email,
+        password: variables.password,
+      }),
+    onSuccess: (data, variables) => {
+      setAuthToken(data.token, variables.remember ?? true);
       setSession(data.token, data.user);
-      toast.success("Welcome back!");
-      router.push("/dashboard");
+      // Let the "You're all set" confirmation land before navigating away.
+      setTimeout(() => router.push("/dashboard"), 900);
     },
-    onError: (error) => {
-      toast.error(error instanceof Error ? error.message : "Login failed.");
+    onError: () => {
+      // Never surface the backend's wording — the form shows a human message.
     },
   });
 }
@@ -135,14 +151,17 @@ export function useRegister() {
   const setSession = useAuthStore((s) => s.setSession);
   return useMutation({
     mutationFn: (payload: RegisterRequest) => authService.register(payload),
-    onSuccess: (data) => {
+    onSuccess: (data, variables) => {
       setAuthToken(data.token);
-      setSession(data.token, data.user);
-      toast.success("Your farm is ready!");
-      router.push("/dashboard");
+      // Keep the farm name the farmer just typed — the API does not echo it.
+      setSession(data.token, {
+        ...data.user,
+        farmName: variables.farmName ?? data.user.farmName,
+      });
+      setTimeout(() => router.push("/dashboard"), 900);
     },
-    onError: (error) => {
-      toast.error(error instanceof Error ? error.message : "Registration failed.");
+    onError: () => {
+      // Handled inline by the signup form.
     },
   });
 }
@@ -165,7 +184,8 @@ export function useLogout() {
 /** Disease detection upload mutation. */
 export function useDiagnosis() {
   return useMutation({
-    mutationFn: (payload: DiagnosisUploadPayload) => diagnosisService.uploadImage(payload),
+    mutationFn: (payload: DiagnosisUploadPayload) =>
+      diagnosisService.uploadImage(payload),
   });
 }
 
